@@ -15,7 +15,7 @@ class TodoController {
             if (typeof error.errors[0].message == 'string') {
                 res.status(400).json({ error: err.join(',') })
             } else {
-                res.status(500).json(error)
+                res.status(500).json({ error: 'Internal Server Error'})
             }
         }
     }
@@ -35,9 +35,13 @@ class TodoController {
         try {
             const id = +req.params.id
             const showById = await Todo.findByPk(id)
-            res.status(200).json(showById)
+            if (showById) {
+                res.status(200).json(showById)
+            } else {
+                res.status(404).json({ error: 'Todo not found'})
+            }
         } catch (error) {
-            res.status(404).json(error)
+            res.status(500).json({ error: 'Internal Server Error!'})
         }
     }
 
@@ -51,7 +55,11 @@ class TodoController {
                 },
                 returning: true
             })
-            res.status(200).json(updateTodo[1][0])
+            if (updateTodo[0]) {
+                res.status(200).json(updateTodo[1][0])
+            } else {
+                res.status(500).json({ error: 'Internal Server Error'})
+            }
         } catch (error) {
             res.status(400).json({ error: error.errors[0].message })
         }
@@ -78,7 +86,7 @@ class TodoController {
             if (error.errors[0].message === undefined) {
                 res.status(500).json({ error: "500 Internal Server Error" })
             } else {
-                res.status(400).json({ error: error.errors[0].message })
+                res.status(400).json({ error: 'Should be true or false' })
             }
         }
     }
@@ -91,7 +99,6 @@ class TodoController {
                     id
                 }
             })
-            console.log(deleteTodo)
             if (deleteTodo) {
                 res.status(200).json({ message: 'todo success to delete' })
             } else {
