@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     //   validate: {isBefore: new Date()} 
     // }
   }, {
+    hooks:{
+      beforeCreate: (user, Option)=>{
+        user.status = 'not done'
+      }
+    },
     sequelize,
     modelName: 'Todo',
   });
