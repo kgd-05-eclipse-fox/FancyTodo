@@ -11,12 +11,18 @@ class TodoController{
             res.status(500).json(err)
         }
     }
-    
+
     static async postTodo(req, res){
         try {
             let dataInput = req.body[0]
-            let data = await Todo.create(dataInput)
-            res.status(201).json(data)
+
+            let validasiError = Super.validasiPutTodo(dataInput)
+            if(validasiError.length>0){
+                res.status(400).json(validasiError) 
+            }else{
+                let data = await Todo.create(dataInput)
+                res.status(201).json(data)
+            }
         } catch (err) {
             console.log(err)
             res.status(500).json(err)
@@ -73,10 +79,17 @@ class TodoController{
             let data = Todo.destroy({
                 where: {id}
             })
-            let output = {
-                massage: 'todo succes to delete'
+            if(!data.id){
+                let errMess = {
+                    massage: 'Id Tidak ditemukan'
+                }
+                res.status(400).json(errMess)
+            }else{
+                let output = {
+                    massage: 'todo succes to delete'
+                }
+                res.status(200).json(output)
             }
-            res.status(200).json(output)
         } catch (err) {
             res.status(500).json(err)
         }

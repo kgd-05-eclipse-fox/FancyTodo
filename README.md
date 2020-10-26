@@ -1,55 +1,531 @@
 # FancyTodo
 
-FancyTodo
+<h2>GET TO DO</h2>
 
-<Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple).>
+<ul>
+<br>
+<h3><li> GET / todos</h3>
+<br>
+</ul>
 
-URL
+`Content-type:`
+```
+application/json
+```
 
-<The URL Structure (path only, no root url)>
+`URL:`
+```
+Http://localhost:3000/todos
+```
 
-Method:
+`Data Params:`
 
-<The request type>
+````objec
+{
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    status: DataTypes.STRING,
+    dueDate: DataTypes.DATE
+}
+````
 
-GET | POST | DELETE | PUT
+`Success Response:`
+<ul>
+    <li>Code: 200
+    <li> Conten:
+</ul>
 
-URL Params
+```json
+[
+    {
+        "id": 6,
+        "title": "Olahraga",
+        "description": "GYM",
+        "status": "not done",
+        "dueDate": "2020-10-26T10:49:49.365Z",
+        "createdAt": "2020-10-26T10:49:49.365Z",
+        "updatedAt": "2020-10-26T10:49:49.365Z"
+    },
+    {
+        "id": 8,
+        "title": "Olahraga",
+        "description": "lari pagi",
+        "status": "not done",
+        "dueDate": "2020-10-26T10:49:49.365Z",
+        "createdAt": "2020-10-26T12:00:35.331Z",
+        "updatedAt": "2020-10-26T12:00:35.331Z"
+    }
+]
+```
 
-<If URL params exist, specify them in accordance with name mentioned in URL section. Separate into optional and required. Document data constraints.>
+`Error Response:`
+<ul>
+    <li>Code: 500 
+    <li>Conten:
+</ul>
 
-Required:
+````html
+<!DOCTYPE html>
+<html lang="en">
 
-id=[integer]
+<head>
+	<meta charset="utf-8">
+	<title>Error</title>
+</head>
 
-Optional:
+<body>
+	<pre>Cannot GET /todo</pre>
+</body>
 
-photo_id=[alphanumeric]
+</html>
+````
+`Notes: Perhatikan URL`
 
-Data Params
+---
+<br>
+<h2>POST TO DO</h2>
 
-<If making a post request, what should the body payload look like? URL Params rules apply here too.>
+<ul>
+<br>
+<h3><li> POST / todos</h3>
+<br>
+</ul>
 
-Success Response:
+`Content-type:`
+```
+application/json
+```
 
-<What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!>
+`URL:`
+```
+Http://localhost:3000/todos
+```
 
-Code: 200
-Content: { id : 12 }
-Error Response:
+`Data Params:`
 
-<Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be.>
+````objec
+{
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    status: DataTypes.STRING,
+    dueDate: DataTypes.DATE
+}
+````
 
-Code: 401 UNAUTHORIZED
-Content: { error : "Log in" }
-OR
+`Success Response:`
+<ul>
+    <li>Code: 201
+    <li> Conten:  { id: 10 }
+</ul>
 
-Code: 422 UNPROCESSABLE ENTRY
-Content: { error : "Email Invalid" }
-Sample Call:
+```json
+[
+    {
+        "id": 10,
+        "title": "Hiburan",
+        "description": "Main Gitar",
+        "status": "not done",
+        "dueDate": "2020-10-26T10:49:49.365Z",
+        "updatedAt": "2020-10-26T14:52:33.938Z",
+        "createdAt": "2020-10-26T14:52:33.938Z"
+    }
+]
+```
 
-<Just a sample call to your endpoint in a runnable format ($.ajax call or a curl request) - this makes life easier and more predictable.>
+`Error Response:`
+<ul>
+    <li>Code: 400 
+    <li>Conten:
+</ul>
 
-Notes:
+````json
+=> Input
 
-<This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here.>
+[
+    {
+        "title": "",
+        "description": "Main Gitar",
+        "status": "not done",
+        "dueDate": "2020-10-26T10:49:49.365Z"
+    }
+]
+
+------------------------------------------------------
+
+=> Output
+
+[
+    "title Tidak boleh kosong"
+]
+````
+`Notes: Tidak boleh kosong`
+
+---
+<br>
+<h2>GET TO DO BY ID</h2>
+
+<ul>
+<br>
+<h3><li> GET / todos / :id </h3>
+<br>
+</ul>
+
+`Content-type:`
+```
+application/json
+```
+
+`URL:`
+```
+Http://localhost:3000/todos/:id
+```
+
+`Data Params:`
+
+````objec
+{
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    status: DataTypes.STRING,
+    dueDate: DataTypes.DATE
+}
+````
+
+`Success Response:`
+<ul>
+    <li>Code: 200
+    <li> Conten:
+</ul>
+
+```json
+
+=> Input
+            Http://localhost:3000/todos/9
+
+------------------------------------------------------
+
+=> Output
+
+[
+    {
+        "id": 9,
+        "title": "asdasd",
+        "description": "adasda",
+        "status": "not done",
+        "dueDate": "2020-10-26T10:49:49.365Z",
+        "createdAt": "2020-10-26T12:13:21.687Z",
+        "updatedAt": "2020-10-26T13:40:53.191Z"
+    }
+]
+```
+
+`Error Response:`
+<ul>
+    <li>Code: 404 
+    <li>Conten:
+</ul>
+
+````json
+=> Input
+            Http://localhost:3000/todos/20
+
+------------------------------------------------------
+
+=> Output
+
+                        Null
+
+````
+`Notes: Id yang di cari tidak ditemukan`
+
+---
+<br>
+<h2>PUT TO DO</h2>
+
+<ul>
+<br>
+<h3><li> PUT / todos / :id </h3>
+<br>
+</ul>
+
+`Content-type:`
+```
+application/json
+```
+
+`URL:`
+```
+Http://localhost:3000/todos/:id
+```
+
+`Data Params:`
+
+````objec
+{
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    status: DataTypes.STRING,
+    dueDate: DataTypes.DATE
+}
+````
+
+`Success Response:`
+<ul>
+    <li>Code: 200
+    <li> Conten:
+</ul>
+
+```json
+
+=> Input
+            Http://localhost:3000/todos/9
+
+[
+    {
+        "id": 9,
+        "title": "asdasd",
+        "description": "adasda",
+        "status": "not done",
+        "dueDate": "2020-10-26T10:49:49.365Z",
+        "createdAt": "2020-10-26T12:13:21.687Z",
+        "updatedAt": "2020-10-26T13:40:53.191Z"
+    }
+]
+
+------------------------------------------------------
+
+=> Output
+
+[
+    {
+        "id": 9,
+        "title": "Memancing",
+        "description": "Memancing ikan di sungai terdekat",
+        "status": "not done",
+        "dueDate": "2020-10-26T10:49:49.365Z",
+        "createdAt": "2020-10-26T12:13:21.687Z",
+        "updatedAt": "2020-10-26T13:40:53.191Z"
+    }
+]
+```
+
+`Error Response:`
+<ul>
+    <li>Code: 400 
+    <li>Conten:
+</ul>
+
+````json
+=> Input
+            Http://localhost:3000/todos/9
+
+[
+    {
+      "title": "",
+      "description": "",
+      "status": "not done",
+      "dueDate": ""
+     }
+]
+
+------------------------------------------------------
+
+=> Output
+
+[
+    "title Tidak boleh kosong",
+    "description Tidak boleh kosong",
+    "status Tidak boleh kosong",
+    "dueDate Tidak boleh kosong"
+]
+
+````
+`Notes: Tidak boleh dikosongkan`
+
+---
+<br>
+<h2>PATCH TO DO</h2>
+
+<ul>
+<br>
+<h3><li> PATCH / todos / :id </h3>
+<br>
+</ul>
+
+`Content-type:`
+```
+application/json
+```
+
+`URL:`
+```
+Http://localhost:3000/todos/:id
+```
+
+`Data Params:`
+
+````objec
+{
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    status: DataTypes.STRING,
+    dueDate: DataTypes.DATE
+}
+````
+
+`Success Response:`
+<ul>
+    <li>Code: 200
+    <li> Conten:
+</ul>
+
+```json
+
+=> Input
+            Http://localhost:3000/todos/9
+
+[
+    {
+        "id": 9,
+        "title": "asdasd",
+        "description": "adasda",
+        "status": "not done",
+        "dueDate": "2020-10-26T10:49:49.365Z",
+        "createdAt": "2020-10-26T12:13:21.687Z",
+        "updatedAt": "2020-10-26T13:40:53.191Z"
+    }
+]
+
+------------------------------------------------------
+
+=> Output
+
+[
+    {
+        "id": 9,
+        "title": "Memancing",
+        "description": "Memancing ikan di sungai terdekat",
+        "status": "done",
+        "dueDate": "2020-10-26T10:49:49.365Z",
+        "createdAt": "2020-10-26T12:13:21.687Z",
+        "updatedAt": "2020-10-26T13:40:53.191Z"
+    }
+]
+```
+
+`Error Response:`
+<ul>
+    <li>Code: 400 
+    <li>Conten:
+</ul>
+
+````json
+=> Input
+            Http://localhost:3000/todos/9
+
+[
+    {
+      "title": "",
+      "description": "",
+      "status": "done",
+      "dueDate": ""
+     }
+]
+
+------------------------------------------------------
+
+=> Output
+
+[
+    "title Tidak boleh kosong",
+    "description Tidak boleh kosong",
+    "dueDate Tidak boleh kosong"
+]
+
+````
+`Notes: Tidak boleh dikosongkan`
+
+---
+<br>
+<h2>DELETE TO DO</h2>
+
+<ul>
+<br>
+<h3><li> DELETE / todos / :id </h3>
+<br>
+</ul>
+
+`Content-type:`
+```
+application/json
+```
+
+`URL:`
+```
+Http://localhost:3000/todos/:id
+```
+
+`Data Params:`
+
+````objec
+{
+    title: DataTypes.STRING,
+    description: DataTypes.STRING,
+    status: DataTypes.STRING,
+    dueDate: DataTypes.DATE
+}
+````
+
+`Success Response:`
+<ul>
+    <li>Code: 200
+    <li> Conten:
+</ul>
+
+```json
+
+=> Input
+            Http://localhost:3000/todos/11
+
+[
+    {
+        "id": 9,
+        "title": "asdasd",
+        "description": "adasda",
+        "status": "not done",
+        "dueDate": "2020-10-26T10:49:49.365Z",
+        "createdAt": "2020-10-26T12:13:21.687Z",
+        "updatedAt": "2020-10-26T13:40:53.191Z"
+    }
+]
+
+------------------------------------------------------
+
+=> Output
+
+{
+    "massage": "todo succes to delete"
+}
+```
+
+`Error Response:`
+<ul>
+    <li>Code: 400 
+    <li>Conten:
+</ul>
+
+````json
+=> Input
+            Http://localhost:3000/todos/20
+
+------------------------------------------------------
+
+=> Output
+
+{
+    "massage": "Id Tidak ditemukan"
+}
+````
+`Notes: Id Tidak Ditemukan`
+
+---
