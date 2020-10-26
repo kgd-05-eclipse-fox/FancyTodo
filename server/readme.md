@@ -43,11 +43,12 @@
         "createdAt": "...",
         "updatedAt": "..."
     }
-  ]```
+  ]
+  ```
  
 * **Error Response:**
 
-  * **Code:** 500 Internal Server Error <br />
+  * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
 * **Notes:**
@@ -78,10 +79,11 @@
   * **Content:**
     ```json
     {
-    "title": "Shopping",
-    "description": "Shopping with my favorite person ever!",
-    "due_date": "2020-11-10"
-    }```
+        "title": "Shopping",
+        "description": "Shopping with my favorite person ever!",
+        "due_date": "2020-11-10"
+    }
+    ```
 
 * **Success Response:**
 
@@ -89,28 +91,29 @@
     **Content:** 
     ```json
     {
-    "id": 7,
-    "title": "Shopping",
-    "description": "Shopping with my favorite person ever!",
-    "due_date": "2020-11-10T00:00:00.000Z",
-    "updatedAt": "2020-10-26T20:55:06.240Z",
-    "createdAt": "2020-10-26T20:55:06.240Z",
-    "status": false
+        "id": 7,
+        "title": "Shopping",
+        "description": "Shopping with my favorite person ever!",
+        "due_date": "2020-11-10T00:00:00.000Z",
+        "updatedAt": "2020-10-26T20:55:06.240Z",
+        "createdAt": "2020-10-26T20:55:06.240Z",
+        "status": false
     }
     ```
  
 * **Error Response:**
     `If error from the server`
-  * **Code:** 500 Internal Server Error <br />
+  * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
     `If error from the validate data input`
-  * **Code:** 400 Bad Request <br />
+  * **Code:** 400 **Bad Request** <br />
     **Content:** 
     ```json
     {
-    "error": "Please enter title,Date cannot be blank,Date must be greater than present"
-    }```
+        "error": "Please enter title,Date cannot be blank,Date must be greater than present"
+    }
+    ```
 
 * **Notes:**
 
@@ -154,20 +157,22 @@
         "due_date": "2020-10-27T00:00:00.000Z",
         "createdAt": "2020-10-26T20:31:59.842Z",
         "updatedAt": "2020-10-26T20:31:59.842Z"
-    }```
+    }
+    ```
  
 * **Error Response:**
     `If error from the server`
-  * **Code:** 500 Internal Server Error <br />
+  * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
     `If error data not found`
-  * **Code:** 400 Bad Request <br />
+  * **Code:** 400 **Bad Request** <br />
     **Content:** 
     ```json
     {
-    "error": "Todo not found"
-    }```
+        "error": "Todo not found"
+    }
+    ```
 
 * **Notes:**
 
@@ -201,7 +206,8 @@
         "title": "Dinner with fam.",
         "description": "Important dinner!",
         "due_date": "2020-10-29"
-    }```
+    }
+    ```
 
 
 * **Success Response:**
@@ -210,27 +216,29 @@
     **Content:** 
     ```json
     {
-    "id": 1,
-    "title": "Dinner with fam.",
-    "description": "Important dinner!",
-    "status": false,
-    "due_date": "2020-10-29T00:00:00.000Z",
-    "createdAt": "2020-10-26T19:46:01.775Z",
-    "updatedAt": "2020-10-26T21:01:12.247Z"
-    }```
+        "id": 1,
+        "title": "Dinner with fam.",
+        "description": "Important dinner!",
+        "status": false,
+        "due_date": "2020-10-29T00:00:00.000Z",
+        "createdAt": "2020-10-26T19:46:01.775Z",
+        "updatedAt": "2020-10-26T21:01:12.247Z"
+    }
+    ```
  
 * **Error Response:**
     `If error from the server`
-  * **Code:** 500 Internal Server Error <br />
+  * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
     `If error data not found`
-  * **Code:** 400 Bad Request <br />
+  * **Code:** 400 **Bad Request** <br />
     **Content:** 
     ```json
     {
-    "error": "Date cannot be blank"
-    }```
+        "error": "Date cannot be blank"
+    }
+    ```
 
 * **Notes:**
 
@@ -269,27 +277,29 @@
     **Content:** 
     ```json
     {
-    "id": 1,
-    "title": "Dinner with fam.",
-    "description": "Important dinner!",
-    "status": true,
-    "due_date": "2020-10-29T00:00:00.000Z",
-    "createdAt": "2020-10-26T19:46:01.775Z",
-    "updatedAt": "2020-10-26T21:11:33.434Z"
-    }```
+        "id": 1,
+        "title": "Dinner with fam.",
+        "description": "Important dinner!",
+        "status": true,
+        "due_date": "2020-10-29T00:00:00.000Z",
+        "createdAt": "2020-10-26T19:46:01.775Z",
+        "updatedAt": "2020-10-26T21:11:33.434Z"
+    }
+    ```
  
 * **Error Response:**
     `If error from the server`
-  * **Code:** 500 Internal Server Error <br />
+  * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
     `If error data not found`
-  * **Code:** 400 Bad Request <br />
+  * **Code:** 400 **Bad Request** <br />
     **Content:** 
     ```json
     {
-    "error": "Should be true or false"
-    }```
+        "error": "Should be true or false"
+    }
+    ```
 
 * **Notes:**
 
@@ -325,21 +335,23 @@
     **Content:** 
     ```json
     {
-    "message": "todo success to delete"
-    }```
+        "message": "todo success to delete"
+    }
+    ```
  
 * **Error Response:**
     `If error from the server`
-  * **Code:** 500 Internal Server Error <br />
+  * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
     `If error data not found`
-  * **Code:** 404 Not Found <br />
+  * **Code:** 404 **Not Found** <br />
     **Content:** 
     ```json
     {
-    "error": "todo not found"
-    }```
+        "error": "todo not found"
+    }
+    ```
 
 * **Notes:**
 
