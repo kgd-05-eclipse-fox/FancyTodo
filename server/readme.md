@@ -22,9 +22,11 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `[
+    **Content:** 
+    ```json
+    [
     {
-        "id": 4,
+        "id": 4, 
         "title": "Kejar deadline",
         "description": "Deadline alert!",
         "status": false,
@@ -41,7 +43,7 @@
         "createdAt": ...,
         "updatedAt": ...
     }
-  ]`
+  ]```
  
 * **Error Response:**
 
