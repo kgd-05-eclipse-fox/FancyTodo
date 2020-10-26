@@ -27,5 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Todo',
   });
+
+  Todo.addHook('beforeCreate', (instance, options) => {
+    instance.status = 'On Progress'
+  })
   return Todo;
 };
