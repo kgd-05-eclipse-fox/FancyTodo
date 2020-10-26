@@ -126,3 +126,42 @@
 
   * **Code:** 500 UNPROCESSABLE ENTRY <br />
     **Content:** `{ error : "Internal Server Error" }`
+
+
+**Show Todo By Id**
+----
+  Show Todo By Id
+
+* **URL**
+
+  /todos/:id
+
+* **Method:**
+  
+  `GET`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    {
+      "id": 1,
+      "title": "Coding",
+      "description": "Coding Fancy TO DO",
+      "status": "On Progress",
+      "due_date": "2020-10-27T00:00:00.000Z",
+      "createdAt": "2020-10-26T07:35:20.797Z",
+      "updatedAt": "2020-10-26T07:35:20.797Z"
+    }
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT_FOUND <br />
+    **Content:** `{ error : "Data not found" }`
+

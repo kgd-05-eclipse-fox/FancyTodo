@@ -28,5 +28,19 @@ class Controller {
             res.status(500).json(err)
         }
     }
+
+    static async showTodoById(req, res) {
+        try {
+            const id = +req.params.id
+            const toDO = await Todo.findByPk(id)
+            if(!toDO) {
+                res.status(404).json({ error: 'Data not found' })
+            } else {
+                res.status(200).json(toDO)
+            }
+        } catch(err) {
+            res.status(500).json(err)
+        }
+    }
 }
 module.exports = Controller
