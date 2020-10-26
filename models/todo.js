@@ -17,10 +17,25 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     status: DataTypes.STRING,
-    due_date: DataTypes.DATE
+    due_date: {
+      type: DataTypes.DATE,
+      validate: {
+        isDate: {
+          args: true,
+          msg: "must be in date format"
+        },
+        isAfter: {
+          args: "2020-10-26",
+          msg: "must be greater than today"
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Todo',
   });
+  Todo.addHook('beforeCreate', (instance) => {
+    instance.status = "not finished"
+  })
   return Todo;
 };
