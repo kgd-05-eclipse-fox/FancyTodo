@@ -19,5 +19,14 @@ class Controller {
             }
         }
     }
+
+    static async showListTodos(req, res) {
+        try {
+            const toDo = await Todo.findAll()
+            res.status(200).json(toDo)
+        } catch(err) {
+            res.status(500).json(err)
+        }
+    }
 }
 module.exports = Controller

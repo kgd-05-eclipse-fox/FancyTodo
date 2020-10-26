@@ -74,3 +74,55 @@
 
   * **Code:** 500 UNPROCESSABLE ENTRY <br />
     **Content:** `{ error : "Internal Server Error" }`
+
+
+**Show To Do List**
+----
+  Show all to do list in database
+
+* **URL**
+
+  /todos
+
+* **Method:**
+  
+  `GET`
+  
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** 
+    [
+      {
+          "id": 1,
+          "title": "Coding",
+          "description": "Coding Fancy TO DO",
+          "status": "On Progress",
+          "due_date": "2020-10-27T00:00:00.000Z",
+          "createdAt": "2020-10-26T07:35:20.797Z",
+          "updatedAt": "2020-10-26T07:35:20.797Z"
+      },
+      {
+          "id": 2,
+          "title": "Lecture",
+          "description": "Lecture REST API",
+          "status": "On Progress",
+          "due_date": "2020-10-26T00:00:00.000Z",
+          "createdAt": "2020-10-26T07:47:36.029Z",
+          "updatedAt": "2020-10-26T07:47:36.029Z"
+      },
+      {
+          "id": 3,
+          "title": "Live Code",
+          "description": "First live code",
+          "status": "On Progress",
+          "due_date": "2020-11-03T00:00:00.000Z",
+          "createdAt": "2020-10-26T10:14:54.208Z",
+          "updatedAt": "2020-10-26T10:14:54.208Z"
+      }
+    ]
+ 
+* **Error Response:**
+
+  * **Code:** 500 UNPROCESSABLE ENTRY <br />
+    **Content:** `{ error : "Internal Server Error" }`
