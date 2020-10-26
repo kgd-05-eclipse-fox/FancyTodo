@@ -12,6 +12,13 @@
 
   `POST` 
 
+* **Data Params**
+  **Required:**
+ 
+   `title=[string]`
+   `description=[string]`
+   `due_date=[date]`
+
 * **Success Response:**
 
   * **Code:** 201 <br />

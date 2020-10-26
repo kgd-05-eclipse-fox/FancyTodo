@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "must be in date format"
         },
         isAfter: {
-          args: "2020-10-26",
+          args: `${new Date()}`,
           msg: "must be greater than today"
         }
       }

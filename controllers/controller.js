@@ -3,9 +3,9 @@ const { Todo } = require('../models')
 class Controller {
     static postTodo (req,res) {
         const value = {
-            title: "Go to market",
-            description: "Buy fish and vegetables",
-            due_date: "2020-10-27"
+            title: req.body.title,
+            description: req.body.description,
+            due_date: req.body.due_date
         }
 
         Todo
