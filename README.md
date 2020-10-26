@@ -28,21 +28,25 @@
 
   * **Code:** 200 **OK** <br />
     **Content:**
-    ```javascript
+    ```json
     [
         { 
-            id : 12,
-            title: "Kerjain Todo",
-            description: "Mengerjakan Todo di hari pertama",
-            due_date: "2020-10-26",
-            isFinished: false
+            "id": 12,
+            "title": "Kerjain Todo",
+            "description": "Mengerjakan Todo di hari pertama",
+            "due_date": "2020-10-26",
+            "status": false,
+            "updatedAt": "2020-10-26T07:45:55.351Z",
+            "createdAt": "2020-10-26T07:45:55.351Z"
         },
         {
-            id: ...,
-            title: ...,
-            description: ...,
-            due_date: ...,
-            isFinished: ...
+            "id": "...",
+            "title": "...",
+            "description": "...",
+            "due_date": "...",
+            "status": "...",
+            "updatedAt": "...",
+            "createdAt": "..."
         }
     ]
  
@@ -51,7 +55,12 @@
   `If error from server`
 
   * **Code:** 500 **INTERNAL SERVER ERROR** <br />
-    **Content:** `{ error : "Internal Server Error" }`
+    **Content:** 
+    ```json
+    {
+       "error": "Internal Server Error" 
+    }
+    ```
 
 
 **Show One Todo**
@@ -78,24 +87,21 @@
 
 * **Request Body:**
 
-  * **Content:**
-    ```javascript
-    {
-        id: 12
-    }
-    ```
+   None
 
 * **Success Response:**
 
   * **Code:** 200 **OK** <br />
     **Content:** 
-    ```javascript
+    ```json
     { 
-        id : 12,
-        title: "Kerjain Todo",
-        description: "Mengerjakan Todo di hari pertama",
-        due_date: "2020-10-26",
-        isFinished: false
+        "id": 12,
+        "title": "Kerjain Todo",
+        "description": "Mengerjakan Todo di hari pertama",
+        "due_date": "2020-10-26",
+        "status": false,
+        "updatedAt": "2020-10-26T07:45:55.351Z",
+        "createdAt": "2020-10-26T07:45:55.351Z"
     }
     ```
  
@@ -104,7 +110,12 @@
   `If todo doesn't exist`
 
   * **Code:** 404 **NOT FOUND** <br />
-    **Content:** `{ error : "Todo doesn't exist" }`
+    **Content:** 
+    ```json
+    { 
+      "error": "Todo doesn't exist" 
+    }
+    ```
 
 
 **Create Todo**
@@ -130,13 +141,12 @@
 * **Request Body:**
 
   * **Content:**
-    ```javascript
+    ```json
     {
-        id : 13,
-        title: "Makan Siang",
-        description: "Makan siang setelah mengerjakan Todo",
-        due_date: "2020-10-27",
-        isFinished: false
+        "title": "Makan Siang",
+        "description": "Makan siang setelah mengerjakan Todo",
+        "due_date": "2020-10-27",
+        "status": false
     }
     ```
 
@@ -144,13 +154,15 @@
 
   * **Code:** 201 **CREATED** <br />
     **Content:** 
-    ```javascript
+    ```json
     { 
-        id : 13,
-        title: "Makan Siang",
-        description: "Makan siang setelah mengerjakan Todo",
-        due_date: "2020-10-27",
-        isFinished: false
+        "id": 13,
+        "title": "Makan Siang",
+        "description": "Makan siang setelah mengerjakan Todo",
+        "due_date": "2020-10-29T00:00:00.000Z",
+        "status": false,
+        "updatedAt": "2020-10-26T07:45:55.351Z",
+        "createdAt": "2020-10-26T07:45:55.351Z"
     }
     ```
  
@@ -159,12 +171,22 @@
   `If validation error`
 
   * **Code:** 400 **BAD REQUEST** <br />
-    **Content:** `{ error : "Cannot Create new Todo" }`
+    **Content:** 
+    ```json
+    {
+       "error": "Cannot Create or Update Todo" 
+    }
+    ```
 
   `If error from server`
 
   * **Code:** 500 **INTERNAL SERVER ERROR** <br />
-    **Content:** `{ error : "Internal Server Error" }`
+    **Content:** 
+    ```json
+    {
+       "error": "Internal Server Error" 
+    }
+    ```
 
 
 **Update Todo**
@@ -192,13 +214,12 @@
 * **Request Body:**
 
   * **Content:**
-    ```javascript
+    ```json
     {
-        id : 13,
-        title: "Makan Siang Setelah Mengerjakan Todo",
-        description: "Makan siang setelah mengerjakan Todo",
-        due_date: "2020-10-27",
-        isFinished: false
+        "title": "Makan Siang Setelah Mengerjakan Todo",
+        "description": "Makan siang setelah mengerjakan Todo",
+        "due_date": "2020-10-27",
+        "status": false
     }
     ```
 
@@ -206,13 +227,15 @@
 
   * **Code:** 200 **OK** <br />
     **Content:** 
-    ```javascript
+    ```json
     { 
-        id : 13,
-        title: "Makan Siang Setelah Mengerjakan Todo",
-        description: "Makan siang setelah mengerjakan Todo",
-        due_date: "2020-10-27",
-        isFinished: false
+        "id": 13,
+        "title": "Makan Siang Setelah Mengerjakan Todo",
+        "description": "Makan siang setelah mengerjakan Todo",
+        "due_date": "2020-10-27",
+        "status": false,
+        "updatedAt": "2020-10-26T07:45:55.351Z",
+        "createdAt": "2020-10-26T07:45:55.351Z"
     }
     ```
  
@@ -221,17 +244,32 @@
   `If validation error`
 
   * **Code:** 400 **BAD REQUEST** <br />
-    **Content:** `{ error : "Cannot Update Todo" }`
+    **Content:** 
+    ```json
+    {
+       "error" : "Cannot Create or Update Todo" 
+    }
+    ```
 
   `If Todo Not Found`
 
   * **Code:** 404 **NOT FOUND** <br />
-    **Content:** `{ error : "Todo Not Found" }`
+    **Content:** 
+    ```json
+    {
+       "error" : "Todo Not Found" 
+    }
+    ```
 
   `If error from server`
 
   * **Code:** 500 **INTERNAL SERVER ERROR** <br />
-    **Content:** `{ error : "Internal Server Error" }`
+    **Content:** 
+    ```json
+    {
+       "error" : "Internal Server Error" 
+    }
+    ```
 
 
 **Update Todo Status**
@@ -259,9 +297,9 @@
 * **Request Body:**
 
   * **Content:**
-    ```javascript
+    ```json
     {
-        isFinished: true
+        "status": true
     }
     ```
 
@@ -269,13 +307,15 @@
 
   * **Code:** 200 **OK** <br />
     **Content:** 
-    ```javascript
+    ```json
     { 
-        id : 13,
-        title: "Makan Siang Setelah Mengerjakan Todo",
-        description: "Makan siang setelah mengerjakan Todo",
-        due_date: "2020-10-27",
-        isFinished: true
+        "id": 13,
+        "title": "Makan Siang Setelah Mengerjakan Todo",
+        "description": "Makan siang setelah mengerjakan Todo",
+        "due_date": "2020-10-27",
+        "status": true,
+        "updatedAt": "2020-10-26T07:45:55.351Z",
+        "createdAt": "2020-10-26T07:45:55.351Z"
     }
     ```
  
@@ -284,17 +324,32 @@
   `If validation error`
 
   * **Code:** 400 **BAD REQUEST** <br />
-    **Content:** `{ error : "Cannot Update Todo Status" }`
+    **Content:** 
+    ```json
+    {
+        "error" : "Cannot Create or Update Todo"
+    }
+    ```
 
   `If Todo Not Found`
 
   * **Code:** 404 **NOT FOUND** <br />
-    **Content:** `{ error : "Todo Not Found" }`
+    **Content:** 
+    ```json
+    {
+        "error" : "Todo Not Found"
+    }
+    ```
 
   `If error from server`
 
   * **Code:** 500 **INTERNAL SERVER ERROR** <br />
-    **Content:** `{ error : "Internal Server Error" }`
+    **Content:**
+    ```json
+    {
+        "error": "Internal Server Error"
+    }
+    ```
 
 
 **Delete Todo**
@@ -317,24 +372,19 @@
 
 * **Data Params**
 
-   None
+   id
 
 * **Request Body:**
 
-  * **Content:**
-    ```javascript
-    {
-        id : 13
-    }
-    ```
+   None
 
 * **Success Response:**
 
   * **Code:** 200 **OK** <br />
     **Content:** 
-    ```javascript
+    ```json
     { 
-        message: "todo success to delete"
+        "message": "todo success to delete"
     }
     ```
  
@@ -343,9 +393,19 @@
   `If Todo Not Found`
 
   * **Code:** 404 **NOT FOUND** <br />
-    **Content:** `{ error : "Todo Not Found" }`
+    **Content:**
+    ```json
+    {
+        "error": "Todo Not Found"
+    }
+    ```
 
   `If error from server`
 
   * **Code:** 500 **INTERNAL SERVER ERROR** <br />
-    **Content:** `{ error : "Internal Server Error" }`
+    **Content:**
+    ```json
+    {
+        "error": "Internal Server Error"
+    }
+    ```
