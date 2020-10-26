@@ -22,7 +22,9 @@
 * **Success Response:**
 
   * **Code:** 201 <br />
-    **Content:** `{
+    **Content:** 
+    ```json 
+    {
         "id": 1,
         "title": "Go to circuit",
         "description": "Riding",
@@ -30,12 +32,14 @@
         "due_date": "2020-10-29T00:00:00.000Z",
         "createdAt": "2020-10-26T10:43:44.518Z",
         "updatedAt": "2020-10-26T10:43:44.518Z"
-    }`
+    }    
  
 * **Error Response:**
 
   * **Code:** 500 INTERNAL SERVER ERROR <br />
-    **Content:** `{ 
+    **Content:** 
+    ```json
+    { 
     "error": {
         "message": "must be greater than today",
         "type": "Validation error",
@@ -62,7 +66,7 @@
             ]
         }
       }
-    }`
+    }
 
 
 **Find All Todos**
@@ -82,35 +86,37 @@
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `[
-    {
-        "id": 1,
-        "title": "Go to circuit",
-        "description": "Riding",
-        "status": "not finished",
-        "due_date": "2020-10-29T00:00:00.000Z",
-        "createdAt": "2020-10-26T10:43:44.518Z",
-        "updatedAt": "2020-10-26T10:43:44.518Z"
-    },
-    {
-        "id": 2,
-        "title": "Go to gym",
-        "description": "Benchpress 10 times",
-        "status": "not finished",
-        "due_date": "2020-10-28T00:00:00.000Z",
-        "createdAt": "2020-10-26T10:44:15.903Z",
-        "updatedAt": "2020-10-26T10:44:15.903Z"
-    },
-    {
-        "id": 3,
-        "title": "Go to market",
-        "description": "Buy fish and vegetables",
-        "status": "not finished",
-        "due_date": "2020-10-27T00:00:00.000Z",
-        "createdAt": "2020-10-26T10:47:19.806Z",
-        "updatedAt": "2020-10-26T10:47:19.806Z"
-    }
-  ]`
+    **Content:** 
+    ```json
+    [
+      {
+          "id": 1,
+          "title": "Go to circuit",
+          "description": "Riding",
+          "status": "not finished",
+          "due_date": "2020-10-29T00:00:00.000Z",
+          "createdAt": "2020-10-26T10:43:44.518Z",
+          "updatedAt": "2020-10-26T10:43:44.518Z"
+      },
+      {
+          "id": 2,
+          "title": "Go to gym",
+          "description": "Benchpress 10 times",
+          "status": "not finished",
+          "due_date": "2020-10-28T00:00:00.000Z",
+          "createdAt": "2020-10-26T10:44:15.903Z",
+          "updatedAt": "2020-10-26T10:44:15.903Z"
+      },
+      {
+          "id": 3,
+          "title": "Go to market",
+          "description": "Buy fish and vegetables",
+          "status": "not finished",
+          "due_date": "2020-10-27T00:00:00.000Z",
+          "createdAt": "2020-10-26T10:47:19.806Z",
+          "updatedAt": "2020-10-26T10:47:19.806Z"
+      }
+    ]
  
 * **Error Response:**
 
@@ -150,7 +156,8 @@
 
   * **Code:** 200 <br />
     **Content:** 
-    `{
+    ```json
+    {
     "id": 1,
     "title": "Go to mall",
     "description": "Shopping",
@@ -158,7 +165,7 @@
     "due_date": "2020-10-27T00:00:00.000Z",
     "createdAt": "2020-10-26T10:43:44.518Z",
     "updatedAt": "2020-10-26T10:58:50.581Z"
-  }`
+  }
  
 * **Error Response:**
 
@@ -195,7 +202,8 @@
 
   * **Code:** 200 <br />
     **Content:** 
-    `{
+    ```json
+    {
     "id": 2,
     "title": "Go to gym",
     "description": "Benchpress 10 times",
@@ -203,7 +211,7 @@
     "due_date": "2020-10-28T00:00:00.000Z",
     "createdAt": "2020-10-26T10:44:15.903Z",
     "updatedAt": "2020-10-26T11:11:16.250Z"
-  }`
+  }
  
 * **Error Response:**
 
