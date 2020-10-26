@@ -71,5 +71,47 @@ class Controller {
             }
         }
     }
+
+    static async updateStatusById(req, res) {
+        try {
+            const id = Number(req.params.id)
+            const payload = { status: req.body.status }
+            const toDo = await Todo.update(payload, {
+                where: {
+                    id: id
+                },
+                returning: true
+            })
+            if(toDo[0] == 0) {
+                res.status(404).json({ error: 'Data not found' })
+            } else {
+                res.status(200).json(toDo[1][0])
+            }
+        } catch(err) {
+            if(err.name == 'SequelizeValidationError') {
+                res.status(400).json(err)
+            } else {
+                res.status(500).json(err)
+            }
+        }
+    }
+
+    static async deleteTodo(req, res) {
+        try{
+            const id = Number(req.params.id)
+            const toDo = await Todo.destroy({
+                where: {
+                    id: id
+                }
+            })
+            if(toDo == 0) {
+                res.status(404).json({ error: 'Data not found' })
+            } else {
+                res.status(200).json({ message: 'To do success delete' })
+            }
+        } catch(err) {
+            res.status(500).json({error: 'Internal Server Error' })
+        }
+    }
 }
 module.exports = Controller
