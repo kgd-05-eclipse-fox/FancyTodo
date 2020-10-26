@@ -5,7 +5,7 @@
 
 * **URL**
 
-  <_/todos_>
+  /todos_
 
 * **Method:**
 
@@ -25,25 +25,25 @@
     **Content:** 
     ```json
     [
-    {
-        "id": 4, 
-        "title": "Kejar deadline",
-        "description": "Deadline alert!",
-        "status": false,
-        "due_date": "2020-10-29T00:00:00.000Z",
-        "createdAt": "2020-10-26T20:17:28.026Z",
-        "updatedAt": "2020-10-26T20:17:28.026Z"
-    },
-    {
-        "id": "...",
-        "title": "...",
-        "description": "...",
-        "status": "...",
-        "due_date": "...",
-        "createdAt": "...",
-        "updatedAt": "..."
-    }
-  ]
+        {
+            "id": 4, 
+            "title": "Kejar deadline",
+            "description": "Deadline alert!",
+            "status": false,
+            "due_date": "2020-10-29T00:00:00.000Z",
+            "createdAt": "2020-10-26T20:17:28.026Z",
+            "updatedAt": "2020-10-26T20:17:28.026Z"
+        },
+        {
+            "id": "...",
+            "title": "...",
+            "description": "...",
+            "status": "...",
+            "due_date": "...",
+            "createdAt": "...",
+            "updatedAt": "..."
+        }
+    ]
   ```
  
 * **Error Response:**
@@ -60,7 +60,7 @@
 
 * **URL**
 
-  <_/todos_>
+  /todos
 
 * **Method:**
 
@@ -125,7 +125,7 @@
 
 * **URL**
 
-  <_/todos/:id_>
+  /todos/:id
 
 * **Method:**
 
@@ -184,7 +184,7 @@
 
 * **URL**
 
-  <_/todos/:id_>
+  /todos/:id
 
 * **Method:**
 
@@ -249,7 +249,7 @@
 
 * **URL**
 
-  <_/todos/:id_>
+  /todos/:id
 
 * **Method:**
 
@@ -310,7 +310,7 @@
 
 * **URL**
 
-  <_/todos/:id_>
+  /todos/:id
 
 * **Method:**
 
