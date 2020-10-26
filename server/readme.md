@@ -106,7 +106,7 @@
   * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
-`If error from the validate data input`
+    `If error from the validate data input`
   * **Code:** 400 **Bad Request** <br />
     **Content:** 
     ```json
@@ -165,7 +165,7 @@
   * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
-`If error data not found`
+    `If error data not found`
   * **Code:** 400 **Bad Request** <br />
     **Content:** 
     ```json
@@ -231,7 +231,7 @@
   * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
-`If error data not found`
+    `If error data not found`
   * **Code:** 400 **Bad Request** <br />
     **Content:** 
     ```json
@@ -292,7 +292,7 @@
   * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
-`If error data not found`
+    `If error data not found`
   * **Code:** 400 **Bad Request** <br />
     **Content:** 
     ```json
@@ -344,7 +344,7 @@
   * **Code:** 500 **Internal Server Error** <br />
     **Content:** `{ error: 'Internal Server Error' }`
 
-`If error data not found`
+    `If error data not found`
   * **Code:** 404 **Not Found** <br />
     **Content:** 
     ```json
