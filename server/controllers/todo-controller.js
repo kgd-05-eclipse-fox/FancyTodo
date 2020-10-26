@@ -5,8 +5,8 @@ class Controller {
 
     // * Create Todo
     static async postAddNewTodo(req, res) {
-        const newTodo = convertPayload(req.body)
         try {
+            const newTodo = convertPayload(req.body)
             const addNewTodo = await Todo.create(newTodo)
             res.status(201).json(addNewTodo)
         } catch (err) {
@@ -31,8 +31,8 @@ class Controller {
 
     // * Show One Todo
     static async getTodoById(req, res) {
-        const id = +req.params.id
         try {
+            const id = +req.params.id
             const todo = await Todo.findByPk(id)
             if (todo) {
                 res.status(200).json(todo)
@@ -46,9 +46,9 @@ class Controller {
 
     // * Update Todo
     static async putUpdateTodo(req, res) {
-        const id = +req.params.id
-        const payload = convertPayload(req.body)
         try {
+            const id = +req.params.id
+            const payload = convertPayload(req.body)
             const updateTodo = await Todo.update(payload, { where: { id }, returning: true })
             if (!updateTodo[0]) {
                 res.status(404).json({ error: 'Todo Not Found'})
@@ -67,9 +67,9 @@ class Controller {
 
     // * Update Todo Status
     static async patchTodoStatus(req, res) {
-        const id = +req.params.id
-        const status = req.body.status
         try {
+            const id = +req.params.id
+            const status = req.body.status
             const patched = await Todo.update({ status }, { where: { id }, returning: true })
             if (!patched[0]) {
                 res.status(404).json({ error: 'Todo Not Found'})
@@ -88,8 +88,8 @@ class Controller {
 
     // * Delete Todo
     static async deleteTodoById(req, res) {
-        const id = +req.params.id
         try {
+            const id = +req.params.id
             const del = await Todo.destroy({ where: { id }})
             if (!del) {
                 res.status(404).json({ error: 'Todo Not Found' })
