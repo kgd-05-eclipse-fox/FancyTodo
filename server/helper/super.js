@@ -4,9 +4,10 @@ class Super {
         let dataEror = []
         for(let i in data){
             if(!data[i]){
-                dataEror.push({i: `${i} tidak boleh kosong`})
+                dataEror.push(`${i} Tidak boleh kosong`)
             }
         }
+        
         return dataEror
     }
 

@@ -37,16 +37,15 @@ class TodoController{
         try {
             let id = +req.params.id
             let dataInput = req.body[0]
-            let validasiErr = Super.validasiPutTodo(dataInput)
-
-            console.log(validasiErr)
-            if(validasiErr.length>0){
-                res.status(500).json(validasiErr)
+            
+            let validasiError = Super.validasiPutTodo(dataInput)
+            if(validasiError.length>0){
+                res.status(400).json(validasiError)    
             }else{
                 let data = await Todo.update(dataInput, {
                     where: {id}
                 })
-                res.status(200).json(data)
+                res.status(200).json(dataInput)
             }
         } catch (err) {
             res.status(500).json(err)
