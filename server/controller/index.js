@@ -22,10 +22,12 @@ class TodoController {
 
     static async showAllTodoList(req, res) {
         try {
-            const showAll = await Todo.findAll()
+            const showAll = await Todo.findAll({
+                order: [['due_date', 'DESC']]
+            })
             res.status(201).json(showAll)
         } catch (error) {
-            res.status(500).json(error)
+            res.status(500).json({ error: 'Internal Server Error' })
         }
     }
 
