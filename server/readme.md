@@ -3,7 +3,7 @@
 
 **Create Todo**
 ----
-  Insert new data Todo.
+  Insert new Todo
 
 * **URL**
 
@@ -13,28 +13,52 @@
 
    - `POST`
 
-*   **Required:**
+*   **Required Data Params:**
  
       - input type `title` is string
       - input type `description` is string
       - input type `status` is string
-      - input type `due_data` is date
+      - input type `due_date` is date
+
+   * **Example:**</br>
+      ```
+      {
+         "title": "Learn REST API",
+         "description": "Testing Server with postman",
+         "due_date": "2020-10-27"
+      }
+      ``` 
 
 * **Success Response:**
 
-  * **Code:** 200 OK <br />
-    **Content:** `{ id : 3, title : "Third Learn REST API", description : "Learn how to create RESTful API with Express and Sequelize, status : "not completed", due_date : "Today - Oct 28" 
-     }`
- 
+  * **Code:** 201 CREATED <br/>
+
+   ```
+   {
+      "id": 15,
+      "title": "Learn REST API",
+      "description": "Testing Server with postman",
+      "due_date": "2020-10-27T00:00:00.000Z",
+      "updatedAt": "2020-10-26T17:47:34.399Z",
+      "createdAt": "2020-10-26T17:47:34.399Z",
+      "status": "not complete"
+   }
+   ```
+
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{ error : "Some field is required" }`
+  * **Code:** 400 BAD REQUEST <br/>
+    **Content:** `{ error }`
+
+   OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br/>
+    **Content:** `{ error }`
 
 
 **Read Todo**
 ----
-  Returns json data about list Todo
+  Select All Todo
 
 * **URL**
 
@@ -45,19 +69,29 @@
   - `GET` 
 
 * **Success Response:**
-
-  * **Code:** 200 OK<br />
-    **Content:** ```[{ id : 1, title : "Make Documentation REST API", description : "Learn how to create documentation RESTful API with Express and Sequelize, status : "not completed", due_date : "Today - Oct 28" 
-     }, 
-     { id : "...", title : "...", description : "...", status : "...", due_date : "..." 
-     }]```
+* **Code:** 200 OK<br />
+    ```
+    [
+       {
+         "id": 15,
+         "title": "Learn REST API",
+         "description": "Testing Server with postman",
+         "status": "not complete",
+         "due_date": "2020-10-27T00:00:00.000Z",
+         "createdAt": "2020-10-26T17:47:34.399Z",
+         "updatedAt": "2020-10-26T17:47:34.399Z"
+       }, 
+       {
+         ...
+       },
+       ...
+    ]
+     ```
  
 * **Error Response:**
 
-  * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : "Ups! List Todos Not Found" }`
-
-
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{ error }`
 
 
 **Details**
@@ -81,19 +115,39 @@
 
 * **Success Response:**
 
-  * **Code:** 200 OK <br />
-    **Content:** `{ id : 1, title : "Learn REST API", due_date : "Today - Oct 28", priority : "Medium", status : "On track", Section : "Todo" Description : "Add more detail to this task..." }`
+* **Code:** 200 OK <br />
+    ```
+    {
+      "id": 15,
+      "title": "Learn REST API",
+      "description": "Testing Server with postman",
+      "status": "not complete",
+      "due_date": "2020-10-27T00:00:00.000Z",
+      "createdAt": "2020-10-26T17:47:34.399Z",
+      "updatedAt": "2020-10-26T17:47:34.399Z"
+   }
+   ```
  
 * **Error Response:**
 
-  * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : "Ups! Todo doesn't exist" }`
+* **Code:** 404 NOT FOUND <br />
+    ```
+    {id with 5 not found}
+    ```
+
+    OR
+
+* **Code:** 500 INTERNAL SERVER ERROR <br />
+    ```
+    {error}
+    ```
+
 
 
 
 **Update Todo**
 ----
-  Returns json data about a single Todo
+  Returns json data with status complete
 
 * **URL**
 
@@ -105,23 +159,138 @@
   
 *  **URL Params**
 
-   **Required:**
+   **Required Data Params:**
+ 
+     id=[integer]
+
+ * **Example:**</br>
+ 
+   ```
+   {
+	  "title": "check one two three",
+	  "description": "cek 123",
+	  "due_date": "2021-05-16"
+   }
+   ```
+
+* **Success Response:**
+
+* **Code:** 200 OK <br />
+    ```
+    {
+      "id": 10,
+      "title": "check one two three",
+      "description": "cek 123",
+      "status": "not complete",
+      "due_date": "2021-05-16T00:00:00.000Z",
+      "createdAt": "2020-10-26T13:43:49.436Z",
+      "updatedAt": "2020-10-26T18:09:44.743Z"
+    }
+    ```
+
+* **Error Response:**
+
+* **Code:** 400 BAD REQUEST <br />
+    ```
+      {
+         "message": "todo with id 18 is not found"
+      }
+    ```
+
+
+
+**Updated Todo**
+----
+  Returns json data with status complete
+
+* **URL**
+
+  - /todos/:id
+
+* **Method:**
+
+  - `PATCH`
+  
+*  **URL Params**
+
+   **Required Data Params:**
+ 
+     id=[integer]
+
+   **Required Data Params:**
  
    - input type `title` is string
    - input type `description` is string
    - input type `status` is string
-   - input type `due_data` is date
+   - input type `due_date` is date
 
 * **Success Response:**
-
-  * **Code:** 200 OK <br />
-    **Content:** `{ id : 1, title : "Learn REST API", due_date : "Today - Oct 28", priority : "Medium", status : "On track", Section : "Todo" Description : "Add more detail to this task..." }`
+* **Code:** 200 OK <br />
+    ```
+    {
+      "id": 12,
+      "title": "check one two three",
+      "description": "cek 123",
+      "status": "complete",
+      "due_date": "2021-05-16T00:00:00.000Z",
+      "createdAt": "2020-10-26T13:44:57.550Z",
+      "updatedAt": "2020-10-26T18:13:07.922Z"
+    }
+    ```
  
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST <br />
-    **Content:** `{ error : "Ups! Todo doesn't exist" }`
+* **Code:** 400 BAD REQUEST <br />
+    **Content:** 
+    ```
+    {
+      "message": "todo with id 30 is not found"
+    }
+    ```
 
+
+**Delete Todo**
+----
+  Return Message
+
+* **URL**
+
+  - /todos/:id
+
+* **Method:**
+
+  - `DELETE`
+  
+*  **URL Params**
+
+   **Required Data Params:**
+ 
+   id=[integer]
+
+* **Success Response:**
+
+* **Code:** 200 OK <br />
+    ```
+    {
+      "message": "todo success to delete"
+    }
+    ```
+ 
+* **Error Response:**
+
+* **Code:** 404 NOT FOUND <br />
+    ```
+    {
+      "message": "error not found"
+    }
+    ```
+
+   OR
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+  ```
+  {error}
+  ```
 
 
 
