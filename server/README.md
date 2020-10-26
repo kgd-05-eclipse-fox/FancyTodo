@@ -128,6 +128,7 @@
     **Content:** `{ error : "Internal Server Error" }`
 
 
+
 **Show Todo By Id**
 ----
   Show Todo By Id
@@ -165,3 +166,92 @@
   * **Code:** 404 NOT_FOUND <br />
     **Content:** `{ error : "Data not found" }`
 
+
+
+
+**Update To do By Id**
+----
+  Update Todo By Id and show the new Todo
+
+* **URL**
+
+  /todos/:id
+
+* **Method:**
+
+  `PUT`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+    title,
+    description,
+    status,
+    due_date
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:**
+    {
+      "id": 2,
+      "title": "lecture",
+      "description": "Lecture REST API",
+      "status": "On Progress Lagi",
+      "due_date": "2020-10-27T00:00:00.000Z",
+      "createdAt": "2020-10-26T07:47:36.029Z",
+      "updatedAt": "2020-10-26T12:28:39.080Z"
+    }
+* **Error Response:**
+
+  * **Code:** 400 UNAUTHORIZED <br />
+    **Content:**
+    {
+      {
+        "name": "SequelizeValidationError",
+        "errors": [
+            {
+                "message": "Validation isAfter on due_date failed",
+                "type": "Validation error",
+                "path": "due_date",
+                "value": "2020-10-10T00:00:00.000Z",
+                "origin": "FUNCTION",
+                "instance": {
+                    "id": null,
+                    "title": "Live Code3",
+                    "description": "Third live code",
+                    "status": "On Progress",
+                    "due_date": "2020-10-10T00:00:00.000Z",
+                    "updatedAt": "2020-10-26T10:42:14.014Z",
+                    "createdAt": "2020-10-26T10:42:14.014Z"
+                },
+                "validatorKey": "isAfter",
+                "validatorName": "isAfter",
+                "validatorArgs": [
+                    "Mon Oct 26 2020 17:41:00 GMT+0700 (Western Indonesia Time)"
+                ],
+                "original": {
+                    "validatorName": "isAfter",
+                    "validatorArgs": [
+                        "Mon Oct 26 2020 17:41:00 GMT+0700 (Western Indonesia Time)"
+                    ]
+                }
+            }
+        ]
+      }
+    }
+
+  OR
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "Data not found" }`
+
+  OR
+
+  * **Code:** 500 UNPROCESSABLE ENTRY <br />
+    **Content:** `{ error : "Internal Server Error" }`
