@@ -1,17 +1,17 @@
 [
     {
-            "id" : 1,
-            "title" : "membeli sayur",
-            "description" : "membeli sayur keperluan rumah, penting",
-            "status" : "holding",
-            "due_date": "2020-12-01"
-        },
-        {
-            "id" : 2,
-            "title" : "lari sore",
-            "description" : "lari seputar komplek",
-            "status" : "holding",
-            "due_date" : "2020-12-02"
-        }
+        "id" : 1,
+        "title" : "membeli sayur",
+        "description" : "membeli sayur keperluan rumah, penting",
+        "status" : "holding",
+        "due_date": "2020-12-01"
+    },
+    {
+        "id" : 2,
+        "title" : "lari sore",
+        "description" : "lari seputar komplek",
+        "status" : "holding",
+        "due_date" : "2020-12-02"
+    }
     
 ]

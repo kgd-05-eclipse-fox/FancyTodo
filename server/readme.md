@@ -1,100 +1,234 @@
-# FancyTodo Server
-
-**FindTodos**
+**Show All Todo**
 ----
-    return all available Todos
+  ALL TODO
 
 * **URL**
 
-  /todos
+/todos
 
 * **Method:**
+
+  `GET` 
   
-    `GET`
-  
+*  **URL Params**
+
+* **Data Params**
 
 * **Success Response:**
-  
-  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
 
   * **Code:** 200 <br />
-    **Content:** `[
-    {
-        "id": 2,
-        "title": "lari sore",
-        "description": "lari seputar komplek",
-        "status": "holding",
-        "due_date": "2020-12-02T00:00:00.000Z",
-        "createdAt": "2020-10-26T14:44:30.245Z",
-        "updatedAt": "2020-10-26T14:44:30.245Z"
-    },
+    **Content:** [
     {
         "id": 1,
-        "title": "lari sore",
-        "description": "lari seputar komplek",
+        "title": "nyuci motor",
+        "description": "sebelum jam 3 sore",
         "status": "holding",
-        "due_date": "2020-12-02T00:00:00.000Z",
-        "createdAt": "2020-10-26T14:44:30.245Z",
-        "updatedAt": "2020-10-26T15:41:21.827Z"
+        "due_date": "2020-12-10T00:00:00.000Z",
+        "createdAt": "2020-10-27T15:06:01.200Z",
+        "updatedAt": "2020-10-27T21:52:32.115Z",
+        "UserId": 1
     }
-]`
-
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "Log in" }`
-
-  OR
-
-  * **Code:** 422 UNPROCESSABLE ENTRY <br />
-    **Content:** `{ error : "Email Invalid" }`
-
-
-**UpdateTodo**
-----
-    edit a Todo's File
-
-* **URL**
-
-  /todos/:id
-
-* **Method:**
-  
-    `PUT`
-* **URL Params**
-    **Required:**
-    `id=[integer]`
-  
-* **Data Params**
-    **Required:**
-    `[title = [string]]`
-    `[description = [string]]`
-    `[status = [string]]`
-    ´[]
-  
-
-* **Success Response:**
-  
-  * **Code:** 200 <br />
-    **Content:** `[
-  {
-    "id": 1,
-    "title": "lari malem",
-    "description": "lari seputar kampung",
-    "status": "holding",
-    "due_date": "2020-12-02T00:00:00.000Z",
-    "createdAt": "2020-10-26T14:44:30.245Z",
-    "updatedAt": "2020-10-26T16:13:10.877Z"
-}
-]`
+]
  
 * **Error Response:**
 
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ error : "Server Error" }`
 
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "Log in" }`
+
+
+**Show Add Todo**
+----
+ ADD TODO
+
+* **URL**
+
+/todos
+
+* **Method:**
+  
+  `POST` 
+  
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{
+    "id": 2,
+    "title": "main bola",
+    "description": "jangan terlalu malam",
+    "status": "holding",
+    "due_date": "2020-12-10T00:00:00.000Z",
+    "createdAt": "2020-10-27T22:09:28.759Z",
+    "updatedAt": "2020-10-27T22:10:16.855Z",
+    "UserId": 1
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 400 Validation <br />
+    **Content:** `{ error : "Validation Error" }`
 
   OR
 
-  * **Code:** 422 UNPROCESSABLE ENTRY <br />
-    **Content:** `{ error : "Email Invalid" }`
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ error : "internal server" }`
 
+
+**Update Todo**
+----
+ UPDATE TODO
+
+* **URL**
+
+/todos/:id
+
+* **Method:**
+  
+  `PUT` 
+  
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{
+    "id": 2,
+    "title": "main basket",
+    "description": "maksimal jam 10",
+    "status": "holding",
+    "due_date": "2020-12-10T00:00:00.000Z",
+    "createdAt": "2020-10-27T22:09:28.759Z",
+    "updatedAt": "2020-10-27T22:13:34.575Z",
+    "UserId": 1
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 400 Validation <br />
+    **Content:** `{ error : "Validation Error" }`
+
+  OR
+
+  * **Code:** 404 not found <br />
+    **Content:** `{ error : "Not Found" }`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ error : "internal server" }`
+
+    
+**Delete Todo**
+
+ DELETE TODO
+
+* **URL**
+
+/todos/:id
+
+* **Method:**
+  
+  `DELETE` 
+  
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{
+   message : deleted success
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 not found <br />
+    **Content:** `{ error : "Not Found" }`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ error : "internal server" }`
+
+
+**Patch Todo**
+
+ Patch/edit TODO
+
+* **URL**
+
+/todos/:id
+
+* **Method:**
+  
+  `PATCH` 
+  
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{
+   deleted success
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 404 not found <br />
+    **Content:** `{ error : "Not Found" }`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ error : "internal server" }`
+
+
+**Register**
+----
+ register
+
+* **URL**
+
+/register
+
+* **Method:**
+  
+  `POST` 
+  
+* **Success Response:**
+
+  * **Code:** 201 <br />
+    **Content:** `{
+    "id": 1,
+    "email": "tescuy@yahoo.com"
+}`
+ 
+* **Error Response:**
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ error : "internal server" }`
+
+    **Register**
+----
+ login
+
+* **URL**
+
+/login
+
+* **Method:**
+  
+  `POST` 
+  
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXNjdXlAeWFob28uY29tIiwiaWF0IjoxNjAzODM4MDU3fQ.Aa5zsGS0zKCqxT44XSKLzTXS8fE1JldUEFCLitInEA4"
+}`
+ 
+* **Error Response:**
+
+ * **Code:** 401 not found <br />
+    **Content:** `"message": "wrong password/email"`
+
+  OR
+
+  * **Code:** 500 SERVER ERROR <br />
+    **Content:** `{ error : "internal server" }`
