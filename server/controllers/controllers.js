@@ -1,7 +1,7 @@
 const { Todo } = require('../models')
 
 class Controller {
-    static async addToDo(req, res) {
+    static async addToDo(req, res, next) {
         const userId = req.loginUser.id
         try {
             const payload = {
@@ -14,11 +14,7 @@ class Controller {
             const toDo = await Todo.create(payload)
             res.status(201).json(toDo)
         } catch(err) {
-            if(err.name == 'SequelizeValidationError') {
-                res.status(400).json(err.errors[0].message)
-            } else {
-                res.status(500).json(err.errors[0].message)
-            }
+            next(err)
         }
     }
 
@@ -32,25 +28,26 @@ class Controller {
             })
             res.status(200).json(toDo)
         } catch(err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 
-    static async showTodoById(req, res) {
+    static async showTodoById(req, res, next) {
         try {
             const id = +req.params.id
             const toDO = await Todo.findByPk(id)
             if(!toDO) {
-                res.status(404).json({ error: 'Data not found' })
+                throw { name: 'Not Found' }
             } else {
                 res.status(200).json(toDO)
             }
         } catch(err) {
-            res.status(500).json(err)
+            // console.log(err)
+            next(err)
         }
     }
 
-    static async updateTodoById(req, res) {
+    static async updateTodoById(req, res, next) {
         try {
             const id = Number(req.params.id)
             const payload = {
@@ -66,20 +63,16 @@ class Controller {
                 returning: true
             })
             if(toDo[0] == 0) {
-                res.status(404).json({ error: 'Data not found' })
+                throw { name: "Not Found" }
             } else {
                 res.status(200).json(toDo[1][0])
             }
         } catch(err) {
-            if(err.name == 'SequelizeValidationError') {
-                res.status(400).json(err)
-            } else {
-                res.status(500).json(err)
-            }
+            next(err)
         }
     }
 
-    static async updateStatusById(req, res) {
+    static async updateStatusById(req, res, next) {
         try {
             const id = Number(req.params.id)
             const payload = { status: req.body.status }
@@ -90,20 +83,16 @@ class Controller {
                 returning: true
             })
             if(toDo[0] == 0) {
-                res.status(404).json({ error: 'Data not found' })
+                throw { name: "Not Found" }
             } else {
                 res.status(200).json(toDo[1][0])
             }
         } catch(err) {
-            if(err.name == 'SequelizeValidationError') {
-                res.status(400).json(err)
-            } else {
-                res.status(500).json(err)
-            }
+            next(err)
         }
     }
 
-    static async deleteTodo(req, res) {
+    static async deleteTodo(req, res, next) {
         try{
             const id = Number(req.params.id)
             const toDo = await Todo.destroy({
@@ -112,12 +101,12 @@ class Controller {
                 }
             })
             if(toDo == 0) {
-                res.status(404).json({ error: 'Data not found' })
+                throw { name: "Not Found" }
             } else {
                 res.status(200).json({ message: 'To do success delete' })
             }
         } catch(err) {
-            res.status(500).json({error: 'Internal Server Error' })
+            next(err)
         }
     }
 }
