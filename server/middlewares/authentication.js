@@ -1,7 +1,7 @@
 const Super = require('../helper/super.js')
 const {User} = require('../models')
 
-async function authentication(req, res, next){
+const authentication = async (req, res, next)=>{
     // console.log(req.headers)
     let token = req.headers.token
     try {
@@ -9,7 +9,14 @@ async function authentication(req, res, next){
             throw({msg: 'invalid token', status: 401})
         }else{
             let cekToken = Super.cekToken(token)
-            console.log(cekToken)
+            let dataUserDB = await User.findByPk(cekToken.id)
+
+            if(!dataUserDB){
+                throw({msg: 'invalid token', status: 401})
+            }else{
+                req.key = dataUserDB
+                next()
+            }
         }
     } catch (err) {
         res.status(400).json(err)

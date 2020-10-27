@@ -4,9 +4,10 @@ const Super = require('../helper/super.js')
 class TodoController{
     
     static async getTodo(req, res){
-        console.log('masuk ke controller to do')
         try {
-            let data = await Todo.findAll()
+            let data = await Todo.findAll({
+                where: {UserId: req.key.id}
+            })
             res.status(200).json(data)
         } catch (err) {
             res.status(500).json(err)
@@ -16,12 +17,11 @@ class TodoController{
     static async postTodo(req, res){
         try {
             let dataInput = req.body
-            dataInput.UserId = +dataInput.UserId
-            let date = new Date()
             let validasiError = Super.validasiPutTodo(dataInput)
             if(validasiError.length>0){
                 res.status(400).json(validasiError) 
             }else{
+                dataInput.UserId = req.key.id
                 let data = await Todo.create(dataInput)
                 res.status(201).json(data)
             }
