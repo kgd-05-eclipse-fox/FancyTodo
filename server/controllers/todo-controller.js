@@ -12,14 +12,15 @@ class TodoController {
 
    static async createTodoHandler (req, res) {
       try {
-         const payload = {
+         const newTodo = await Todo.create({
             title: req.body.title,
             description: req.body.description,
             due_date: req.body.due_date
-         }
-         const newTodo = await Todo.create(payload)
+         })
+
          res.status(201).json(newTodo)
       } catch (error) {
+         console.log("TodoController -> createTodoHandler -> error", error)
          if (error.errors) {
             res.status(400).json(error.errors[0].message) 
          } else {

@@ -1,6 +1,6 @@
 'use strict';
 
-const arrValues = require('../data/books.json')
+const arrValues = require('../data/todos.json')
 
 arrValues.forEach(item => {
   item.createdAt = new Date()
