@@ -5,22 +5,24 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     static associate(models) {
-      // define association here
+      Todo.belongsTo(models.User)
     }
   };
   Todo.init({
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
+    title: { type: DataTypes.STRING, validate: { notEmpty: { args: true, msg: 'Title tidak boleh kosong' }}},
+    description: { type: DataTypes.STRING, validate: { notEmpty: { args: true, msg: 'Description tidak boleh kosong' }}},
     due_date: { 
       type: DataTypes.DATE,
       validate: {
+        notEmpty: { args: true, msg: 'Due Date tidak boleh kosong' },
         dateValidate(currDate) {
           const validate = currDate > new Date()
-          if (!validate) throw new Error('Cannot Create or Update Todo')
+          if (!validate) throw new Error('Date must be greater than today')
         }
-      } 
+      }
     },
-    status: DataTypes.BOOLEAN
+    status: { type: DataTypes.BOOLEAN, validate: { notEmpty: { args: true, msg: 'Status tidak boleh kosong' }}},
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Todo',

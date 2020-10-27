@@ -8,12 +8,12 @@ const { hashPassword } = require('../helpers/bcrypt-superman')
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // define association here
+      User.hasMany(models.Todo)
     }
   };
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+    email: { type: DataTypes.STRING, validate: { isEmail: { args: true, msg: 'Input harus berupa format Email'} }, unique: { msg: 'Oops.. Email telah digunakan' }},
+    password: { type: DataTypes.STRING, validate: { len: { args: [4, 16], msg: 'Password harus memiliki minimal 4 huruf dan maksimal 16 huruf'} }}
   }, {
     sequelize,
     modelName: 'User',

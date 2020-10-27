@@ -20,6 +20,13 @@ module.exports = {
       status: {
         type: Sequelize.BOOLEAN
       },
+      UserId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

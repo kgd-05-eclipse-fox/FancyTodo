@@ -3,12 +3,14 @@
         "title": "Kerjain Todo",
         "description": "Mengerjakan todo di hari pertama",
         "due_date": "2020-10-26",
-        "status": false
+        "status": false,
+        "UserId": 1
     },
     {
         "title": "Makan Siang",
         "description": "Makan siang setelah mengerjakan Todo",
         "due_date": "2020-10-27",
-        "status": false
+        "status": false,
+        "UserId": 2
     }
 ]
