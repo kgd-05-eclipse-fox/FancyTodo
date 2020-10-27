@@ -1,5 +1,5 @@
 'use strict';
-const hashedPassword = require('../helper/bcrypt.js')
+const { hashedPassword } = require('../helper/bcrypt.js')
 
 const {
   Model
@@ -13,15 +13,21 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Todo)
     }
   };
   User.init({
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         isEmail: {
           args: true,
           msg: "Email not valid"
+        },
+        notNull: {
+          args: true,
+          msg: "Email cannot be empty"
         },
         notEmpty: {
           args: true,
@@ -31,7 +37,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
+        notNull: {
+          args: true,
+          msg: "Password cannot be empty"
+        },
         notEmpty: {
           args: true,
           msg: "Password cannot be empty"

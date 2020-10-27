@@ -1,11 +1,12 @@
 const route = require('express').Router()
 const Controller = require('../controllers/controllers.js')
+const { authentication, authorization } = require('../middleware/auth')
 
 
-route.post('/', Controller.addToDo)
-route.get('/', Controller.showListTodos)
+route.post('/', authentication, Controller.addToDo)
+route.get('/', authentication, Controller.showListTodos)
 route.get('/:id', Controller.showTodoById)
 route.put('/:id', Controller.updateTodoById)
 route.patch('/:id', Controller.updateStatusById)
-route.delete('/:id', Controller.deleteTodo)
+route.delete('/:id', authentication, authorization, Controller.deleteTodo)
 module.exports = route

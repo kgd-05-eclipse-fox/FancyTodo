@@ -11,16 +11,69 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Todo.belongsTo(models.User)
     }
   };
   Todo.init({
-    title: DataTypes.STRING,
-    description: DataTypes.STRING,
-    status: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Title cannot be empty"
+        },
+        notEmpty: {
+          args: true,
+          msg: "Title cannot be empty"
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Description cannot be empty"
+        },
+        notEmpty: {
+          args: true,
+          msg: "Description cannot be empty"
+        }
+      }
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          args: true,
+          msg: "Status cannot be empty"
+        },
+        notEmpty: {
+          args: true,
+          msg: "Status cannot be empty"
+        }
+      }
+    },
     due_date: {
       type: DataTypes.DATE,
+      allowNull: false,
       validate: {
-        isAfter: `${new Date()}`
+        notNull: {
+          args: true,
+          msg: "Date cannot be empty"
+        },
+        notEmpty: {
+          args: true,
+          msg: "Date cannot be empty"
+        },
+        checkDate(due_date) {
+          if(due_date < new Date()) {
+            throw new Error('Cannot create or update to do')
+          }
+        }
       }
     }
   }, {
@@ -28,7 +81,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Todo',
   });
 
-  Todo.addHook('beforeCreate', (instance, options) => {
+  Todo.addHook('beforeValidate', (instance, options) => {
     instance.status = 'On Progress'
   })
   return Todo;
