@@ -4,11 +4,12 @@ const jwt = require('jsonwebtoken')
 class Super {
 
     static validasiPutTodo(data){
-        let dataEror = []
+        let dataEror = ''
         for(let i in data){
             if(i !== 'status'){
                 if(!data[i]){
-                    dataEror.push(`${i} Tidak boleh kosong`)
+                    let output = `${i} Tidak boleh kosong - `
+                    dataEror += output
                 }
             }
         }

@@ -3,51 +3,61 @@ const Super = require('../helper/super.js')
 
 class TodoController{
     
-    static async getTodo(req, res){
+    static async getTodo(req, res, next){
         try {
             let data = await Todo.findAll({
                 where: {UserId: req.key.id}
             })
             res.status(200).json(data)
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 
-    static async postTodo(req, res){
+    static async postTodo(req, res, next){
         try {
             let dataInput = req.body
             let validasiError = Super.validasiPutTodo(dataInput)
             if(validasiError.length>0){
-                res.status(400).json(validasiError) 
+                let error ={
+                    cek: 'postTodo',
+                    status: 400,
+                    msg: validasiError,
+                }
+                next(error)
             }else{
                 dataInput.UserId = req.key.id
                 let data = await Todo.create(dataInput)
                 res.status(201).json(data)
             }
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 
-    static async getTodoById(req, res){
+    static async getTodoById(req, res, next){
         try {
             let id = +req.params.id
             let data = await Todo.findByPk(id)
             res.status(200).json(data)
         } catch (err) {
-            res.status(404).json(err)
+           next(err)
         }
     }
 
-    static async putTodo(req, res){
+    static async putTodo(req, res, next){
         try {
             let id = +req.params.id
             let dataInput = req.body
             
             let validasiError = Super.validasiPutTodo(dataInput)
             if(validasiError.length>0){
-                res.status(400).json(validasiError)    
+                let error ={
+                    cek: 'postTodo',
+                    status: 400,
+                    msg: validasiError,
+                }
+                next(error)    
             }else{
                 if(!dataInput.status){
                     dataInput.status = 'not done'
@@ -58,11 +68,11 @@ class TodoController{
                 res.status(200).json(dataInput)
             }
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 
-    static async patchTodo(req, res){
+    static async patchTodo(req, res, next){
         try {
             let id = +req.params.id
             let dataInput = req.body.status
@@ -73,11 +83,11 @@ class TodoController{
             })
             res.status(200).json(data)
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
    
-    static async deleteTodo(req, res){
+    static async deleteTodo(req, res, next){
         try {
             let id = +req.params.id
             let data = await Todo.destroy({
@@ -95,7 +105,7 @@ class TodoController{
                 res.status(200).json(output)
             }
         } catch (err) {
-            res.status(500).json(err)
+            next(err)
         }
     }
 }

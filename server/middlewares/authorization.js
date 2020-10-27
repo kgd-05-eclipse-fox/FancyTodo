@@ -12,8 +12,13 @@ const authorization = async (req, res, next)=>{
         }else{
             throw({msg: 'Unauthorized', status: 401})
         }
-    } catch (error) {
-        res.status(400).json(error)
+    } catch (err) {
+        // let error ={
+        //     name: 'suthorization',
+        //     status: 400,
+        //     msg: 'Unauthorized'
+        // }
+        next(err)
     }
    
 } 
