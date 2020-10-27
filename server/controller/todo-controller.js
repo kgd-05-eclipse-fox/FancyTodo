@@ -3,8 +3,10 @@ const { Todo } = require('../models')
 class TodoController {
 
     static async addTodo(req, res) {
+        const UserId = req.loggedInUser.id
         try {
             const newTodo = req.body
+            newTodo.UserId = UserId
             const create = await Todo.create(newTodo)
             res.status(201).json(create.dataValues)
         } catch (error) {
@@ -21,11 +23,15 @@ class TodoController {
     }
 
     static async showAllTodoList(req, res) {
+        const UserId = req.loggedInUser.id
         try {
             const showAll = await Todo.findAll({
+                where: {
+                    UserId: UserId
+                },
                 order: [['due_date', 'DESC']]
             })
-            res.status(201).json(showAll)
+            res.status(200).json(showAll)
         } catch (error) {
             res.status(500).json({ error: 'Internal Server Error' })
         }
@@ -34,7 +40,13 @@ class TodoController {
     static async getTodoById(req, res) {
         try {
             const id = +req.params.id
-            const showById = await Todo.findByPk(id)
+            const UserId = req.loggedInUser.id
+            const showById = await Todo.findOne({
+                where: {
+                    id,
+                    UserId
+                }
+            })
             if (showById) {
                 res.status(200).json(showById)
             } else {
@@ -48,10 +60,14 @@ class TodoController {
     static async putTodo(req, res) {
         try {
             const id = +req.params.id
+            const UserId = req.loggedInUser.id
+            console.log(id)
             const updatedTodo = req.body
+            console.log(updatedTodo)
             const updateTodo = await Todo.update(updatedTodo, {
                 where: {
-                    id
+                    id,
+                    UserId
                 },
                 returning: true
             })
@@ -61,19 +77,22 @@ class TodoController {
                 res.status(500).json({ error: 'Internal Server Error'})
             }
         } catch (error) {
-            res.status(400).json({ error: error.errors[0].message })
+            console.log(error)
+            // res.status(400).json({ error: error.errors[0].message })
         }
     }
 
     static async patchTodo(req, res) {
         try {
             const id = +req.params.id
+            const UserId = req.loggedInUser.id
             const status = req.body.status
             const updateTodo = await Todo.update({
                 status
             }, {
                 where: {
-                    id
+                    id,
+                    UserId
                 },
                 returning: true
             })
@@ -94,9 +113,11 @@ class TodoController {
     static async deleteTodo(req, res) {
         try {
             const id = +req.params.id
+            const UserId = req.loggedInUser.id
             const deleteTodo = await Todo.destroy({
                 where: {
-                    id
+                    id,
+                    UserId
                 }
             })
             if (deleteTodo) {

@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Todo.belongsTo(models.User, {
+        foreignKey: 'UserId'
+      })
     }
   };
   Todo.init({
@@ -34,6 +37,15 @@ module.exports = (sequelize, DataTypes) => {
         isAfter: {
           args: `${new Date()}`,
           msg: 'Date must be greater than present'
+        }
+      },
+      UserId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: 'UserId cannot be blank'
+          }
         }
       }
     }
