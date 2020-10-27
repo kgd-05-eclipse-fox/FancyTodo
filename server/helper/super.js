@@ -34,6 +34,12 @@ class Super {
         return token
     }
 
+    static cekToken(data){
+        var decoded = jwt.verify(data, process.env.RAHASIA);
+        return decoded
+        // console.log(decoded.foo)
+    }
+
 }
 
 module.exports = Super
