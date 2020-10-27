@@ -1,7 +1,6 @@
 const errStatusJoin = require('../helpers/errStatus')
 
 module.exports = (err, req, res, next) => {
-    console.log(err);
     const errName = err.name
     const errErrors = err.errors
 
