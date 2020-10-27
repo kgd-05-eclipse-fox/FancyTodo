@@ -1,6 +1,7 @@
 const errStatusJoin = require('../helpers/errStatus')
 
 module.exports = (err, req, res, next) => {
+    console.log(err);
     const errName = err.name
     const errErrors = err.errors
 
@@ -12,6 +13,7 @@ module.exports = (err, req, res, next) => {
     const loginErr = `User Not Found`
     const unauthorizedErr = `Unauthorized`
     const unknownTodo = `Todo doesn't exist`
+    const failedGetWeather = `Failed to fetch Weather from Server`
 
     let message = 'Internal Server Error'
     let status = 500
@@ -40,6 +42,11 @@ module.exports = (err, req, res, next) => {
         case unknownTodo:
             message = unknownTodo
             status = 404
+            break
+
+        case failedGetWeather:
+            message = failedGetWeather
+            status = 500
             break
     }
 
