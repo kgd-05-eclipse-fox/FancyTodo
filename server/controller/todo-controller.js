@@ -3,6 +3,7 @@ const { Todo } = require('../models')
 class TodoController {
 
     static async addTodo(req, res) {
+        console.log(req.loggedInUser)
         const UserId = req.loggedInUser.id
         try {
             const newTodo = req.body
