@@ -3,7 +3,7 @@ const { hashedPassword } = require('../helpers/bcrypt')
 const { signToken } = require('../helpers/jwt')
 
 class UserController {
-    static register(req,res) {
+    static register(req,res,next) {
         const value = {
             email: req.body.email,
             password: req.body.password
@@ -15,12 +15,12 @@ class UserController {
                 email: user.email
             })
         }).catch((err) => {
-            res.status(500).json(err)
+            next(err)
         });
 
     }
 
-    static login(req,res) {
+    static login(req,res, next) {
         const payload = {
             email: req.body.email,
             password: req.body.password
@@ -32,13 +32,12 @@ class UserController {
         })
         .then((user) => {
             if (!user) { //if user is not found
-                res.status(401).json({
-                    message:"invalid email/password"})
+                throw {msg: "invalid email/password", status: 401}
             } else if (!hashedPassword(payload.password, user.password)) { //compare password fail
-                res.status(401).json({
-                    message:"invalid email/password"})
+                throw {msg: "invalid email/password", status: 401}
             } else {
                 const access_token = signToken({
+                    id: user.id,
                     email: user.email
                 })
                 res.status(201).json({
@@ -46,7 +45,7 @@ class UserController {
                 })
             }
         }).catch((err) => {
-            res.status(500).json(err)
+            next(err)
         });
         
     }

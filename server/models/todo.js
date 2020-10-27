@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Todo.belongsTo(models.User);
     }
   };
   Todo.init({
@@ -19,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: "Title can't be null/empty"
+          msg: "Title can't be empty"
         }
       } 
     },
@@ -28,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: "Description can't be null/empty"
+          msg: "Description can't be empty"
         }
       }
     },
@@ -37,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: "Status can't be null/empty"
+          msg: "Status can't be empty"
         }
       }
     },
@@ -50,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           args: true,
-          msg: "Due date can't be null/empty"
+          msg: "Due date can't be empty"
         },
         validatingDate(tomorrow) {
           const date = tomorrow > new Date()
@@ -59,7 +60,8 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       }
-    }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Todo',
