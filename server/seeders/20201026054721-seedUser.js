@@ -1,6 +1,6 @@
 'use strict';
 
-let users = require('../json/user.json')
+const users = require('../json/user.json')
 
 users.forEach( user => {
   user.updatedAt = new Date()

@@ -1,17 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
+const userRouter = require('./userRouter')
 const todoRouter = require('./todoRouter')
-const loginRouter = require('./loginRouter')
-const registerRouter = require('./registerRouter')
+
+// * User Router (Login & Register)
+router.use('/', userRouter)
 
 // * Todo Router
 router.use('/todos', todoRouter)
-
-// * Login Router
-router.use('/login', loginRouter)
-
-// * Register Router
-router.use('/register', registerRouter)
 
 module.exports = router

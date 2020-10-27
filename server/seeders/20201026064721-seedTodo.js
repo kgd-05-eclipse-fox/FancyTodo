@@ -1,6 +1,6 @@
 'use strict';
 
-let todos = require('../json/todo.json')
+const todos = require('../json/todo.json')
 
 todos.forEach( todo => {
   todo.updatedAt = new Date()

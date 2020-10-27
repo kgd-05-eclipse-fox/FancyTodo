@@ -12,8 +12,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    email: { type: DataTypes.STRING, validate: { isEmail: { args: true, msg: 'Input harus berupa format Email'} }, unique: { msg: 'Oops.. Email telah digunakan' }},
-    password: { type: DataTypes.STRING, validate: { len: { args: [4, 16], msg: 'Password harus memiliki minimal 4 huruf dan maksimal 16 huruf'} }}
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'Input harus berupa format Email'
+        }
+      },
+      unique: {
+        msg: 'Oops.. Email telah digunakan'
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [4, 16],
+          msg: 'Password harus memiliki minimal 4 huruf dan maksimal 16 huruf'}
+        }
+      }
   }, {
     sequelize,
     modelName: 'User',

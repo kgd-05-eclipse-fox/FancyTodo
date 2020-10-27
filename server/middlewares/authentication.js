@@ -5,7 +5,7 @@ async function authentication (req, res, next) {
     try {
         const access_token = req.headers.access_token
         if (!access_token) {
-            throw { msg: 'Unauthorized', status: 401 }
+            throw { name: 'Unauthorized' }
         } else {
             const user = jwtVerify(access_token)
             const findUser = await User.findOne({ where: { email: user.email }})
@@ -13,11 +13,11 @@ async function authentication (req, res, next) {
                 req.whoIsLoggedIn = user
                 next()
             } else {
-                throw { msg: 'Unauthorized', status: 401 }
+                throw { name: 'Unauthorized' }
             }
         }
     } catch (error) {
-        res.status(error.status).json({ error: error.msg })
+        next(error)
     }
 }
 
