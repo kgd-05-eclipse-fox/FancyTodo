@@ -18,11 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     status: DataTypes.STRING,
-    dueDate: DataTypes.DATE
-    // {
-    //   type: DataTypes.DATE,
-    //   validate: {isBefore: new Date()} 
-    // }
+    dueDate: DataTypes.DATE,
+    UserId: DataTypes.INTEGER
   }, {
     hooks:{
       beforeCreate: (user, Option)=>{

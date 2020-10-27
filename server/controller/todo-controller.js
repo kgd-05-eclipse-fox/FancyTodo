@@ -4,8 +4,9 @@ const Super = require('../helper/super.js')
 class TodoController{
     
     static async getTodo(req, res){
+        console.log('masuk ke controller to do')
         try {
-            let data = await Todo.findAll() 
+            let data = await Todo.findAll()
             res.status(200).json(data)
         } catch (err) {
             res.status(500).json(err)
@@ -14,8 +15,9 @@ class TodoController{
 
     static async postTodo(req, res){
         try {
-            let dataInput = req.body[0]
-
+            let dataInput = req.body
+            dataInput.UserId = +dataInput.UserId
+            let date = new Date()
             let validasiError = Super.validasiPutTodo(dataInput)
             if(validasiError.length>0){
                 res.status(400).json(validasiError) 
@@ -24,7 +26,6 @@ class TodoController{
                 res.status(201).json(data)
             }
         } catch (err) {
-            console.log(err)
             res.status(500).json(err)
         }
     }
@@ -42,12 +43,15 @@ class TodoController{
     static async putTodo(req, res){
         try {
             let id = +req.params.id
-            let dataInput = req.body[0]
+            let dataInput = req.body
             
             let validasiError = Super.validasiPutTodo(dataInput)
             if(validasiError.length>0){
                 res.status(400).json(validasiError)    
             }else{
+                if(!dataInput.status){
+                    dataInput.status = 'not done'
+                }
                 let data = await Todo.update(dataInput, {
                     where: {id}
                 })
@@ -61,7 +65,7 @@ class TodoController{
     static async patchTodo(req, res){
         try {
             let id = +req.params.id
-            let dataInput = req.body[0].status
+            let dataInput = req.body.status
             let data = Todo.findByPk(id)
             data.status = dataInput
             Todo.update(data, {
@@ -72,14 +76,14 @@ class TodoController{
             res.status(500).json(err)
         }
     }
-
+   
     static async deleteTodo(req, res){
         try {
             let id = +req.params.id
-            let data = Todo.destroy({
+            let data = await Todo.destroy({
                 where: {id}
             })
-            if(!data.id){
+            if(data===0){
                 let errMess = {
                     massage: 'Id Tidak ditemukan'
                 }

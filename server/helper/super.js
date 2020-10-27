@@ -6,15 +6,18 @@ class Super {
     static validasiPutTodo(data){
         let dataEror = []
         for(let i in data){
-            if(!data[i]){
-                dataEror.push(`${i} Tidak boleh kosong`)
+            if(i !== 'status'){
+                if(!data[i]){
+                    dataEror.push(`${i} Tidak boleh kosong`)
+                }
             }
         }
+        
         return dataEror
     }
 
     static validasiRegister(data){
-        const salt = bcrypt.genSaltSync(process.env.SALT);
+        const salt = bcrypt.genSaltSync(+process.env.SALT);
         const hash = bcrypt.hashSync(data, salt);
         
         return {

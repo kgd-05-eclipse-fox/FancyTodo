@@ -1,11 +1,11 @@
 const {User} = require('../models')
 const Super = require('../helper/super.js')
-// const bcrypt = require('bcryptjs');
 
 class UserController{
     static async register(req, res){
         try {
             let dataBody =  req.body
+            console.log(dataBody, 'benar' )
             let newData = Super.validasiRegister(dataBody.password)
             let dataUpuser = {
                 email: dataBody.email,
@@ -18,6 +18,7 @@ class UserController{
             }
             res.status(201).json(postData)
         } catch (err) {
+            console.log(err, 'err')
             res.status(400).json(err)
         }
     }
