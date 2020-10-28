@@ -28,7 +28,7 @@ class UserController {
          })
 
          if (!user) {
-            res.status(201).json({
+            res.status(401).json({
                message: 'Wrong email or password'
             })
          } else if (!comparePassword(password, user.password)) {

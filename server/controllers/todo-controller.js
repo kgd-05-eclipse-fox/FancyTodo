@@ -1,26 +1,28 @@
 const { Todo } = require('../models')
 
 class TodoController {
-   static async getTodoHandler (req, res) {
+   static async getTodoHandler (req, res, next) {
       try { 
-         const todos = await Todo.findAll()
+         const todos = await Todo.findAll({
+
+         })
          res.status(200).json(todos)
       } catch (error) {
          res.status(500).json(error)
       }
    }
 
-   static async createTodoHandler (req, res) {
+   static async createTodoHandler (req, res, next) {
       try {
          const newTodo = await Todo.create({
             title: req.body.title,
             description: req.body.description,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            UserId: req.body.UserId
          })
 
          res.status(201).json(newTodo)
       } catch (error) {
-         console.log("TodoController -> createTodoHandler -> error", error)
          if (error.errors) {
             res.status(400).json(error.errors[0].message) 
          } else {
@@ -29,7 +31,7 @@ class TodoController {
       }
    }
 
-   static async getTodoByIdHandler (req, res) {
+   static async getTodoByIdHandler (req, res, next) {
       try {
          const id = +req.params.id
          const todo = await Todo.findByPk(id)
@@ -44,7 +46,7 @@ class TodoController {
       }
    }
 
-   static async updateTodoHandler (req, res) {
+   static async updateTodoHandler (req, res, next) {
       try {
          const { title, description, due_date } = req.body
          const id = +req.params.id
@@ -73,7 +75,7 @@ class TodoController {
       }
    }
 
-   static async patchTodoHandler (req, res) {
+   static async patchTodoHandler (req, res, next) {
       try {
          let id = +req.params.id
          const updated = await Todo.update({
@@ -99,7 +101,7 @@ class TodoController {
       }
    }
 
-   static async deleteTodoHandler (req, res) {
+   static async deleteTodoHandler (req, res, next) {
       try {
          const id = +req.params.id
          const destroy = await Todo.destroy({

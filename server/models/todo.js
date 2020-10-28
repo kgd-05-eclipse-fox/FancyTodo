@@ -1,11 +1,13 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     static associate(models) {
-      Todo.belongsTo(models.User)
+      Todo.belongsTo(models.User, {
+        foreignKey: 'UserId',
+        targetKey: 'id'
+      })
     }
   };
   Todo.init({
@@ -45,6 +47,8 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       }
+    }, UserId: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,
