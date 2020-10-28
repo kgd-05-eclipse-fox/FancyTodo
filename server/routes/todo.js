@@ -8,11 +8,11 @@ routers.use(authentication)
 routers.get('/', TodoController.getTodo)
 routers.post('/', TodoController.postTodo)
 
-routers.use(authorization)
+routers.use('/:id', authorization)
 
 routers.get('/:id', TodoController.getTodoById)
-routers.put('/:id', TodoController.putTodo)
-routers.patch('/:id', TodoController.patchTodo)
-routers.delete('/:id', TodoController.deleteTodo)
+routers.put('/:id',  TodoController.putTodo)
+routers.patch('/:id',  TodoController.patchTodo)
+routers.delete('/:id',  TodoController.deleteTodo)
 
 module.exports = routers

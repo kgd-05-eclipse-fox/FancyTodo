@@ -1,4 +1,5 @@
 module.exports = (err, req, res, next) =>{
+    console.log(err, 'errorhandlerrr')
     let status
     let msg 
     if(!err.cek){

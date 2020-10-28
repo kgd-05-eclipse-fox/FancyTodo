@@ -24,7 +24,7 @@ class TodoController{
                     status: 400,
                     msg: validasiError,
                 }
-                next(error)
+                throw error
             }else{
                 dataInput.UserId = req.key.id
                 let data = await Todo.create(dataInput)
@@ -89,6 +89,7 @@ class TodoController{
    
     static async deleteTodo(req, res, next){
         try {
+            console.log('masuk TODO DElete')
             let id = +req.params.id
             let data = await Todo.destroy({
                 where: {id}

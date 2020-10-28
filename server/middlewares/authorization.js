@@ -2,9 +2,10 @@ const {Todo} = require('../models')
 
 const authorization = async (req, res, next)=>{
     try {
+        console.log('masuk authorization')
         let dataTodo = await Todo.findOne({
             where: {
-                id: +req.params.id
+                id: +req.params.id //+nan
             }
         })
         if(dataTodo.UserId===req.key.id){
