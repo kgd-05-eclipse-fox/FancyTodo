@@ -21,6 +21,7 @@ class ValidasiUser{
         
         return { password: hash }
     }
+    
 }
 
 module.exports = ValidasiUser

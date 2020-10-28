@@ -22,8 +22,18 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER
   }, {
     hooks:{
-      beforeCreate: (user, Option)=>{
+      beforeValidate: (user, Option)=>{
         user.status = 'not done'
+      },
+      beforeCreate: (user, Option)=>{
+        let date = new Date()
+        if(user.dueDate<=date){
+          throw {
+            key: 'error duDate',
+            status: 400,
+            msg: 'Tanggal TODO minimal 1-hari dari hari ini'
+          }
+        }
       }
     },
     sequelize,

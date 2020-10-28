@@ -1,25 +1,16 @@
-abrarnaim24@gmail.com
+abrarnaim@gmail.com
 abrarnaim
-
-nami@gmail.com
-nami
-
-nana@gmail.com
-nana
-
-yuke@gmail.com
-yuke
-
 
 <<==========YANG BELUM DIBUAT==========>>
 1. 3rd party API
-    *User mendapatkan Email yang dibuat
+    *User mendapatkan Email dri TODO yang dibuat
 
 2. Client - HTML CSS jQuery
     *Regis
     *Login
     *Create, Read, Update, Deler TODO
     (Boleh menggunakan Framework) 
+    
 3. Login menggunakan Gmail, faceBook, dll
 
 <<==========REVISI==========>>
