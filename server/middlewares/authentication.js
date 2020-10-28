@@ -1,5 +1,6 @@
-const Super = require('../helper/super.js')
+// const Super = require('../helper/super.js')
 const {User} = require('../models')
+const JWTTokenUser = require('../helper/jwt-helper.js')
 
 const authentication = async (req, res, next)=>{
     // console.log(req.headers)
@@ -8,7 +9,7 @@ const authentication = async (req, res, next)=>{
         if(!token){
             throw({msg: 'invalid token', status: 401})
         }else{
-            let cekToken = Super.cekToken(token)
+            let cekToken = JWTTokenUser.cekToken(token)
             let dataUserDB = await User.findByPk(cekToken.id)
 
             if(!dataUserDB){

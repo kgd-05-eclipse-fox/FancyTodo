@@ -9,3 +9,20 @@ nana
 
 yuke@gmail.com
 yuke
+
+
+<<==========YANG BELUM DIBUAT==========>>
+1. 3rd party API
+    *User mendapatkan Email yang dibuat
+
+2. Client - HTML CSS jQuery
+    *Regis
+    *Login
+    *Create, Read, Update, Deler TODO
+    (Boleh menggunakan Framework) 
+3. Login menggunakan Gmail, faceBook, dll
+
+<<==========REVISI==========>>
+1. perbaiki Password karena masih bisa kosong
+2. Handler dari model dan yang lain di cek kembali semua
+3. 

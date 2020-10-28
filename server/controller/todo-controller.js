@@ -1,5 +1,6 @@
 const {Todo} = require ('../models')
-const Super = require('../helper/super.js')
+const ValidasiUser = require('../helper/validasi-user-helper.js')
+// const Super = require('../helper/super.js')
 
 class TodoController{
     
@@ -17,7 +18,7 @@ class TodoController{
     static async postTodo(req, res, next){
         try {
             let dataInput = req.body
-            let validasiError = Super.validasiPutTodo(dataInput)
+            let validasiError = ValidasiUser.validasiPutTodo(dataInput)
             if(validasiError.length>0){
                 let error ={
                     cek: 'postTodo',
@@ -50,7 +51,7 @@ class TodoController{
             let id = +req.params.id
             let dataInput = req.body
             
-            let validasiError = Super.validasiPutTodo(dataInput)
+            let validasiError = ValidasiUser.validasiPutTodo(dataInput)
             if(validasiError.length>0){
                 let error ={
                     cek: 'postTodo',
