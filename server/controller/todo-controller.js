@@ -2,28 +2,24 @@ const { Todo } = require('../models')
 
 class TodoController {
 
-    static async addTodo(req, res) {
+    static async addTodo(req, res, next) {
         console.log(req.loggedInUser)
         const UserId = req.loggedInUser.id
         try {
-            const newTodo = req.body
-            newTodo.UserId = UserId
-            const create = await Todo.create(newTodo)
+            const payLoad = {
+                title: req.body.title,
+                description: req.body.description,
+                due_date: req.body.due_date,
+                UserId
+            }
+            const create = await Todo.create(payLoad)
             res.status(201).json(create.dataValues)
         } catch (error) {
-            const err = []
-            error.errors.forEach(element => {
-                err.push(element.message)
-            });
-            if (typeof error.errors[0].message == 'string') {
-                res.status(400).json({ error: err.join(',') })
-            } else {
-                res.status(500).json({ error: 'Internal Server Error'})
-            }
+            next(error)
         }
     }
 
-    static async showAllTodoList(req, res) {
+    static async showAllTodoList(req, res, next) {
         const UserId = req.loggedInUser.id
         try {
             const showAll = await Todo.findAll({
@@ -34,11 +30,11 @@ class TodoController {
             })
             res.status(200).json(showAll)
         } catch (error) {
-            res.status(500).json({ error: 'Internal Server Error' })
+            next(error)
         }
     }
 
-    static async getTodoById(req, res) {
+    static async getTodoById(req, res, next) {
         try {
             const id = +req.params.id
             const UserId = req.loggedInUser.id
@@ -54,17 +50,18 @@ class TodoController {
                 res.status(404).json({ error: 'Todo not found'})
             }
         } catch (error) {
-            res.status(500).json({ error: 'Internal Server Error!'})
+            next(error)
         }
     }
 
-    static async putTodo(req, res) {
+    static async putTodo(req, res, next) {
         try {
             const id = +req.params.id
             const UserId = req.loggedInUser.id
-            console.log(id)
-            const updatedTodo = req.body
-            console.log(updatedTodo)
+            const payLoad = {
+                title: req.body.title,
+                description: req.body.description
+            }
             const updateTodo = await Todo.update(updatedTodo, {
                 where: {
                     id,
@@ -78,12 +75,11 @@ class TodoController {
                 res.status(500).json({ error: 'Internal Server Error'})
             }
         } catch (error) {
-            console.log(error)
-            // res.status(400).json({ error: error.errors[0].message })
+            next(error)
         }
     }
 
-    static async patchTodo(req, res) {
+    static async patchTodo(req, res, next) {
         try {
             const id = +req.params.id
             const UserId = req.loggedInUser.id
@@ -103,15 +99,11 @@ class TodoController {
                 res.status(200).json(updateTodo[1][0])
             }
         } catch (error) {
-            if (error.errors[0].message === undefined) {
-                res.status(500).json({ error: "500 Internal Server Error" })
-            } else {
-                res.status(400).json({ error: 'Should be true or false' })
-            }
+            next(error)
         }
     }
 
-    static async deleteTodo(req, res) {
+    static async deleteTodo(req, res, next) {
         try {
             const id = +req.params.id
             const UserId = req.loggedInUser.id
@@ -127,7 +119,7 @@ class TodoController {
                 res.status(404).json({ error: 'todo not found' })
             }
         } catch (error) {
-            res.status(500).json({ error: '500 Internal Server Error'})
+            next(error)
         }
     }
 }

@@ -2,6 +2,7 @@ const router = require('express').Router()
 const TodoController = require('../controller/todo-controller')
 const { authentication } = require('../middlewares/authentication')
 const { authorization } = require('../middlewares/authorization')
+const { errorHandler } = require('../middlewares/errorhandler')
 
 router.use(authentication)
 router.get('/', TodoController.showAllTodoList)

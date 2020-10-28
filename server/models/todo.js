@@ -19,13 +19,22 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         notEmpty: {
           msg: 'Please enter title'
         }
       }
     },
-    description: DataTypes.STRING,
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Description cannot be blank'
+        }
+      }
+    },
     status: DataTypes.BOOLEAN,
     due_date: {
       type: DataTypes.DATE,
@@ -34,9 +43,15 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: 'Date cannot be blank'
         },
-        isAfter: {
-          args: `${new Date()}`,
-          msg: 'Date must be greater than present'
+        isDate: {
+          args: true,
+          msg: 'Must be in date format'
+        },
+        getNow(value) {
+          const now = new Date()
+          if (now >= value) {
+            throw new Error('Due date should be greater than now')
+          }
         }
       },
       UserId: {

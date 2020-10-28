@@ -11,9 +11,7 @@ class UserController {
                 id: createNewUser.id,
                 email: createNewUser.email
             })
-            console.log(createNewUser)
         } catch (error) {
-            console.log(error)
             const err = []
             error.errors.forEach(element => {
                 err.push(element.message)
