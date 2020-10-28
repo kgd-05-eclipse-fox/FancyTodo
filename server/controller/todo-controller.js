@@ -57,7 +57,7 @@ class TodoController{
                     status: 400,
                     msg: validasiError,
                 }
-                next(error)    
+                throw error   
             }else{
                 if(!dataInput.status){
                     dataInput.status = 'not done'
@@ -95,10 +95,12 @@ class TodoController{
                 where: {id}
             })
             if(data===0){
-                let errMess = {
-                    massage: 'Id Tidak ditemukan'
+                let error = {
+                    key: 'deletToDo',
+                    status: 400,
+                    msg: 'Id Tidak ditemukan'
                 }
-                res.status(400).json(errMess)
+                throw error
             }else{
                 let output = {
                     massage: 'todo succes to delete'

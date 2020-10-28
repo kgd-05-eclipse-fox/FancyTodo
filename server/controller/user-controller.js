@@ -2,7 +2,7 @@ const {User} = require('../models')
 const Super = require('../helper/super.js')
 
 class UserController{
-    static async register(req, res){
+    static async register(req, res, next){
         try {
             let dataBody =  req.body
             console.log(dataBody, 'benar' )
@@ -18,21 +18,30 @@ class UserController{
             }
             res.status(201).json(postData)
         } catch (err) {
-            console.log(err, 'err')
-            res.status(400).json(err)
+            next(err)
         }
     }
 
-    static async login(req, res){
+    static async login(req, res, next){
         try {
             let dataBody = req.body
             let dataBaseUsers = await User.findOne({
                 where: {email: dataBody.email}
             })
             if(!dataBaseUsers){
-                res.status(401).json({error: 'Email atau Password anda tidak Valid 1'})
+                let error ={
+                    key: 'Email salah',
+                    status: 401,
+                    msg: 'Email atau Password anda tidak Valid 1'
+                }
+                throw error
             }else if(!Super.validasiLoginUser(dataBody.password, dataBaseUsers.password)){
-                res.status(401).json({error: 'Email atau Password anda tidak Valid 2'})
+                let error = {
+                    key: 'password salah',
+                    status: 401,
+                    msg: 'Email atau Password anda tidak Valid 2'
+                }
+                throw error
             }else{
                 let dataUser = {
                     id: dataBaseUsers.id,
@@ -43,7 +52,7 @@ class UserController{
                 res.status(200).json(dataUser)
             }
         } catch (err) {
-            res.status(400).json(err)
+            next(err)
         }
     }
 }
