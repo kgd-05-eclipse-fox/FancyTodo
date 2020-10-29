@@ -7,7 +7,7 @@ class JWTTokenUser{
     }
     
     static cekToken(data){
-        var decoded = jwt.verify(data, process.env.RAHASIA);
+        const decoded = jwt.verify(data, process.env.RAHASIA);
         return decoded
     }
 }

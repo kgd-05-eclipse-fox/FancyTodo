@@ -7,7 +7,6 @@ class UserController{
     static async register(req, res, next){
         try {
             let dataBody =  req.body
-            console.log(dataBody, 'benar' )
             let newData = BcryptValidasiUser.validasiRegister(dataBody.password)
             let dataUpuser = {
                 email: dataBody.email,
