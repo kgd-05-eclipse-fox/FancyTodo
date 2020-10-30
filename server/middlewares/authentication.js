@@ -3,7 +3,7 @@ const {User} = require('../models')
 const JWTTokenUser = require('../helper/jwt-helper.js')
 
 const authentication = async (req, res, next)=>{
-    // console.log(req.headers)
+    console.log('masuk authentication ====>>>>>>>>>>>>>>>>>.')
     let token = req.headers.token
     try {
         if(!token){

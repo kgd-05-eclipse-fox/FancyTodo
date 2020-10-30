@@ -32,6 +32,7 @@ class TodoController{
                 res.status(201).json(data)
             }
         } catch (err) {
+            console.log('masuk eror controller ===========>>>>>')
             next(err)
         }
     }
