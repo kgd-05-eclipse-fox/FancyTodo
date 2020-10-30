@@ -20,55 +20,121 @@
 <!---------------------------------------------------------------------------------->
  
 
-<div class="container">
-  <!--form LogIn-->
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Sign In</h3>
-				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
+<div id="login-page" class="container">
+	<!--Halaman Login-->
+  	<!--form LogIn-->
+	  <div class="d-flex justify-content-center h-100">
+		  <div class="card">
+			  <div class="card-header">
+				  <h3>Sign In</h3>
+				  <div class="d-flex justify-content-end social_icon">
+					  <span><i class="fab fa-facebook-square"></i></span>
+					  <span><i class="fab fa-google-plus-square"></i></span>
+					  <span><i class="fab fa-twitter-square"></i></span>
+				  </div>
+			  </div>
+			  <div class="card-body">
+  
+				  <!--Form login-->
+				  <form onsubmit="userLogin(event)">
+					  <div class="input-group form-group">
+						  <div class="input-group-prepend">
+							  <span class="input-group-text"><i class="fas fa-user"></i></span>
+						  </div>
+							  <!--Email-->
+						  <input type="email" id="login-email" class="form-control" placeholder="Email">
+						  
+					  </div>
+					  <div class="input-group form-group">
+						  <div class="input-group-prepend">
+							  <span class="input-group-text"><i class="fas fa-key"></i></span>
+							 </div>
+							  <!--password-->
+						  <input type="password" id="login-password" class="form-control" placeholder="password">
+					  </div>
+					  <div class="row align-items-center remember">
+						  <input type="checkbox">Remember Me
+					  </div>
+					  <div class="form-group">
+							  <!--btn submit-->
+						  <input type="submit" value="Login" class="btn float-right login_btn">
+					  </div>
+				  </form>
+				  <!--END Form Login-->
+  
+			  </div>
+			  <div class="card-footer">
+				  <div class="d-flex justify-content-center links">
+						<!--register-->
+					  Don't have an account?<a href="#">Sign Up</a>
+				  </div>
+				  <div class="d-flex justify-content-center">
+						<!--last options-->
+					  <a href="#">Forgot your password?</a>
+				  </div>
 				</div>
-			</div>
-			<div class="card-body">
-				<form>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-            </div>
-            <!--Email-->
-						<input type="text" class="form-control" placeholder="Email">
-						
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-            </div>
-            <!--password-->
-						<input type="password" class="form-control" placeholder="password">
-					</div>
-					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Login" class="btn float-right login_btn">
-					</div>
-				</form>
-			</div>
-			<div class="card-footer">
-				<div class="d-flex justify-content-center links">
-          <!--register-->
-					Don't have an account?<a href="#">Sign Up</a>
-				</div>
-				<div class="d-flex justify-content-center">
-          <!--last options-->
-					<a href="#">Forgot your password?</a>
-				</div>
-      </div>
+		  </div>
+	  </div>
+	<!--END Halaman Login-->
+</div>
+
+<!------------------------------------------------------------------------------->
+
+<div id="singup-page" class="container">
+	<!--Halaman singup-->
+  	<!--form singup-->
+	  <div class="d-flex justify-content-center h-100">
+		  <div class="card">
+			  <div class="card-header">
+				  <h3>Sign Up</h3>
+			  </div>
+			  <div class="card-body">
+  
+				  <!--Form singup-->
+				  <form onsubmit="userSinUp(event)">
+					  <div class="input-group form-group">
+						  <div class="input-group-prepend">
+							  <span class="input-group-text"><i class="fas fa-user"></i></span>
+						  </div>
+							  <!--Email-->
+						  <input type="email" id="regis-email" class="form-control" placeholder="Email">
+						  
+					  </div>
+					  <div class="input-group form-group">
+						  <div class="input-group-prepend">
+							  <span class="input-group-text"><i class="fas fa-key"></i></span>
+							 </div>
+							  <!--password-->
+						  <input type="password" id="resgis-password" class="form-control" placeholder="password">
+					  </div>
+					  <div class="form-group">
+							  <!--btn submit-->
+						  <input type="submit" value="Sing Up" class="btn float-right login_btn">
+					  </div>
+				  </form>
+				  <!--END Form singup-->
+  
+			  </div>
+		  </div>
+	  </div>
+	<!--END Halaman singup-->
+</div>
+
+<!------------------------------------------------------------------------------->
+<div  id="content-page" class="container">
+	<!--Halama Home-->
+	<section class="container-fluid">
+		<div>
+			<h1>INI HOME</h1>
 		</div>
-	</div>
+		<div>
+			<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur dignissimos eligendi reiciendis aperiam, optio velit veniam, eveniet cum inventore rem vero amet facilis officiis distinctio nulla! Cum itaque facilis nobis?</p>
+		</div>
+		<div>
+			<button id="btn-logout" class="btn btn-danger">Logout</button>
+		</div>
+	</section>
+	<!--END Halaman Home-->
 </div>
 
 
