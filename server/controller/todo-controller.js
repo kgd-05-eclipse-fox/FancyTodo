@@ -17,6 +17,7 @@ class TodoController{
 
     static async postTodo(req, res, next){
         try {
+            console.log(req.body)
             let dataInput = req.body
             let validasiError = ValidasiUser.validasiPutTodo(dataInput)
             if(validasiError.length>0){
@@ -28,6 +29,7 @@ class TodoController{
                 throw error
             }else{
                 dataInput.UserId = req.key.id
+                console.log(new Date().toString().split('-'))
                 let data = await Todo.create(dataInput)
                 res.status(201).json(data)
             }
