@@ -1,7 +1,3 @@
-const convertUNIXDateToISODate = date => {
-    return date * 1000
-}
-
 const convertISOtoDate = date => {
     year = date.getFullYear()
     month = date.getMonth()+1
@@ -14,4 +10,4 @@ const convertISOtoDate = date => {
     return year+'-' + month + '-'+dt
 }
 
-module.exports = { convertUNIXDateToISODate ,convertISOtoDate }
+module.exports = convertISOtoDate
