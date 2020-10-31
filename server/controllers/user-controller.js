@@ -1,6 +1,6 @@
 const { User } = require('../models')
-const { verifyPassword } = require('../helpers/bcrypt-superman')
-const { jwtSign } = require('../helpers/jwt-batman')
+const { verifyPassword } = require('../helpers/bcrypt')
+const { jwtSign } = require('../helpers/jwt')
 
 class UserController {
     static async postUserRegister(req, res, next) {
@@ -18,6 +18,8 @@ class UserController {
             const email = req.body.email
             const password = req.body.password
 
+            if (!email || !password) throw { name: 'Email atau Password tidak boleh kosong'}
+
             const user = await User.findOne({ where: { email }})
             
             if (user) {
@@ -28,10 +30,10 @@ class UserController {
 
                     res.status(200).json({ access_token })
                 } else {
-                    throw { name: 'User Not Found' }
+                    throw { name: 'Email atau Password salah' }
                 }
             } else {
-                throw { name: 'User Not Found' }
+                throw { name: 'Email atau Password salah' }
             }
         } catch (error) {
             next(error)

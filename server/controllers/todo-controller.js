@@ -1,6 +1,6 @@
-const { Todo, User } = require('../models')
+const { Todo } = require('../models')
 const convertPayload = require('../helpers/convertPayload')
-const checkWeatherByIp = require('../helpers/ipapi-weather')
+const checkWeatherByUserLocation = require('../helpers/get-weather')
 
 class Controller {
 
@@ -23,9 +23,10 @@ class Controller {
     static async getAllTodos(req, res, next) {
         try {
             const whoIsLoggedIn = req.whoIsLoggedIn
+            const userlocation = req.userLocation
 
             const todos = await Todo.findAll({ where: { UserId: whoIsLoggedIn.id }})
-            const todayWeather = await checkWeatherByIp
+            const todayWeather = await checkWeatherByUserLocation(userlocation)
 
             res.status(200).json({ todos, todayWeather }) // * Returns All Todos + Today Weather ^^
         } catch (err) {

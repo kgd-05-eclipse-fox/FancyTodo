@@ -1,11 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./logo.png">
+
+    <title>FancyTodo</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <!-- Custom styles -->
+    <link href="./css/style.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/8486729974.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body class="text-center" style="background-color: white;">
+
+    <!-- * Login Register Section -->
+    <div class="login">
+      <div class="container" id="container">
+        <div class="form-container sign-up-container">
+          <form class="login-template-xd">
+            <h1 class="login-template-xd">Daftar Akun</h1>
+            <div class="social-container">
+              <!-- <a class="login-template-xd" href="/" class="social"><i class="fab fa-facebook-f"></i></a> -->
+              <a class="login-template-xd" href="/" class="social"><i class="fab fa-google-plus-g"></i></a>
+              <a class="login-template-xd" href="/" class="social"><i class="fab fa-github"></i></a>
+            </div>
+            <span class="login-template-xd">atau gunakan email kamu untuk daftar</span>
+            <input class="login-template-xd" id="register-email" type="email" placeholder="Email" />
+            <input class="login-template-xd" id="register-password" type="password" placeholder="Password" />
+            <button class="login-template-xd" id="register-btn">Daftar</button>
+          </form>
+        </div>
+        <div class="form-container sign-in-container">
+          <form class="login-template-xd">
+            <h1 class="login-template-xd">Masuk FancyTodo</h1>
+            <div class="social-container">
+              <!-- <a class="login-template-xd" href="/" class="social"><i class="fab fa-facebook-f"></i></a> -->
+              <a class="login-template-xd" href="/" class="social"><i class="fab fa-google-plus-g"></i></a>
+              <a class="login-template-xd" href="/" class="social"><i class="fab fa-github"></i></a>
+            </div>
+            <span class="login-template-xd">atau login dengan akun kamu</span>
+            <input class="login-template-xd" id="login-email" type="email" placeholder="Email address" />
+            <input class="login-template-xd" id="login-password" type="password" placeholder="Password" />
+            <button class="login-template-xd" id="login-btn">Masuk</button>
+          </form>
+        </div>
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <h1 class="login-template-xd">Haloo!</h1>
+              <p class="login-template-xd">Kamu udah punya akun?</p>
+              <button class="ghost login-template-xd" id="signIn">Masuk</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+              <h1 class="login-template-xd">Hey Kamu!</h1>
+              <p class="login-template-xd">Iya kamu, belum punya akun?</p>
+              <button class="ghost login-template-xd" id="signUp">Daftar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- * End Login Register Section -->
+
+    <!-- ! ==================================== Home Section (On Progress) ==================================== -->
+    <div class="home">
+      <!-- Bootstrap Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">
+          <img src="./logo.png" width="30" height="30" alt="">
+        </a>
+        <a class="navbar-brand" href="/">Fancy Todo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/" id="go-home">Home <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+          <button class="btn btn-outline-danger my-2 my-sm-0" id="logout">Logout</button>
+        </div>
+      </nav>
+      <!-- End Of Bootstrap Navbar -->
+      <h2>Hello There!</h2>
+      <div class="weather"></div>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>@twitter</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="data"></div>
+    </div>
+    <!-- * End Home Section -->
+
+    <!-- Loading Animation -->
+    <div class="loader-wrapper">
+        <span class="loader"><span class="loader-inner"></span></span>
+    </div>
+    <!-- End Loading Animation -->
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="./js/home.js"></script>
+    <script src="./js/loginregister.js"></script>
+    <script src="./index.js"></script>
+    <!-- End Scripts -->
+  </body>
 </html>

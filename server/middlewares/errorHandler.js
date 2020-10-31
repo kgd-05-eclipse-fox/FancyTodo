@@ -9,7 +9,8 @@ module.exports = (err, req, res, next) => {
     const validationErr = `SequelizeValidationError`
 
     // * Custom Error Message
-    const loginErr = `User Not Found`
+    const loginErr = `Email atau Password salah`
+    const emptyLogin = `Email atau Password tidak boleh kosong`
     const unauthorizedErr = `Unauthorized`
     const unknownTodo = `Todo doesn't exist`
     const failedGetWeather = `Failed to fetch Weather from Server`
@@ -30,6 +31,11 @@ module.exports = (err, req, res, next) => {
 
         case loginErr:
             message = loginErr
+            status = 400
+            break
+        
+        case emptyLogin:
+            message = emptyLogin
             status = 400
             break
 
