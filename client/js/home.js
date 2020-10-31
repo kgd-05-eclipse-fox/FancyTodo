@@ -32,8 +32,8 @@ const fetchTodo = _ => {
                 const weather = `
                 <img src="${todayWeather.icon}" />
                 <p>
-                    You are currently in ${todayWeather.location}</br>
-                    Current Weather is ${todayWeather.weather} with temperature ${todayWeather.temperature.temp} Degree
+                    You are currently in <b>${todayWeather.location}</b></br>
+                    Current Weather is ${todayWeather.weather} with temperature <b>${todayWeather.temperature.temp} Celcius</b>
                 </p>
                 `
                 $('.weather').append(weather)
