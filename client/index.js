@@ -27,7 +27,7 @@ $(document).ready( () => {
 // * Route
 const showLoginRegister = _ => {
     $(".loader-wrapper").hide()
-    $('.login').show()
+    $('.loginregister').show()
     $('.home').hide()
     login()
     getLocation()
@@ -35,8 +35,8 @@ const showLoginRegister = _ => {
 
 const showHome = _ => {
     $('.loader-wrapper').show()
+    $('.loginregister').hide()
     $('.home').show()
-    $('.login').hide()
     fetchTodo()
 }
 

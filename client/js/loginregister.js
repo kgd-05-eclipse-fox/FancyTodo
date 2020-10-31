@@ -1,4 +1,16 @@
 const login = _ => {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: toast => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
     // * Masuk Button @ form.login
     $('#login-btn').on('click', e => {
         e.preventDefault()
@@ -13,6 +25,11 @@ const login = _ => {
             .done(res => {
                 const access_token = res.access_token
                 localStorage.setItem('access_token', access_token)
+                Toast.fire({
+                    icon: 'success',
+                    title: `Haloo ${email}`,
+                    text: 'Kamu berhasil login!'
+                })
                 showHome()
                 // Hapus bekas form login
                 $('#login-email').val('')
@@ -20,11 +37,10 @@ const login = _ => {
             })
             .fail(err => {
                 let errormessage = err.responseJSON.msg
-                swal({
+                Swal.fire({
                     title: `Oops...`,
                     text: `${errormessage}`,
-                    icon: 'error',
-                    dangerMode: true
+                    icon: 'error'
                 })
             })
     
@@ -43,7 +59,7 @@ const login = _ => {
             .done(res => {
                 $('#register-email').val('')
                 $('#register-password').val('')
-                swal({
+                Swal.fire({
                     title: `Yay Berhasil!`,
                     text: `Kamu berhasil daftar! Yuk login~`,
                     icon: 'success'
@@ -53,15 +69,11 @@ const login = _ => {
                     })
             })
             .fail(err => {
-                let newerrormessage = ''
-                err.responseJSON.msg.split(',').forEach( error => {
-                    newerrormessage += `* ${error}\n\n`
-                })
-                swal({
+                const newerrormessage = err.responseJSON.msg
+                Swal.fire({
                     title: `Oops...`,
-                    text: `${newerrormessage}`,
-                    icon: 'error',
-                    dangerMode: true
+                    html: `${newerrormessage}`,
+                    icon: 'error'
                 })
             })
     })

@@ -1,6 +1,18 @@
 const fetchTodo = _ => {
     const access_token = localStorage.getItem('access_token')
     const userlocation = localStorage.getItem('userlocation')
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: toast => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
     
     $.ajax({
         method: 'GET',
@@ -34,35 +46,38 @@ const fetchTodo = _ => {
                 })
         })
         .fail(err => {
-            console.log(err);
-            swal({
+            Swal.fire({
                 title: `${err.statusText}`,
                 text: `${err.responseJSON.msg}\nStatus Code: ${err.status}`,
                 icon: 'error'
             })
         })
 
-    $('#go-home').on('click', e => {
+    $('.go-home').on('click', e => {
         e.preventDefault()
+        console.log('kepencet');
         showHome()
     })
 
     $('#logout').on('click', e => {
-        swal({
-            title: 'Tunggu',
+        Swal.fire({
+            title: 'Sebentar',
             text: 'Kamu yakin mau keluar?',
-            icon: 'warning',
-            buttons: ['Nggak jadi', 'Keluar'],
-            dangerMode: true
+            icon: 'question',
+            allowOutsideClick: false,
+            showCancelButton: true,
+            focusCancel: true,
+            reverseButtons: true,
+            confirmButtonText: 'Keluar',
+            cancelButtonText: 'Nggak jadi'
         })
-            .then( keluar => {
-                if (keluar) {
+            .then( button => {
+                if (button.isConfirmed) {
                     showLoginRegister()
                     localStorage.removeItem('access_token')
-                    swal({
-                        title: 'Sampai Jumpa!',
-                        text: 'Kamu berhasil keluar',
-                        icon: 'success'
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Berhasil Keluar'
                     })
                     // localStorage.removeItem('userlocation') // * Ga perlu karena suatu saat user bisa login lagi
                 }
