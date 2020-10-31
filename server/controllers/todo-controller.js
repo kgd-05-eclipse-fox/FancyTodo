@@ -26,8 +26,10 @@ class Controller {
             const whoIsLoggedIn = req.whoIsLoggedIn
             const userlocation = req.userLocation
 
-            const findTodos = await Todo.findAll({ where: { UserId: whoIsLoggedIn.id }})
+            const findTodos = await Todo.findAll({ where: { UserId: whoIsLoggedIn.id }, order: [['due_date', 'ASC']]})
             const todayWeather = await checkWeatherByUserLocation(userlocation)
+            todayWeather.temperature.temp = (todayWeather.temperature.temp - 273.15).toFixed(1)
+            
             const todos = []
             findTodos.forEach( todo => {
                 todo.dataValues.due_date = convertISOtoDate(todo.dataValues.due_date)
