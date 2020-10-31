@@ -24,7 +24,7 @@ const fetchTodo = _ => {
     })
         .done(data => {
             $('.weather').empty()
-            $('.data').empty()
+            $('#todos-tabledata').empty()
             new Promise( res => {
                 const todayWeather = data.todayWeather
                 const todos = data.todos
@@ -37,7 +37,40 @@ const fetchTodo = _ => {
                 $('.weather').append(weather)
                 
                 todos.forEach( todo => {
-                    $('.data').append(`${todo.id}, ${todo.title}, ${todo.description}, ${todo.status}`)
+                    let todostatus = todo.status
+                    if (todostatus) {
+                        todostatus = `
+                        <span class="badge badge-dot">
+                            <i class="bg-info"></i> Done
+                        </span>
+                        `
+                    } else {
+                        todostatus = `
+                        <span class="badge badge-dot mr-4">
+                            <i class="bg-warning"></i> Pending
+                        </span>
+                        `
+                    }
+                    $('#todos-tabledata').append(`
+                    <tr>
+                        <th scope="row">
+                          <div class="media align-items-center">
+                            <div class="media-body">
+                              <span class="mb-0 text-sm">${todo.title}</span>
+                            </div>
+                          </div>
+                        </th>
+                        <td>${todo.description}</td>
+                        <td>${todo.due_date}</td>
+                        <td>${todostatus}</td>
+                        <td class="text-right"> 
+                          <button type="button" onclick="editTodo(${todo.id}, '${todo.title}', '${todo.description}', '${todo.due_date}')" class="edit-todo btn btn-primary">Edit</button>
+                          <button type="button" class="markdone-todo btn btn-success">Mark Done</button>
+                          <button type="button" onclick="deleteTodo(${todo.id})" class="delete-todo btn btn-danger">Delete</button>
+                        </td>
+                      </tr>
+                    `) // ! FIX todo.due_date ON SERVER!!! CANNOT GET IN EDIT!
+                    // ${todo.id}, ${todo.title}, ${todo.description}, ${todo.status}
                 })
                 res()
             })
@@ -46,6 +79,9 @@ const fetchTodo = _ => {
                 })
         })
         .fail(err => {
+            $('.loader-wrapper').fadeOut('slow')
+            localStorage.removeItem('access_token')
+            showLoginRegister()
             Swal.fire({
                 title: `${err.statusText}`,
                 text: `${err.responseJSON.msg}\nStatus Code: ${err.status}`,
@@ -60,6 +96,7 @@ const fetchTodo = _ => {
     })
 
     $('#logout').on('click', e => {
+        e.preventDefault()
         Swal.fire({
             title: 'Sebentar',
             text: 'Kamu yakin mau keluar?',

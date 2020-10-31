@@ -70,9 +70,8 @@
     </div>
     <!-- * End Login Register Section -->
 
-    <!-- ! ==================================== Home Section (On Progress) ==================================== -->
     <div class="home">
-      <!-- Bootstrap Navbar -->
+      <!-- * ============================== Bootstrap Navbar ============================== -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="go-home navbar-brand" href="/">
           <img src="./logo.png" width="30" height="30" alt="">
@@ -91,40 +90,41 @@
           <button class="btn btn-outline-danger my-2 my-sm-0" id="logout">Keluar</button>
         </div>
       </nav>
-      <!-- End Of Bootstrap Navbar -->
-      <h2>Hello There!</h2>
-      <div class="weather"></div>
-      <hr>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- * ============================== End Of Bootstrap Navbar ============================== -->
+
+      <!-- ! ==================================== Home Section (On Progress) ==================================== -->
+      <div class="main-content" style="margin-top: 50px;">
+        <div class="weather" style="margin-bottom: 50px;"></div>
+        <div class="containerhome">
+          <!-- Table -->
+            <div class="col">
+              <div class="card shadow">
+                <div class="card-header border-0">
+                  <h3 class="mb-0">List Todo</h3>
+                </div>
+                <div class="table-responsive">
+                  <table class="table align-items-center table-flush">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Todo</th>
+                        <th scope="col">Deskripsi</th>
+                        <th scope="col">Batas Tanggal</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <!-- * Starts Append From jQuery -->
+                    <tbody id="todos-tabledata"></tbody>
+                    <!-- * End of Append From jQuery -->
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- ! ==================================== End of Home Section (On Progress) ==================================== -->
+
       <div class="data"></div>
     </div>
     <!-- * End Home Section -->
