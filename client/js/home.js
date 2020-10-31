@@ -24,7 +24,8 @@ const fetchTodo = _ => {
     })
         .done(data => {
             $('.weather').empty()
-            $('#todos-tabledata').empty()
+            $('#todos-pending').empty()
+            $('#todos-finished').empty()
             new Promise( res => {
                 const todayWeather = data.todayWeather
                 const todos = data.todos
@@ -35,41 +36,58 @@ const fetchTodo = _ => {
                 </p>
                 `
                 $('.weather').append(weather)
-                
                 todos.forEach( todo => {
                     let todostatus = todo.status
-                    if (todostatus) {
-                        todostatus = `
-                        <span class="badge badge-dot">
-                            <i class="bg-info"></i> Done
-                        </span>
-                        `
+                    if (!todostatus) {
+                        $('#todos-pending').append(`
+                        <tr>
+                            <th scope="row">${todo.id}</th>
+                            <th scope="row">
+                              <div class="media align-items-center">
+                                <div class="media-body">
+                                  <span class="mb-0 text-sm">${todo.title}</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td>${todo.description}</td>
+                            <td>${todo.due_date}</td>
+                            <td>
+                                <span class="badge badge-dot mr-4">
+                                    <i class="bg-warning"></i> Pending
+                                </span>
+                            </td>
+                            <td class="text-right"> 
+                              <button type="button" onclick="editTodo(${todo.id}, '${todo.title}', '${todo.description}', '${todo.due_date}')" class="edit-todo btn btn-primary">Edit</button>
+                              <button type="button" onclick="markDoneTodo(${todo.id})" class="markdone-todo btn btn-success">Mark Done</button>
+                              <button type="button" onclick="deleteTodo(${todo.id})" class="delete-todo btn btn-danger">Delete</button>
+                            </td>
+                          </tr>
+                        `)
                     } else {
-                        todostatus = `
-                        <span class="badge badge-dot mr-4">
-                            <i class="bg-warning"></i> Pending
-                        </span>
-                        `
+                        $('#todos-finished').append(`
+                        <tr>
+                            <th scope="row">${todo.id}</th>
+                            <th scope="row">
+                              <div class="media align-items-center">
+                                <div class="media-body">
+                                  <span class="mb-0 text-sm">${todo.title}</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td>${todo.description}</td>
+                            <td>${todo.due_date}</td>
+                            <td>
+                                <span class="badge badge-dot">
+                                    <i class="bg-info"></i> Done
+                                </span>
+                            </td>
+                            <td class="text-right"> 
+                              <button type="button" onclick="markUndoneTodo(${todo.id})" class="markdone-todo btn btn-success">Mark Undone</button>
+                              <button type="button" onclick="deleteTodo(${todo.id})" class="delete-todo btn btn-danger">Delete</button>
+                            </td>
+                          </tr>
+                        `)
                     }
-                    $('#todos-tabledata').append(`
-                    <tr>
-                        <th scope="row">
-                          <div class="media align-items-center">
-                            <div class="media-body">
-                              <span class="mb-0 text-sm">${todo.title}</span>
-                            </div>
-                          </div>
-                        </th>
-                        <td>${todo.description}</td>
-                        <td>${todo.due_date}</td>
-                        <td>${todostatus}</td>
-                        <td class="text-right"> 
-                          <button type="button" onclick="editTodo(${todo.id}, '${todo.title}', '${todo.description}', '${todo.due_date}')" class="edit-todo btn btn-primary">Edit</button>
-                          <button type="button" class="markdone-todo btn btn-success">Mark Done</button>
-                          <button type="button" onclick="deleteTodo(${todo.id})" class="delete-todo btn btn-danger">Delete</button>
-                        </td>
-                      </tr>
-                    `) // ! FIX todo.due_date ON SERVER!!! CANNOT GET IN EDIT!
                     // ${todo.id}, ${todo.title}, ${todo.description}, ${todo.status}
                 })
                 res()

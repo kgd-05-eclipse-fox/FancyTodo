@@ -118,7 +118,7 @@ const Toast = Swal.mixin({
     }
 })
 
-// * Delete Todo
+// * Delete Todo (Delete)
 const deleteTodo = id => {
     const access_token = localStorage.getItem('access_token')
     const userlocation = localStorage.getItem('userlocation')
@@ -156,8 +156,8 @@ const deleteTodo = id => {
 
 // * Edit Todo (Put)
 const editTodo = (id, title, description, due_date) => {
-    // const access_token = localStorage.getItem('access_token')
-    // const userlocation = localStorage.getItem('userlocation')
+    const access_token = localStorage.getItem('access_token')
+    const userlocation = localStorage.getItem('userlocation')
     Swal.fire({
         title: `Edit Todo`,
         html: `
@@ -182,25 +182,105 @@ const editTodo = (id, title, description, due_date) => {
     })
         .then( status => {
             if (status.isConfirmed) { // ! WAIT FROM SERVER-SIDE (on-progress)
-                // $.ajax({
-                //     method: 'PUT',
-                //     url: `http://127.0.0.1:3000/todos/${id}`,
-                //     headers: {
-                //         access_token,
-                //         userlocation
-                //     },
-                //     data: {
+                const data = {
+                    title: status.value.title,
+                    description: status.value.description,
+                    due_date: status.value.due_date
+                }
 
-                //     }
-                // })
-                //     .done( () => {
-                //         refreshHome()
-                //         Toast.fire({
-                //             title: `Berhasil!`,
-                //             text: `Kamu berhasil menghapus Todo dengan id ${id}`,
-                //             icon: `success`
-                //         })
-                //     })
+                $.ajax({
+                    method: 'PUT',
+                    url: `http://127.0.0.1:3000/todos/${id}`,
+                    headers: {
+                        access_token,
+                        userlocation
+                    },
+                    data
+                })
+                    .done( () => {
+                        refreshHome()
+                        Toast.fire({
+                            title: `Berhasil!`,
+                            text: `Kamu berhasil Edit Todo dengan id ${id}`,
+                            icon: `success`
+                        })
+                    })
+            }
+        })
+}
+
+// * Mark Done Todo (Patch)
+const markDoneTodo = id => {
+    const access_token = localStorage.getItem('access_token')
+    const userlocation = localStorage.getItem('userlocation')
+    Swal.fire({
+        title: `Update`,
+        text: `Kamu yakin mau selesaikan todo dengan id ${id}?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        reverseButtons: true,
+        confirmButtonText: 'Update'
+    })
+        .then( status => {
+            if (status.isConfirmed) {
+                $.ajax({
+                    method: 'PATCH',
+                    url: `http://127.0.0.1:3000/todos/${id}`,
+                    headers: {
+                        access_token,
+                        userlocation
+                    },
+                    data: {
+                        status: true
+                    }
+                })
+                    .done( () => {
+                        refreshHome()
+                        Toast.fire({
+                            title: `Berhasil!`,
+                            text: `Kamu berhasil Menyelesaikan Todo dengan id ${id}`,
+                            icon: `success`
+                        })
+                    })
+            }
+        })
+}
+
+// * Mark Done Todo (Patch)
+const markUndoneTodo = id => {
+    const access_token = localStorage.getItem('access_token')
+    const userlocation = localStorage.getItem('userlocation')
+    Swal.fire({
+        title: `Update`,
+        text: `Kamu yakin mau undo Status todo dengan id ${id}?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        reverseButtons: true,
+        confirmButtonText: 'Undo'
+    })
+        .then( status => {
+            if (status.isConfirmed) {
+                $.ajax({
+                    method: 'PATCH',
+                    url: `http://127.0.0.1:3000/todos/${id}`,
+                    headers: {
+                        access_token,
+                        userlocation
+                    },
+                    data: {
+                        status: false
+                    }
+                })
+                    .done( () => {
+                        refreshHome()
+                        Toast.fire({
+                            title: `Berhasil!`,
+                            text: `Kamu berhasil Mengembalikan Status Todo dengan id ${id}`,
+                            icon: `success`
+                        })
+                    })
             }
         })
 }

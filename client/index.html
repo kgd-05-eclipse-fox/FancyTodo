@@ -92,40 +92,68 @@
       </nav>
       <!-- * ============================== End Of Bootstrap Navbar ============================== -->
 
-      <!-- ! ==================================== Home Section (On Progress) ==================================== -->
-      <div class="main-content" style="margin-top: 50px;">
-        <div class="weather" style="margin-bottom: 50px;"></div>
-        <div class="containerhome">
-          <!-- Table -->
-            <div class="col">
-              <div class="card shadow">
-                <div class="card-header border-0">
-                  <h3 class="mb-0">List Todo</h3>
-                </div>
-                <div class="table-responsive">
-                  <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                      <tr>
-                        <th scope="col">Todo</th>
-                        <th scope="col">Deskripsi</th>
-                        <th scope="col">Batas Tanggal</th>
-                        <th scope="col">Status</th>
-                        <th scope="col"></th>
-                      </tr>
-                    </thead>
-                    <!-- * Starts Append From jQuery -->
-                    <tbody id="todos-tabledata"></tbody>
-                    <!-- * End of Append From jQuery -->
-                  </table>
-                </div>
+    <!-- ! ==================================== Home Section (On Progress) ==================================== -->
+    <div class="main-content" style="margin-top: 50px;">
+      <div class="weather" style="margin-bottom: 50px;"></div>
+      <div class="containerhome">
+        <!-- * Pending Todo -->
+        <div class="row">
+          <div class="col">
+            <div class="card shadow">
+              <div class="card-header border-0">
+                  <h3 class="mb-0">Pending Todos</h3>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Todo</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Due Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <!-- * Starts Append From jQuery -->
+                  <tbody id="todos-pending"></tbody>
+                  <!-- * End of Append From jQuery -->
+                </table>
               </div>
             </div>
+          </div>
         </div>
+        <!-- * End of Pending Todo -->
+        <!-- * Finished Todo -->
+        <div class="row mt-5">
+          <div class="col">
+            <div class="card bg-default shadow">
+              <div class="card-header bg-transparent border-0">
+                  <h3 class="text-white mb-0">Finished Todos</h3>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-items-center table-dark table-flush">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Todo</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Due Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <!-- * Starts Append From jQuery -->
+                  <tbody id="todos-finished"></tbody>
+                  <!-- * End of Append From jQuery -->
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- * End of Finished Todo -->
       </div>
-
       <!-- ! ==================================== End of Home Section (On Progress) ==================================== -->
-
-      <div class="data"></div>
     </div>
     <!-- * End Home Section -->
 
