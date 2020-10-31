@@ -147,15 +147,16 @@
 <!--Navbar -->
 <div id="navBar">
 	<nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color lighten-1">
-		<a class="navbar-brand" href="#">ToDo List</a>
+		<a id="listAll-todo" class="navbar-brand" href="#">ToDo List</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
 		  aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
 		  <span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent-555">
 		  <ul class="navbar-nav mr-auto">
+			  <!--ADD TODO-->
 			<li class="nav-item active">
-			  <a class="nav-link" href="#">Add Todo
+			  <a id="add-todo" class="nav-link" href="#">Add Todo
 				<span class="sr-only">(current)</span>
 			  </a>
 			</li>
@@ -199,34 +200,72 @@
   
 	<!--Halama Home-->
 	<!--All TODO-->
-	<div id="All-Todo">
+	<div id="All-Todo-page">
 		<div class="container">
-			<div class="d-flex justify-content-center row">
+			<div style="background-color:rgba(0,0,0,0.5)" class="d-flex justify-content-center row">
 			<!-- <div class="d-flex justify-content-center h-100"> -->
-				<div class="card-body col-md-6">
-					<div class="p-4 bg-white notes">
-						<div class="d-flex flex-row align-items-center notes-title">
-							<h4>Q2 Goal notes</h4><span class="px-2 review-text ml-2 rounded">review</span>
-						</div>
-						<div class="d-flex flex-row align-items-center align-content-center"><span class="rounded info">04/01/2020</span><span class="dot"></span><span class="info">Outlook notes</span></div>
+				<div class="card-body col-md-10">
+					<div style="color: cornsilk;" class="d-flex justify-content-center">
+						<h3>Nami List ToDos</h3>
 					</div>
-					<div class="bg-white p-1">
-						<hr>
-						<div class="keyupdates p-3">
-							<h5>Key updates: whats new?</h5>
-							<div class="d-flex align-items-center keyupdates-text"><span class="dot-red"></span><span class="overview">New features overview</span></div>
-						</div>
-						<div class="keyupdates p-3">
-							<h5>Items for update</h5>
-							<div class="d-flex align-items-center keyupdates-text"><span class="dot"></span><span>What are your goal for Q2?</span></div>
-							<div class="d-flex align-items-center keyupdates-text mt-1"><span class="dot"></span><span>Main challanges right now</span></div>
-						</div>
-						<div class="keyupdates p-3">
-							<h5>Learning / Training</h5>
-							<div class="d-flex align-items-center keyupdates-text"><span class="dot"></span><span>Training schedule for&nbsp;&nbsp;</span></div>
-							<div class="d-flex align-items-center keyupdates-text mt-1 ml-3"><span class="dot"></span><span class="ml-2">4 / 1</span></div>
-							<div class="d-flex align-items-center keyupdates-text mt-1 ml-3"><span class="dot"></span><span class="ml-2">4 / 13</span></div>
-						</div>
+					<table class="table table-dark">
+						<thead>
+						  <tr>
+							<th scope="col">No</th>
+							<th scope="col">Title</th>
+							<th scope="col">Description</th>
+							<th scope="col">Status</th>
+							<th scope="col">Due-Date</th>
+							<th scope="col">Option</th>
+						  </tr>
+						</thead>
+						<tbody id="allTodoListData">
+						  <!-- <tr>
+							<th scope="row">1</th>
+							<td>Makan</td>
+							<td>Makan malam bersama keluarga</td>
+							<td>Not Done</td>
+							<td>27-Agustus-2020</td>
+							<td>
+								<button type="button" class="btn btn-outline-info">Edit</button>
+								<button type="button" class="btn btn-outline-danger">Delete</button>
+							</td>
+						  </tr> -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end all todo-->
+
+	<!--ADD Todo-->
+	<div id="formAddTodo-page">
+		<div class="container">
+			<div style="background-color:rgba(0,0,0,0.5)" class="d-flex justify-content-center row">
+			<!-- <div class="d-flex justify-content-center h-100"> -->
+				<div class="card-body col-md-7">
+					<div style="color: cornsilk;" class="d-flex justify-content-center">
+						<h3>Add ToDo List</h3>
+					</div>
+					<div class="formAddToDo">
+						<form onsubmit="addTodoListUser(event)">
+							<div class="form-group">
+							  <label>Title</label>
+							  <input id="add-todo-title" type="text" class="form-control">
+							  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+							</div>
+							<div class="form-group">
+							  <label>Description</label>
+							  <input id="add-todo-description" type="text" class="form-control">
+							</div>
+							<div class="form-group">
+								<label> Due Date</label>
+								<input id="add-todo-dueDate" type="date" class=" form-control">
+								<small class="form-text text-muted">Minimal 1 hari dari hari ini</small>
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						  </form>
 					</div>
 				</div>
 			</div>

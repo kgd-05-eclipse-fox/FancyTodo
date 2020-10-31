@@ -6,10 +6,14 @@ $(document).ready(()=>{
         $('#content-page').show()
         $('#login-page').hide()
         $('#singup-page').hide()
+        $('#formAddTodo-page').hide()
+        allTodo()
+        // $("#allTodoListData").empty();
     }else{
         $('#login-page').show()
         $('#content-page').hide()
         $('#singup-page').hide()
+        $("#formAddTodo-page").hide()
     }
 })
 
@@ -34,6 +38,7 @@ function userLogin(e){
         $('#content-page').show()
         $('#login-page').hide()
         $('#singup-page').hide()
+        allTodo().clear()
     })
     .fail(err=>{
         console.log(err)
@@ -64,6 +69,62 @@ function userSignUp(e){
     })
 }
 
+function allTodo(){
+    const token = localStorage.token
+    console.log(token)
+    $.ajax({
+        method: "GET",
+        url: SERVER + '/todos',
+        headers: {token}
+    })
+    .done(res=>{
+        res.forEach((el,i)=>{
+            $('#allTodoListData').append(
+                `<tr>
+                <th scope="row">${i+1}</th>
+                <td>${el.title}</td>
+                <td>${el.description}</td>
+                <td>${el.status}</td>
+                <td>${el.dueDate}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-info">Edit</button>
+                    <button type="button" class="btn btn-outline-danger">Delete</button>
+                </td>
+              </tr>`
+            )
+        })
+    })
+    .fail(err=>{
+        console.log(err)
+    })
+}
+
+function addTodoListUser(e){
+    e.preventDefault()
+    let title = $('#add-todo-title').val()
+    let description = $('#add-todo-description').val()
+    let dueDate = $('#add-todo-dueDate').val()
+    let token = localStorage.token
+    console.log(title, description, dueDate)
+
+    $.ajax({
+        method: "POST",
+        url: SERVER + '/todos',
+        headers: {token},
+        data: {
+            title,
+            description,
+            dueDate
+        }
+    })
+    .done(res=>{
+        backToList()
+    })
+    .fail(err=>{
+        console.log(err)
+    })
+}
+
 $('#btn-logout').on('click', ()=>{
     logout()
 })
@@ -72,8 +133,16 @@ $('#user-singUp').on('click', ()=>{
     signup()
 })
 
-$('cancel-signup').on('click', ()=>{
+$('#cancel-signup').on('click', ()=>{
     cancelSingup()
+})
+
+$('#listAll-todo').on('click', ()=>{
+    backToList()
+})
+
+$('#add-todo').on('click', ()=>{
+    addTodo()
 })
 
 function cancelSingup(){
@@ -91,27 +160,23 @@ function signup(){
 }
 
 function logout(){
+    $("#allTodoListData").empty()
+    $('#login-email').val('')
+    $('#login-password').val('')
     $('#content-page').hide()
     $('#login-page').show()
     $('#singup-page').hide()
     localStorage.clear()
 }
 
+function backToList(){
+    $("#allTodoListData").empty();
+    $('#formAddTodo-page').hide()
+    $('#All-Todo-page').show()
+    allTodo()
+}
 
-// $('.btn').on('click', ()=>{
-//     console.log('masukkkkkkkkkk')
-//     // $('.p1').hide()
-//     log = !log
-//     if(log){
-//         $('.p1').hide()
-//     }else{
-//         $('.p1').show()
-//     }
-// })
-
-// $('.btn').on('click', ()=>{
-//     let email = $('login-email')
-//     let password = $('login-password')
-//     console.log(email)
-//     console.log(password)
-// })
+function addTodo(){
+    $('#formAddTodo-page').show()
+    $('#All-Todo-page').hide()
+}
