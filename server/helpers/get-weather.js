@@ -14,7 +14,7 @@ const checkWeatherByIp = location => {
                 })
                 weatherData = weatherData.join(', ')
                 
-                const icon = `http://openweathermap.org/img/wn/${weather.data.weather.icon}@2x.png`
+                const icon = `http://openweathermap.org/img/wn/${weather.data.weather[0].icon}@2x.png`;
     
                 res({ location: weather.data.name, weather: weatherData, temperature: weather.data.main, icon })
             })
