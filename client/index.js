@@ -29,7 +29,6 @@ function userLogin(e){
         }
     })
     .done(res=>{
-        console.log(res)
         const token = res.token
         localStorage.setItem('token', token)
         $('#content-page').show()
@@ -42,24 +41,20 @@ function userLogin(e){
     
 }
 
-function userSinUp(e){
+function userSignUp(e){
     e.preventDefault()
-    let email = $('#login-email').val()
-    let password = $('#login-password').val()
-    console.log(email, password)
+    let email = $('#regis-email').val()
+    let password = $('#regis-password').val()
 
     $.ajax({
         method: "POST",
-        url: SERVER + '/user/regis',
+        url: SERVER + '/user/register',
         data: {
             email,
             password
         }
     })
     .done(res=>{
-        console.log(res)
-        const token = res.token
-        localStorage.setItem('token', token)
         $('#content-page').hide()
         $('#singup-page').hide()
         $('#login-page').show()
@@ -74,10 +69,10 @@ $('#btn-logout').on('click', ()=>{
 })
 
 $('#user-singUp').on('click', ()=>{
-    singup()
+    signup()
 })
 
-$('cancel-singup').on('click', ()=>{
+$('cancel-signup').on('click', ()=>{
     cancelSingup()
 })
 
@@ -88,7 +83,7 @@ function cancelSingup(){
     localStorage.clear()
 }
 
-function singup(){
+function signup(){
     $('#content-page').hide()
     $('#login-page').hide()
     $('#singup-page').show()
@@ -96,7 +91,6 @@ function singup(){
 }
 
 function logout(){
-    // e.preventDefault()
     $('#content-page').hide()
     $('#login-page').show()
     $('#singup-page').hide()

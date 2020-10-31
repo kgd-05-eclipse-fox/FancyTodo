@@ -112,7 +112,7 @@
 			  <div class="card-body">
   
 				  <!--Form singup-->
-				  <form onsubmit="userSinUp(event)">
+				  <form onsubmit="userSignUp(event)">
 					  <div class="input-group form-group">
 						  <div class="input-group-prepend">
 							  <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -126,38 +126,114 @@
 							  <span class="input-group-text"><i class="fas fa-key"></i></span>
 							 </div>
 							  <!--password-->
-						  <input type="password" id="resgis-password" class="form-control" placeholder="password">
+						  <input type="password" id="regis-password" class="form-control" placeholder="password">
 					  </div>
 					  <div class="form-group">
 							  <!--btn submit-->
-						  <input type="submit" value="Sing Up" class="btn float-right login_btn">
-						  <button id="cancel-singup" class="btn btn-danger">Cancel</button>
+						  <input type="submit" value="Sign Up" class="btn float-right login_btn">
 						</div>
-				  </form>
-				  <!--END Form singup-->
+					</form>
+				  <!--END Form signup-->
   
 			  </div>
 		  </div>
 	  </div>
-	<!--END Halaman singup-->
+	<!--END Halaman signup-->
 </div>
 
 <!------------------------------------------------------------------------------->
-<div  id="content-page" class="container">
-	<!--Halama Home-->
-	<section class="container-fluid">
-		<div>
-			<h1>INI HOME</h1>
+<!--Home Page-->
+<div id="content-page" >
+<!--Navbar -->
+<div id="navBar">
+	<nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color lighten-1">
+		<a class="navbar-brand" href="#">ToDo List</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+		  aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+		  <ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+			  <a class="nav-link" href="#">Add Todo
+				<span class="sr-only">(current)</span>
+			  </a>
+			</li>
+			<li class="nav-item">
+			  <a class="nav-link" href="#">Edit ToDo</a>
+			</li>
+			<li class="nav-item dropdown">
+			  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false">Dropdown
+			  </a>
+			  <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+			  </div>
+			</li>
+		  </ul>
+		  <ul class="navbar-nav ml-auto nav-flex-icons">
+			  <!--Log out-->
+			<li class="nav-item">
+				<a id="btn-logout" class="nav-link" href="#">Log Out</a>
+			  </li>
+			<li class="nav-item avatar dropdown">
+			  <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false">
+				<!-- <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0"
+				  alt="avatar image"> -->
+			  </a>
+			  <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+				aria-labelledby="navbarDropdownMenuLink-55">
+				<a class="dropdown-item" href="#">Action</a>
+				<a class="dropdown-item" href="#">Another action</a>
+				<a class="dropdown-item" href="#">Something else here</a>
+			  </div>
+			</li>
+		  </ul>
 		</div>
-		<div>
-			<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur dignissimos eligendi reiciendis aperiam, optio velit veniam, eveniet cum inventore rem vero amet facilis officiis distinctio nulla! Cum itaque facilis nobis?</p>
-		</div>
-		<div>
-			<button id="btn-logout" class="btn btn-danger">Logout</button>
-		</div>
-	</section>
-	<!--END Halaman Home-->
+	  </nav>
 </div>
+  <!--/.Navbar -->
+  
+	<!--Halama Home-->
+	<!--All TODO-->
+	<div id="All-Todo">
+		<div class="container">
+			<div class="d-flex justify-content-center row">
+			<!-- <div class="d-flex justify-content-center h-100"> -->
+				<div class="card-body col-md-6">
+					<div class="p-4 bg-white notes">
+						<div class="d-flex flex-row align-items-center notes-title">
+							<h4>Q2 Goal notes</h4><span class="px-2 review-text ml-2 rounded">review</span>
+						</div>
+						<div class="d-flex flex-row align-items-center align-content-center"><span class="rounded info">04/01/2020</span><span class="dot"></span><span class="info">Outlook notes</span></div>
+					</div>
+					<div class="bg-white p-1">
+						<hr>
+						<div class="keyupdates p-3">
+							<h5>Key updates: whats new?</h5>
+							<div class="d-flex align-items-center keyupdates-text"><span class="dot-red"></span><span class="overview">New features overview</span></div>
+						</div>
+						<div class="keyupdates p-3">
+							<h5>Items for update</h5>
+							<div class="d-flex align-items-center keyupdates-text"><span class="dot"></span><span>What are your goal for Q2?</span></div>
+							<div class="d-flex align-items-center keyupdates-text mt-1"><span class="dot"></span><span>Main challanges right now</span></div>
+						</div>
+						<div class="keyupdates p-3">
+							<h5>Learning / Training</h5>
+							<div class="d-flex align-items-center keyupdates-text"><span class="dot"></span><span>Training schedule for&nbsp;&nbsp;</span></div>
+							<div class="d-flex align-items-center keyupdates-text mt-1 ml-3"><span class="dot"></span><span class="ml-2">4 / 1</span></div>
+							<div class="d-flex align-items-center keyupdates-text mt-1 ml-3"><span class="dot"></span><span class="ml-2">4 / 13</span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<!--END Halaman Home-->
 
 
 <!-------------------------------------------------------------------------->
