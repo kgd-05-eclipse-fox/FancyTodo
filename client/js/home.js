@@ -30,6 +30,7 @@ const fetchTodo = _ => {
                 const todayWeather = data.todayWeather
                 const todos = data.todos
                 const weather = `
+                <img src="${todayWeather.icon}" />
                 <p>
                     You are currently in ${todayWeather.location}</br>
                     Current Weather is ${todayWeather.weather} with temperature ${todayWeather.temperature.temp} Degree
