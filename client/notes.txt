@@ -1,0 +1,4 @@
+jquery = $ => buat interaktif 
+ajax = $.ajax() => mirip axios
+append() => ngepush ke html
+

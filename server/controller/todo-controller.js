@@ -3,7 +3,6 @@ const { Todo } = require('../models')
 class TodoController {
 
     static async addTodo(req, res, next) {
-        console.log(req.loggedInUser)
         const UserId = req.loggedInUser.id
         try {
             const payLoad = {
@@ -24,7 +23,8 @@ class TodoController {
         try {
             const showAll = await Todo.findAll({
                 where: {
-                    UserId: UserId
+                    UserId: UserId,
+                    status: false
                 },
                 order: [['due_date', 'DESC']]
             })
@@ -118,6 +118,22 @@ class TodoController {
             } else {
                 res.status(404).json({ error: 'todo not found' })
             }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async showCompleted(req, res, next) {
+        const UserId = req.loggedInUser.id
+        try {
+            const showAll = await Todo.findAll({
+                where: {
+                    UserId: UserId,
+                    status: true
+                },
+                order: [['due_date', 'DESC']]
+            })
+            res.status(200).json(showAll)
         } catch (error) {
             next(error)
         }

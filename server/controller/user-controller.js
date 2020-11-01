@@ -22,6 +22,7 @@ class UserController {
 
     static async login(req, res) {
         try {
+            console.log(req.body)
             const userLogin = req.body
             const findUser = await User.findOne({
                 where: {
@@ -40,6 +41,7 @@ class UserController {
                 res.status(200).json({ accessToken: token })
             }
         } catch (error) {
+            console.log(error)
             res.status(400).json(error)
         }
     }
