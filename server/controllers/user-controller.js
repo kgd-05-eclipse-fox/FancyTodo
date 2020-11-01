@@ -45,14 +45,14 @@ class UserController {
             const requestToken = req.query.code
             const getAccessToken = await axios({
                 method: 'POST',
-                url: `https://github.com/login/oauth/access_token?code=${requestToken}&client_id=31b94fb7d76b5c38f316&client_secret=2fa414f669d4a2f137633555c24fe02957dfca97`
+                url: `${process.env.PRIVATE_GITHUB_URL}?code=${requestToken}&client_id=${process.env.PRIVATE_GITHUB_CLIENT_ID}&client_secret=${process.env.PRIVATE_GITHUB_CLIENT_SECRET}`
             })
             
             const github_access_token = getAccessToken.data.substring(getAccessToken.data.indexOf('=') + 1, getAccessToken.data.indexOf('&'))
             
             const githubUser = await axios({
                 method: 'GET',
-                url: 'https://api.github.com/user',
+                url: process.env.PRIVATE_GITHUB_API_URL,
                 headers: {
                     Authorization: `token ${github_access_token}`
                 }
