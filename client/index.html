@@ -28,9 +28,8 @@
           <form class="login-template-xd">
             <h1 class="login-template-xd">Daftar Akun</h1>
             <div class="social-container">
-              <!-- <a class="login-template-xd" href="/" class="social"><i class="fab fa-facebook-f"></i></a> -->
-              <a class="login-template-xd" href="/" class="social"><i class="fab fa-google-plus-g"></i></a>
-              <a class="login-template-xd" href="/" class="social"><i class="fab fa-github"></i></a>
+              <a class="login-template-xd" href="/" id="google-register" class="social"><i class="fab fa-google-plus-g"></i></a>
+              <a class="login-template-xd" href="/" id="github-register" class="social"><i class="fab fa-github"></i></a>
             </div>
             <span class="login-template-xd">atau gunakan email kamu untuk daftar</span>
             <input class="login-template-xd" id="register-email" type="email" placeholder="Email" />
@@ -42,9 +41,8 @@
           <form class="login-template-xd">
             <h1 class="login-template-xd">Masuk FancyTodo</h1>
             <div class="social-container">
-              <!-- <a class="login-template-xd" href="/" class="social"><i class="fab fa-facebook-f"></i></a> -->
-              <a class="login-template-xd" href="/" class="social"><i class="fab fa-google-plus-g"></i></a>
-              <a class="login-template-xd" href="/" class="social"><i class="fab fa-github"></i></a>
+              <a class="login-template-xd" href="/" id="google-login" class="social"><i class="fab fa-google-plus-g"></i></a>
+              <a class="login-template-xd" href="/" id="github-login" class="social"><i class="fab fa-github"></i></a>
             </div>
             <span class="login-template-xd">atau login dengan akun kamu</span>
             <input class="login-template-xd" id="login-email" type="email" placeholder="Email address" />
@@ -70,9 +68,8 @@
     </div>
     <!-- * End Login Register Section -->
 
-    <!-- ! ==================================== Home Section (On Progress) ==================================== -->
     <div class="home">
-      <!-- Bootstrap Navbar -->
+      <!-- * ============================== Bootstrap Navbar ============================== -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="go-home navbar-brand" href="/">
           <img src="./logo.png" width="30" height="30" alt="">
@@ -88,44 +85,88 @@
               <a class="go-home nav-link" href="/">Beranda <span class="sr-only">(current)</span></a>
             </li>
           </ul>
-          <button class="btn btn-outline-danger my-2 my-sm-0" id="logout">Keluar</button>
+          <button class="btn btn-danger my-2 my-sm-0" id="logout">Keluar</button>
         </div>
       </nav>
-      <!-- End Of Bootstrap Navbar -->
-      <h2>Hello There!</h2>
-      <div class="weather"></div>
-      <hr>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="data"></div>
+      <!-- * ============================== End Of Bootstrap Navbar ============================== -->
+
+    <!-- ! ==================================== Home Section (On Progress) ==================================== -->
+    <div class="main-content" style="margin-top: 50px;">
+      <div class="weather" style="margin-bottom: 50px;"></div>
+      <div class="containerhome">
+        <div class="row">
+          <div class="col">
+            <div class="card shadow">
+              <button class="btn btn-primary my-2 my-sm-0" onclick="addTodo()">Tambah Todo</button>
+            </div>
+          </div>
+        </div>
+        <!-- * Pending Todo -->
+        <div class="row mt-5">
+          <div class="col">
+            <div class="card shadow">
+              <div class="card-header border-0">
+                  <h3 class="mb-0">Pending Todos</h3>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Todo</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Due Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <!-- * Starts Append From jQuery -->
+                  <tbody id="todos-pending"></tbody>
+                  <!-- * End of Append From jQuery -->
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- * End of Pending Todo -->
+        <!-- * Finished Todo -->
+        <div class="row mt-5">
+          <div class="col">
+            <div class="card bg-default shadow">
+              <div class="card-header bg-transparent border-0">
+                  <h3 class="text-white mb-0">Finished Todos</h3>
+              </div>
+              <div class="table-responsive">
+                <table class="table align-items-center table-dark table-flush">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Todo</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Due Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <!-- * Starts Append From jQuery -->
+                  <tbody id="todos-finished"></tbody>
+                  <!-- * End of Append From jQuery -->
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- * End of Finished Todo -->
+        <footer class="footer">
+          <div class="row align-items-center justify-content-xl-between">
+            <div class="col-xl-6 m-auto text-center">
+              <div class="copyright"><p>&copy; Copyright <b>FancyTodo.</b> All Rights Reserved <br>Designed By <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Argon Dashboard</a></p>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <!-- ! ==================================== End of Home Section (On Progress) ==================================== -->
     </div>
     <!-- * End Home Section -->
 
@@ -137,6 +178,7 @@
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/api:client.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="./js/home.js"></script>
     <script src="./js/loginregister.js"></script>

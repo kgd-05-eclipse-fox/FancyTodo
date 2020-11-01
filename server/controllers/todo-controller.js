@@ -1,6 +1,7 @@
 const { Todo } = require('../models')
 const convertPayload = require('../helpers/convertPayload')
 const checkWeatherByUserLocation = require('../helpers/get-weather')
+const convertISOtoDate = require('../helpers/dateConverter')
 
 class Controller {
 
@@ -25,8 +26,15 @@ class Controller {
             const whoIsLoggedIn = req.whoIsLoggedIn
             const userlocation = req.userLocation
 
-            const todos = await Todo.findAll({ where: { UserId: whoIsLoggedIn.id }})
+            const findTodos = await Todo.findAll({ where: { UserId: whoIsLoggedIn.id }, order: [['due_date', 'ASC']]})
             const todayWeather = await checkWeatherByUserLocation(userlocation)
+            todayWeather.temperature.temp = (todayWeather.temperature.temp - 273.15).toFixed(1)
+            
+            const todos = []
+            findTodos.forEach( todo => {
+                todo.dataValues.due_date = convertISOtoDate(todo.dataValues.due_date)
+                todos.push(todo)
+            })
 
             res.status(200).json({ todos, todayWeather }) // * Returns All Todos + Today Weather ^^
         } catch (err) {

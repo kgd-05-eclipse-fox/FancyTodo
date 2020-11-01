@@ -13,8 +13,10 @@ const checkWeatherByIp = location => {
                     weatherData.push(data.main)
                 })
                 weatherData = weatherData.join(', ')
+                
+                const icon = `https://openweathermap.org/img/wn/${weather.data.weather[0].icon}@2x.png`;
     
-                res({ location: weather.data.name, weather: weatherData, temperature: weather.data.main })
+                res({ location: weather.data.name, weather: weatherData, temperature: weather.data.main, icon })
             })
             .catch( err => {
                 rej({ name: 'Failed to fetch Weather from Server' })
