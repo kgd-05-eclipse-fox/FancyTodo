@@ -8,13 +8,14 @@ $(document).ready(function () {
 const checklogin = () => {
     const token = localStorage.getItem('token')
     if (token) {
+        weather()
         $('#home-page').show();
         $('#login-page').hide();
         $('#register-page').hide();
         $('#list-page').hide();
         $('#add-activity-page').hide();
         $('#edit-page').hide();
-        $('#nav-weather').show();
+        $('#weathers').show();
 
     } else {
         $('#login-page').show();
@@ -53,19 +54,24 @@ const login = (event) => {
         }
     })
     .done(response=> {
-        weather(event)
         const token = response.access_token
         localStorage.setItem('token', token)
         console.log('login sukses');
         $('#home-page').show();
         $('#login-page').hide();
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Success Login',
+            showConfirmButton: false
+        })
 
     })
     .fail(err=>{
         $('#register-page').show();
         $('#login-page').hide();
         $('#home-page').hide();
-        console.log(err);
+        showError(err)
     })
 }
 
@@ -101,23 +107,14 @@ function onSignIn(googleUser) {
 
   }
 
-//Google Sign Out
-function signOut() {
-
-}
-
-
-
-
-
 const showregisterpage = (event) => {
     event.preventDefault();
     const token = localStorage.getItem('token')
     if(token) {
         $('#home-page').show()
     } else {
-        $('#login-page').show();
-        $('#register-page').hide();
+        $('#login-page').hide();
+        $('#register-page').show();
     }
 }
 
@@ -126,7 +123,6 @@ const register = (event) => {
     const email = $('#email-register').val();
     const password = $('#password-register').val();
 
-    console.log(email,password);
 
     $.ajax({
         method: 'POST',
@@ -140,23 +136,45 @@ const register = (event) => {
         console.log('register sukses');
         $('#login-page').show();
         $('#register-page').hide();
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Register Successful',
+            showConfirmButton: false
+        })
     })
     .fail(err => {
-        console.log(err);
+        showError(err)
     })
 }
 
 function logout() {
-    localStorage.clear();
-    $('#home-page').hide();
-    $('#list-page').hide();
-    $('#add-activity-page').hide();
-    $('#login-page').show();
-    
-    let auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log('User signed out.');
-    });
+    const token = localStorage.getItem('token')
+
+    if (token) {
+        localStorage.clear();
+        $('#home-page').hide();
+        $('#list-page').hide();
+        $('#add-activity-page').hide();
+        $('#login-page').show();
+
+        let auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Logout',
+            showConfirmButton: false
+        })
+    } else {
+        $('#home-page').hide();
+        $('#list-page').hide();
+        $('#add-activity-page').hide();
+        $('#login-page').show();
+    }
+
 }
 
 function list(event) {
@@ -174,7 +192,6 @@ function list(event) {
         }
     })
     .done(response => {
-        
         $('#list').empty();
         response.forEach((element, index) => {
         $('#list').append(`
@@ -196,7 +213,7 @@ function list(event) {
         })
     })
     .fail(err => {
-        console.log(err);
+        showError(err)
     })
 }
 
@@ -230,9 +247,15 @@ const addActivity = (event) => {
     })
     .done(response => {
         list(event)
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Add Activity Succesful',
+            showConfirmButton: false
+        })
     })
     .fail(err => {
-        console.log(err);
+        showError(err)
     })
 }
 
@@ -268,7 +291,6 @@ const showEditForm = (event,id) => {
     $('#list-page').hide();
     $('#home-page').hide();
     getDateEditById(id)
-
 }
 
 
@@ -320,7 +342,7 @@ const getDateEditById = (id) => {
         `)
     })
     .fail(err=> {
-        console.log(err);
+        showError(err)
     })
 }
 
@@ -347,9 +369,15 @@ const editById = (event, id) => {
     .done(response => {
         $('#home-page').show();
         $('#edit-page').hide();
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Edit Successful',
+            showConfirmButton: false
+        })
     })
     .fail(err => {
-        console.log(err);
+        showError(err)
     })
 }
 
@@ -373,14 +401,19 @@ const patchById = (event, id) => {
     .done(response => {
         $('#home-page').show();
         $('#list-page').hide();
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Activity is finished',
+            showConfirmButton: false
+        })
     })
     .fail(err => {
-        console.log(err);
+        showError(err)
     })
 }
 
-const weather = (event) => {
-    event.preventDefault();
+const weather = () => {
     const token = localStorage.getItem('token')
 
     $.ajax({
@@ -400,20 +433,24 @@ const weather = (event) => {
 
         console.log(temp,weather);
 
-
-        $('#nav-weather').append(`
-        <li class="nav-item">
+        $('#weathers').append(`
+        <br>
         <p>City: ${city}</p>
         <p>Wind: ${wind}</p>
-        </li>
-        <li class="nav-item">
         <p>Weather: ${weather}</p>
         <p>Temp: ${temp}</p>
-        </li>
         `)
     })
     .fail(err => {
         console.log(err);
     })
+}
 
+const showError = (err) => {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops..',
+        text: err.responseJSON.msg,
+        allowOutsideClick: false,
+    })
 }

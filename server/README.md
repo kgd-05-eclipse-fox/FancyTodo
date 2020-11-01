@@ -14,10 +14,19 @@
 
 * **Data Params**
   **Required:**
- 
-   `title=[string]`
-   `description=[string]`
-   `due_date=[date]`
+
+  `headers = [string]`
+
+  ```json
+  body {
+   "title": "[string]",
+   "description": "[string]",
+   "due_date": "[date]"
+    }
+  
+
+  
+  
 
 * **Success Response:**
 
@@ -39,34 +48,8 @@
   * **Code:** 500 INTERNAL SERVER ERROR <br />
     **Content:** 
     ```json
-    { 
-    "error": {
-        "message": "must be greater than today",
-        "type": "Validation error",
-        "path": "due_date",
-        "value": "2020-10-15T00:00:00.000Z",
-        "origin": "FUNCTION",
-        "instance": {
-            "id": null,
-            "title": "Go to circuit",
-            "description": "Riding",
-            "due_date": "2020-10-15T00:00:00.000Z",
-            "updatedAt": "2020-10-26T10:40:01.023Z",
-            "createdAt": "2020-10-26T10:40:01.023Z"
-        },
-        "validatorKey": "isAfter",
-        "validatorName": "isAfter",
-        "validatorArgs": [
-            "2020-10-26"
-        ],
-        "original": {
-            "validatorName": "isAfter",
-            "validatorArgs": [
-                "2020-10-26"
-            ]
-        }
-      }
-    }
+
+    { "message": "must be greater than today" }
 
 
 **Find All Todos**
@@ -82,6 +65,12 @@
   <_The request type_>
 
   `GET` 
+
+* **Data Params**
+  **Required:**
+  
+  `headers = [string]`
+
 
 * **Success Response:**
 
@@ -146,7 +135,11 @@
 *  **Data Params**
 
    **Required:**
- 
+   ```json
+   headers {
+     "token": "string"
+   }
+`
    `title=[string]`
    `description=[string]`
    `status=[string]`
@@ -158,14 +151,14 @@
     **Content:** 
     ```json
     {
-    "id": 1,
-    "title": "Go to mall",
-    "description": "Shopping",
-    "status": "not finished",
-    "due_date": "2020-10-27T00:00:00.000Z",
-    "createdAt": "2020-10-26T10:43:44.518Z",
-    "updatedAt": "2020-10-26T10:58:50.581Z"
-  }
+      "id": 1,
+      "title": "Go to mall",
+      "description": "Shopping",
+      "status": "not finished",
+      "due_date": "2020-10-27T00:00:00.000Z",
+      "createdAt": "2020-10-26T10:43:44.518Z",
+      "updatedAt": "2020-10-26T10:58:50.581Z"
+    }
  
 * **Error Response:**
 
@@ -195,7 +188,11 @@
 *  **Data Params**
 
    **Required:**
- 
+   ```json
+   headers : {
+     "token" : "string"
+   } 
+`
    `status=[string]`
 
 * **Success Response:**
@@ -211,7 +208,7 @@
     "due_date": "2020-10-28T00:00:00.000Z",
     "createdAt": "2020-10-26T10:44:15.903Z",
     "updatedAt": "2020-10-26T11:11:16.250Z"
-  }
+    }
  
 * **Error Response:**
 
@@ -249,9 +246,15 @@
   
 *  **URL Params**
 
-   **Required:**
+  **Required:**
  
-   `id=[integer]`
+  `id=[integer]`
+
+  ```json
+  headers: {
+    "token" : "string"
+  }
+  
 
 * **Success Response:**
 
@@ -278,6 +281,79 @@
 
   **Code:** 500 INTERNAL SERVER ERRORS <br />
   **Content:** `{error: Internal server errors}`
+
+**Find All Todos**
+----
+  return weathers data from 3rd party API
+
+* **URL**
+
+  /weathers/location
+
+* **Method:**
+  
+  <_The request type_>
+
+  `GET` 
+
+* **Data Params**
+  **Required:**
+  
+  `headers = [string]`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+    {
+    "coord": {
+        "lon": 106.99,
+        "lat": -6.23
+    },
+    "weather": [
+        {
+            "id": 802,
+            "main": "Clouds",
+            "description": "scattered clouds",
+            "icon": "03d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 304.2,
+        "feels_like": 306.76,
+        "temp_min": 304.15,
+        "temp_max": 304.26,
+        "pressure": 1011,
+        "humidity": 66
+    },
+    "visibility": 9000,
+    "wind": {
+        "speed": 4.6,
+        "deg": 240
+    },
+    "clouds": {
+        "all": 40
+    },
+    "dt": 1604202923,
+    "sys": {
+        "type": 1,
+        "id": 9384,
+        "country": "ID",
+        "sunrise": 1604183139,
+        "sunset": 1604227528
+    },
+    "timezone": 25200,
+    "id": 1649378,
+    "name": "Bekasi",
+    "cod": 200
+}
+ 
+* **Error Response:**
+
+  * **Code:** 500 INTERNAL SERVER ERROR <br />
+    **Content:** `{error: Internal server errors}`
 
 
 
