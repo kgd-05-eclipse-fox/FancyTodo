@@ -7,5 +7,6 @@ router.post('/register', UserController.postUserRegister)
 
 // * Oauth Login Router
 router.post('/githublogin', UserController.githubLogin)
+router.post('/googlelogin', UserController.googleLogin)
 
 module.exports = router

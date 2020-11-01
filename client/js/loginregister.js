@@ -88,6 +88,14 @@ const login = _ => {
         githubLoginRegister()
     })
 
+    $('#google-login').on('click', e => {
+        e.preventDefault()
+    })
+
+    $('#google-register').on('click', e => {
+        e.preventDefault()
+    })
+
     const githubLoginRegister = _ => {
         const loginPage = window.open('https://github.com/login/oauth/authorize?client_id=31b94fb7d76b5c38f316')
         let check = setInterval( _ => {
@@ -112,4 +120,47 @@ const login = _ => {
             }
         }, 1000)
     }
+
+    let startApp = function() {
+        gapi.load('auth2', function(){
+            auth2 = gapi.auth2.init({
+                client_id: '90829278115-r63c6hjluiea75fpue3gheon7fc6jrc1.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin'
+            });
+            attachSignin(document.getElementById('google-login'))
+            attachSignin(document.getElementById('google-register'))
+        });
+    };
+
+    function attachSignin(element) {
+        auth2.attachClickHandler(element, {}, function(googleUser) {
+        const id_token = googleUser.getAuthResponse().id_token
+        $.ajax({
+            method:'POST',
+            url: 'http://localhost:3000/googlelogin',
+            data: {
+            id_token
+            }
+        })
+            .done(data => {
+                localStorage.setItem('access_token', data.access_token)
+                localStorage.setItem('email', data.email)
+
+                Toast.fire({
+                    icon: 'success',
+                    title: `Haloo ${data.email}`,
+                    text: 'Kamu berhasil login via Google!'
+                })
+                showHome()
+            })
+            .fail(err => {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'Login via google gagal :('
+                })
+            })
+        });
+    }
+
+    startApp()
 }

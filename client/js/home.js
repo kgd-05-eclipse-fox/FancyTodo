@@ -136,6 +136,9 @@ const fetchTodo = _ => {
                         icon: 'success',
                         title: 'Berhasil Keluar'
                     })
+                    // * Google SignOut
+                    var auth2 = gapi.auth2.getAuthInstance()
+                    auth2.signOut()
                     // localStorage.removeItem('userlocation') // * Ga perlu karena suatu saat user bisa login lagi
                 }
             })

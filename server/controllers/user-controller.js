@@ -3,6 +3,10 @@ const { verifyPassword } = require('../helpers/bcrypt')
 const { jwtSign } = require('../helpers/jwt')
 const axios = require('axios').default
 
+// * Google Oauth
+const {OAuth2Client} = require('google-auth-library');
+const client = new OAuth2Client(process.env.PRIVATE_GOOGLE_CLIENT_ID);
+
 class UserController {
     static async postUserRegister(req, res, next) {
         try {
@@ -77,6 +81,45 @@ class UserController {
                     password
                 }
                 const newUser = await User.create(newGithubUser)
+                const payload = { id: newUser.id, email: newUser.email }
+                const access_token = jwtSign(payload)
+
+                res.status(200).json({ access_token, email })
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async googleLogin(req, res, next) {
+        try {
+            const { id_token } = req.body
+            const ticket = await client.verifyIdToken({
+                idToken: id_token,
+                audience: process.env.PRIVATE_GOOGLE_CLIENT_ID
+            });
+            const payload = ticket.getPayload();
+            const email = payload.email
+            const password = payload.sub.substring(0, 15)
+
+            const user = await User.findOne({ where: { email }})
+            if (user) {
+                const verify = verifyPassword(password, user.password)
+                if (verify) {
+                    const payload = { id: user.id, email: user.email }
+                    const access_token = jwtSign(payload)
+
+                    res.status(200).json({ access_token, email })
+                } else {
+                    throw { name: 'Login via google gagal' }
+                }
+            } else {
+                const newGoogleUser = {
+                    email,
+                    password
+                }
+                const newUser = await User.create(newGoogleUser)
+                
                 const payload = { id: newUser.id, email: newUser.email }
                 const access_token = jwtSign(payload)
 
