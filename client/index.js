@@ -59,10 +59,14 @@ const getLocation = _ => {
                 title: 'Tunggu!',
                 text: 'Aku butuh akses lokasi kamu nih',
                 icon: 'info',
-                buttons: ['Nggak Boleh', 'Boleh Dong']
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                reverseButtons: true,
+                cancelButtonText: 'Gak Boleh',
+                confirmButtonText: 'Boleh Dong'
             })
                 .then( akses => {
-                    if(akses) {
+                    if(akses.isConfirmed) {
                         navigator.geolocation.getCurrentPosition(success, error)
                     } else {
                         error()
@@ -166,9 +170,9 @@ const editTodo = (id, title, description, due_date) => {
     Swal.fire({
         title: `Edit Todo`,
         html: `
-        <input type="text" id="title" class="swal2-input" placeholder="Judul" value="${title}">
-        <input type="text" id="description" class="swal2-input" placeholder="Deskripsi" value="${description}">
-        <input type="date" id="due_date" class="swal2-input" placeholder="Tanggal" value="${due_date}">
+        <input type="text" id="title" class="swal2-input" placeholder="Judul" value="${judul}">
+        <input type="text" id="description" class="swal2-input" placeholder="Deskripsi" value="${deskripsi}">
+        <input type="date" id="due_date" class="swal2-input" placeholder="Tanggal" value="${tanggal}">
         `,
         focusConfirm: false,
         showCancelButton: true,
