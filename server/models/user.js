@@ -37,6 +37,11 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           args: true,
           msg: "Password can't be empty"
+        },
+        validatepassword(password) {
+          if(password.length < 6) {
+            throw new Error('password minimum is 6 characters');
+          } 
         }
       } 
     } 

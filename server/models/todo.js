@@ -69,5 +69,8 @@ module.exports = (sequelize, DataTypes) => {
   Todo.addHook('beforeCreate', (instance) => {
     instance.status = "not finished"
   })
+  Todo.addHook('beforeCreate', (instance) => {
+    instance.title = instance.title.toUpperCase();
+  })
   return Todo;
 };

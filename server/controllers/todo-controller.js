@@ -96,7 +96,7 @@ class Controller {
 
     static deleteById(req,res, next) {
         const id = +req.params.id
-
+        
         Todo
             .destroy({
                 where: {
