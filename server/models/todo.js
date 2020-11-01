@@ -82,7 +82,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Todo.addHook('beforeValidate', (instance, options) => {
-    instance.status = 'On Progress'
+    if(instance.status == null) {
+      instance.status = 'On Progress'
+    }
   })
   return Todo;
 };

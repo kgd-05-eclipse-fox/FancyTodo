@@ -30,7 +30,7 @@ class Controller {
                     const payload = { id: user.id, email: user.email }
                     const token = getToken(payload)
                     const httpCode = 200
-                    res.status(httpCode).json({ acess_token: token})
+                    res.status(httpCode).json({ access_token: token})
                 }
             } else {
                 throw { name: "Wrong Data" }

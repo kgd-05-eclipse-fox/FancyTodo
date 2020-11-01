@@ -1,12 +1,13 @@
 require('dotenv').config()
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const port = process.env.PORT
 const routeToDo = require('./routes/route.js')
 const routeUserRegister = require('./routes/routeUserRegister.js')
 const routeUserLogin = require('./routes/routeUserLogin.js')
 
-
+app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use('/todos', routeToDo)
