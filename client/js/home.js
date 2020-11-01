@@ -131,6 +131,7 @@ const fetchTodo = _ => {
                     container.classList.remove("right-panel-active")
                     showLoginRegister()
                     localStorage.removeItem('access_token')
+                    localStorage.removeItem('email')
                     Toast.fire({
                         icon: 'success',
                         title: 'Berhasil Keluar'
