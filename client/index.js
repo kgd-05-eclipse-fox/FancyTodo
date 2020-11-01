@@ -110,8 +110,10 @@ function saveFormTodo(e) {
 function signOutUser(e){
     e.preventDefault()
     localStorage.removeItem("token")
+    localStorage.removeItem("id")
     $('#home-page').hide()
     $('#sign-in-page').show()
+    signOut()
 }
 
 function home() {
@@ -258,12 +260,32 @@ function deleteTodo(id) {
 }
 
 function onSignIn(googleUser) {
-    const dataUser = googleUser.getAuthResponse().id_token
+    const token = googleUser.getAuthResponse().id_token
     $.ajax({
         method: "POST",
         url: server + '/login/google',
         data: {
-            dataUser
+            token
         }
     })
+    .done(response => {
+        let token = response.access_token
+        localStorage.setItem("token", token)
+        $('#home-page').show()
+        $("#add-todo").show()
+        $('#sign-up-page').hide()
+        $('#sign-in-page').hide()
+        $("#edit-todo").hide()
+        $("#show-todo").hide()
+    })
+    .fail(err => {
+        console.log(err)
+    })
 }
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }

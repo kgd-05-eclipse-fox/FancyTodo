@@ -30,14 +30,6 @@
         <br>
         <div class="g-signin2" data-onsuccess="onSignIn"></div><br>
         <a href="#" onclick="signOut();">Sign out</a>
-        <script>
-          function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-              console.log('User signed out.');
-            });
-          }
-        </script>
       </div>
     </div>
   </section>
@@ -87,7 +79,7 @@
           <div class="card" style="width: 50%;">
             <div class="card-body">
               <h5 class="card-title">Add To Do List</h5>
-              <form class="mt-4" onsubmit="saveFormTodo(event)">
+              <form class="mt-4" onsubmit="saveFormTodo(event)" id="add-form">
                 <label for="title">Title</label>
                 <input class="form-control" type="text" id="title"><br>
                 <label for="description">Description</label>
