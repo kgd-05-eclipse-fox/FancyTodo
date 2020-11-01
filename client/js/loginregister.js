@@ -77,4 +77,39 @@ const login = _ => {
                 })
             })
     })
+
+    $('#github-login').on('click', e => {
+        e.preventDefault()
+        githubLoginRegister()
+    })
+
+    $('#github-register').on('click', e => {
+        e.preventDefault()
+        githubLoginRegister()
+    })
+
+    const githubLoginRegister = _ => {
+        const loginPage = window.open('https://github.com/login/oauth/authorize?client_id=31b94fb7d76b5c38f316')
+        let check = setInterval( _ => {
+            if(loginPage.closed) {
+                clearInterval(check)
+                const access_token = localStorage.getItem('access_token')
+                const email = localStorage.getItem('email')
+
+                if (access_token) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: `Haloo ${email}`,
+                        text: 'Kamu berhasil login via Github!'
+                    })
+                    showHome()
+                } else {
+                    Swal.fire({
+                        title: 'Oops...',
+                        text: 'Login via github gagal :('
+                    })
+                }
+            }
+        }, 1000)
+    }
 }

@@ -110,7 +110,6 @@ const fetchTodo = _ => {
 
     $('.go-home').on('click', e => {
         e.preventDefault()
-        console.log('kepencet');
         showHome()
     })
 
@@ -129,6 +128,7 @@ const fetchTodo = _ => {
         })
             .then( button => {
                 if (button.isConfirmed) {
+                    container.classList.remove("right-panel-active")
                     showLoginRegister()
                     localStorage.removeItem('access_token')
                     Toast.fire({
