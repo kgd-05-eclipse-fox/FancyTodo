@@ -158,6 +158,11 @@ const deleteTodo = id => {
 const editTodo = (id, title, description, due_date) => {
     const access_token = localStorage.getItem('access_token')
     const userlocation = localStorage.getItem('userlocation')
+
+    const judul = title || ''
+    const deskripsi = description || ''
+    const tanggal = due_date || ''
+
     Swal.fire({
         title: `Edit Todo`,
         html: `
@@ -181,7 +186,7 @@ const editTodo = (id, title, description, due_date) => {
         }
     })
         .then( status => {
-            if (status.isConfirmed) { // ! WAIT FROM SERVER-SIDE (on-progress)
+            if (status.isConfirmed) {
                 const data = {
                     title: status.value.title,
                     description: status.value.description,
@@ -204,6 +209,16 @@ const editTodo = (id, title, description, due_date) => {
                             text: `Kamu berhasil Edit Todo dengan id ${id}`,
                             icon: `success`
                         })
+                    })
+                    .fail(err => {
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: err.responseJSON.msg,
+                            icon: 'error'
+                        })
+                            .then( () => {
+                                editTodo(id, data.title, data.description, data.due_date)
+                            })
                     })
             }
         })
@@ -280,6 +295,76 @@ const markUndoneTodo = id => {
                             text: `Kamu berhasil Mengembalikan Status Todo dengan id ${id}`,
                             icon: `success`
                         })
+                    })
+            }
+        })
+}
+
+// * Add Todo (Put)
+const addTodo = (title, description, due_date) => {
+    const access_token = localStorage.getItem('access_token')
+    const userlocation = localStorage.getItem('userlocation')
+
+    const judul = title || ''
+    const deskripsi = description || ''
+    const tanggal = due_date || ''
+
+    Swal.fire({
+        title: `Add Todo`,
+        html: `
+        <input type="text" id="title" class="swal2-input" placeholder="Judul" value="${judul}">
+        <input type="text" id="description" class="swal2-input" placeholder="Deskripsi" value="${deskripsi}">
+        <input type="date" id="due_date" class="swal2-input" placeholder="Tanggal" value="${tanggal}">
+        `,
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        reverseButtons: true,
+        confirmButtonText: 'Add',
+        preConfirm : _ => {
+            const title = Swal.getPopup().querySelector('#title').value
+            const description = Swal.getPopup().querySelector('#description').value
+            const due_date = Swal.getPopup().querySelector('#due_date').value
+            if (!title || !description || !due_date) {
+                Swal.showValidationMessage(`Tolong lengkapi semua kolom`)
+            }
+            return { title, description, due_date, status: false }
+        }
+    })
+        .then( status => {
+            if (status.isConfirmed) {
+                const data = {
+                    title: status.value.title,
+                    description: status.value.description,
+                    due_date: status.value.due_date
+                }
+
+                $.ajax({
+                    method: 'POST',
+                    url: `http://127.0.0.1:3000/todos/`,
+                    headers: {
+                        access_token,
+                        userlocation
+                    },
+                    data
+                })
+                    .done( () => {
+                        refreshHome()
+                        Toast.fire({
+                            title: `Berhasil!`,
+                            text: `Kamu berhasil Menambahkan Todo`,
+                            icon: `success`
+                        })
+                    })
+                    .fail(err => {
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: err.responseJSON.msg,
+                            icon: 'error'
+                        })
+                            .then( () => {
+                                addTodo(data.title, data.description, data.due_date)
+                            })
                     })
             }
         })
