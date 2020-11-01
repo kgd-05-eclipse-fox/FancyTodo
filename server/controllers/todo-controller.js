@@ -3,12 +3,15 @@ const { Todo } = require('../models')
 class TodoController {
    static async getTodoHandler (req, res, next) {
       try { 
+         const UserId = req.loggedInUser.id
          const todos = await Todo.findAll({
-
+            where: {
+               UserId: UserId
+            }
          })
-         res.status(200).json(todos)
-      } catch (error) {
-         res.status(500).json(error)
+         res.status(200).json({todos})
+      } catch (err) {
+         next(err)
       }
    }
 
@@ -18,16 +21,11 @@ class TodoController {
             title: req.body.title,
             description: req.body.description,
             due_date: req.body.due_date,
-            UserId: req.body.UserId
+            UserId: req.loggedInUser.id
          })
-
          res.status(201).json(newTodo)
-      } catch (error) {
-         if (error.errors) {
-            res.status(400).json(error.errors[0].message) 
-         } else {
-            res.status(500).json(error) 
-         }
+      } catch (err) {
+         next(err)
       }
    }
 
@@ -42,36 +40,27 @@ class TodoController {
             res.status(404).json({message: `id with ${id} not found `})
          }
       } catch (error) {
-         res.status(500).json(error)
+         next(error)
       }
    }
 
    static async updateTodoHandler (req, res, next) {
       try {
          const { title, description, due_date } = req.body
-         const id = +req.params.id
+         console.log("TodoController -> updateTodoHandler -> req.body", req.body)
          const update = await Todo.update({
             title,
             description,
             due_date
          }, {
             where: {
-               id: id
+               id: +req.params.id
             },
             returning: true
          })
-         
-         if (update[0] !== 1) {
-            res.status(404).json({message: `todo with id ${id} is not found`})
-         } else {
-            res.status(200).json(update[1][0])
-         }
+         res.status(200).json(update[1][0])
       } catch (error) {
-         if (error.errors) {
-            res.status(400).json(error.errors[0].message)
-        } else {
-            res.status(500).json(error)
-        }
+         next(error)
       }
    }
 
@@ -93,11 +82,7 @@ class TodoController {
             res.status(200).json(updated[1][0])
          }
       } catch (error) {
-         if (error.errors) {
-            res.status(400).json(error.errors[0].message)
-         } else {
-            res.status(500).json(error)
-         }
+         next(error)
       }
    }
 
@@ -108,6 +93,7 @@ class TodoController {
             where : {
                id: id
             },
+         }, {
             returning: true
          })
          if (destroy !== 1) {
@@ -116,7 +102,7 @@ class TodoController {
             res.status(200).json({message: `todo success to delete`})
         }
       } catch (error) {
-         res.status(500).json(error)
+         next(error)
       }
    }
 

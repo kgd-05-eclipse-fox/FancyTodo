@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Password field is required'
         },
         min: {
-          args: 5,
-          msg: 'Minimal 5 characters'
+          args: 6,
+          msg: 'Minimal 6 characters'
         }
       }
     }

@@ -3,7 +3,7 @@ const { comparePassword } = require('../helpers/bcrypt.js')
 const { signToken } = require('../helpers/jwt.js')
 
 class UserController {
-   static async registerUserHandler (req, res) {
+   static async registerUserHandler (req, res, next) {
       try {
          const newUser = await User.create({
             email: req.body.email,
@@ -14,11 +14,11 @@ class UserController {
             email: newUser.email
          })
       } catch (error) {
-         res.status(400).json(error)
+         next(error)
       }
    }
 
-   static async loginUserHandler (req, res) {
+   static async loginUserHandler (req, res, next) {
       try {
          const { email, password } = req.body
          const user = await User.findOne({
@@ -42,11 +42,11 @@ class UserController {
             })
 
             res.status(200).json({
-               access_token
+               access_token: access_token
             })
          }
       } catch (error) {
-         res.status(400).json(error)
+         next(error)
       }
    }
 }

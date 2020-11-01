@@ -25,7 +25,8 @@
       {
          "title": "Learn REST API",
          "description": "Testing Server with postman",
-         "due_date": "2020-10-27"
+         "due_date": "2020-10-27",
+         "UserId": 10
       }
       ``` 
 
@@ -39,6 +40,7 @@
       "title": "Learn REST API",
       "description": "Testing Server with postman",
       "due_date": "2020-10-27T00:00:00.000Z",
+      "UserId": 10,
       "updatedAt": "2020-10-26T17:47:34.399Z",
       "createdAt": "2020-10-26T17:47:34.399Z",
       "status": "not complete"
@@ -267,6 +269,10 @@
  
    id=[integer]
 
+   **Required Data Headers:**
+
+   token=[string]
+
 * **Success Response:**
 
 * **Code:** 200 OK <br />
@@ -282,6 +288,14 @@
     ```
     {
       "message": "error not found"
+    }
+    ```
+
+   OR
+
+       ```
+    {
+      "message": "todo not found"
     }
     ```
 

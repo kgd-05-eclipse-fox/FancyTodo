@@ -6,13 +6,13 @@ const authorization = async (req, res, next) => {
       const findId = await Todo.findByPk(id)
       if (!findId) {
          throw { msg: 'Todo not found', status: 404 }
-      } else if (findId.UserId != req.loggedInUser.id) {
-         throw { msg: 'Not Authorized', status: 401 }
-      } else {
+      } else if (findId.UserId === req.loggedInUser.id) {
          next()
+      } else {
+         throw { msg: 'Not Authorized bro', status: 401 }
       }
    } catch (error) {
-      next(error)
+      next(error)  
    }
 }
 
