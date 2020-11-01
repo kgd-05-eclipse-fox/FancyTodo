@@ -23,7 +23,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks:{
       beforeValidate: (user, Option)=>{
-        user.status = 'not done'
+        if(!user.status || user.status === null){
+          user.status = 'not done'
+        }
       },
       beforeCreate: (user, Option)=>{
         let date = new Date()

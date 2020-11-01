@@ -50,7 +50,6 @@ class TodoController{
         try {
             let id = +req.params.id
             let dataInput = req.body
-            
             let validasiError = ValidasiUser.validasiPutTodo(dataInput)
             if(validasiError.length>0){
                 let error ={
@@ -76,14 +75,17 @@ class TodoController{
     static async patchTodo(req, res, next){
         try {
             let id = +req.params.id
-            let dataInput = req.body.status
-            let data = Todo.findByPk(id)
-            data.status = dataInput
-            Todo.update(data, {
-                where: {id}
+            let dataInput = req.body.status 
+            let updateData = await Todo.update({
+                status: dataInput
+            }, {
+                where: {id},
+                returning: true
             })
-            res.status(200).json(data)
+            console.log(updateData)
+            res.status(200).json(updateData)
         } catch (err) {
+            console.log('masukk errorrr')
             next(err)
         }
     }

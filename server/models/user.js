@@ -27,10 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      // {
-      //   args: false,
-      //   msg: 'Password tidak valid'
-      // },
       validate: {
         notEmpty: {
           args: true,
@@ -38,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         notNull: {
           args: true,
+          msg: 'Password tidak valid'
+        },
+        min: {
+          args: 6,
           msg: 'Password tidak valid'
         }
       }

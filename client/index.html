@@ -40,7 +40,6 @@
 <body>
 <!---------------------------------------------------------------------------------->
  
-
 <div id="login-page" class="container">
 	<!--Halaman Login-->
   	<!--form LogIn-->
@@ -204,7 +203,7 @@
 		<div class="container">
 			<div style="background-color:rgba(0,0,0,0.5)" class="d-flex justify-content-center row">
 			<!-- <div class="d-flex justify-content-center h-100"> -->
-				<div class="card-body col-md-10">
+				<div class="card-body col-md-12">
 					<div style="color: cornsilk;" class="d-flex justify-content-center">
 						<h3>Nami List ToDos</h3>
 					</div>
@@ -220,17 +219,6 @@
 						  </tr>
 						</thead>
 						<tbody id="allTodoListData">
-						  <!-- <tr>
-							<th scope="row">1</th>
-							<td>Makan</td>
-							<td>Makan malam bersama keluarga</td>
-							<td>Not Done</td>
-							<td>27-Agustus-2020</td>
-							<td>
-								<button type="button" class="btn btn-outline-info">Edit</button>
-								<button type="button" class="btn btn-outline-danger">Delete</button>
-							</td>
-						  </tr> -->
 						</tbody>
 					</table>
 				</div>
@@ -238,6 +226,25 @@
 		</div>
 	</div>
 	<!--end all todo-->
+
+	<!--EDIT TODO-->
+	<div id="form-Edit-Todo-page">
+		<div class="container">
+			<div style="background-color:rgba(0,0,0,0.5)" class="d-flex justify-content-center row">
+			<!-- <div class="d-flex justify-content-center h-100"> -->
+				<div class="card-body col-md-7">
+					<div style="color: cornsilk;" class="d-flex justify-content-center">
+						<h3>Edit ToDo List</h3>
+					</div>
+					<!---FORM EDIT-->
+					<div id="form-edit-todo">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--END EDIT TODO-->
 
 	<!--ADD Todo-->
 	<div id="formAddTodo-page">
@@ -252,12 +259,12 @@
 						<form onsubmit="addTodoListUser(event)">
 							<div class="form-group">
 							  <label>Title</label>
-							  <input id="add-todo-title" type="text" class="form-control">
+							  <input id="add-todo-title" type="text" class="form-control" placeholder="You'r Title To Do">
 							  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 							</div>
 							<div class="form-group">
 							  <label>Description</label>
-							  <input id="add-todo-description" type="text" class="form-control">
+							  <input id="add-todo-description" type="text" class="form-control" placeholder="You'r Description To Do">
 							</div>
 							<div class="form-group">
 								<label> Due Date</label>
