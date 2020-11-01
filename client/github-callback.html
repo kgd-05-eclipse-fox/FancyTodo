@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Callback</title>
+</head>
+<body>
+    <h1>One moment please...</h1>
+    <p>Redirecting you back to website...</p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        const requestToken = window.location.href.substring(window.location.href.indexOf('=') + 1)
+        $.ajax({
+            method: 'POST',
+            url: `http://localhost:3000/githublogin?code=${requestToken}`
+        })
+            .done(data => {
+                localStorage.setItem('access_token', data.access_token)
+                localStorage.setItem('email', data.email)
+                window.close()
+            })
+    </script>
+</body>
+</html>
