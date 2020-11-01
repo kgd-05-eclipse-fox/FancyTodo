@@ -51,6 +51,38 @@ function userLogin(e){
     
 }
 
+//google Sign in ===>>>>>>>>>>
+function onSignIn(googleUser) {
+    // var profile = googleUser.getBasicProfile();
+    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    // console.log('Name: ' + profile.getName());
+    // console.log('Image URL: ' + profile.getImageUrl());
+    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    let id_token_google = googleUser.getAuthResponse().id_token;
+    // console.log(id_token)
+
+    $.ajax({
+        method: "POST",
+        url: SERVER + '/user/loginGoogle',
+        data: {
+            id_token_google
+        }
+    })
+    .done(res=>{
+        console.log(res)
+    })
+    .fail(err=>[
+        console.log(err)
+    ])
+  }
+
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+
 function userSignUp(e){
     e.preventDefault()
     let email = $('#regis-email').val()
