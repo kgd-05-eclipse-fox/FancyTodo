@@ -16,5 +16,7 @@ app.use(router)
 app.use(errorHandler)
 
 app.listen(PORT, () => {
-    console.log(`FancyTodo Running at http://127.0.0.1:${PORT}`);
+    console.log(`FancyTodo Running at https://guarded-hamlet-08953.herokuapp.com || http://127.0.0.1:${PORT}`);
 })
+
+// * DONE! IS DONE!
