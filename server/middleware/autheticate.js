@@ -1,9 +1,9 @@
 const {verifyToken} = require('../helpers/jwt')
 const {User} = require('../models/index')
 
-async function Authentication (req, res, next){
+async function authentication (req, res, next){
+    const {token} = req.headers
     try {
-        const {token} = req.headers
         if(!token){
             res.status(401).json('Authentication failed')
         }else {
@@ -15,16 +15,17 @@ async function Authentication (req, res, next){
                 }
             })
             if (!user) {
-                throw {error : 'Authentication failed' }
+                throw {error : 'Authentication failed', status : 401 }
             } else {
                 req.loggedIn = decoded
-               
                 next()
             }
         }
     }
     catch(error){
-        res.status(401).json('Authentication failed')
+        const status = error.status || 500
+        const msg = error.msg || 'Internal Server Error'
+        res.status(status).json({ error : msg})
     }
 }
-module.exports = Authentication
+module.exports = authentication

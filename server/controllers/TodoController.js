@@ -14,7 +14,7 @@ class TodoController {
         }
     }
 
-    static async addTodos(req, res){
+    static async addTodos(req, res, next){
         try {
             const {title, description, due_date, status} = req.body
             const newTodo = await Todo.create({
@@ -24,15 +24,12 @@ class TodoController {
 
         }
         catch (error){
-                if(error.name === "SequelizeValidationError"){
-                    res.status(400).json({error : error.errors[0].message})
-                }else {
-                res.status(500).json(error)
-                }
+            console.log(error)
+                next(error)
             }
         }
 
-    static async getTodos(req, res){
+    static async getTodos(req, res, next){
         try {
             const id = req.params.id
             const getodo = await Todo.findOne({
@@ -51,18 +48,18 @@ class TodoController {
             }
         }
         catch (error){
-            res.status(404).json({error : error})
+            next(error)
         }
     }
 
-    static async updateTodo(req, res){
+    static async updateTodo(req, res, next){
         try {
         const id = req.params.id
         const {title, description, status, due_date} = req.body
 
         const todo = await Todo.findByPk(id)
         if(!todo){
-            throw {name : "errorlaen"}
+            throw {name : "not found"}
         }
         const update = await Todo.update({
                 title, description, status, due_date
@@ -73,16 +70,11 @@ class TodoController {
             res.status(200).json(update[1][0])
         }
         catch (error){
-            if(error.name === "SequelizeValidationError"){
-                res.status(400).json({error : error.errors[0].type})
-            }else if (error.name === "errorlaen"){
-                res.status(404).json(error)
-            }
-
+            next(error)
         }
     }
 
-    static async editTodo(req, res){
+    static async editTodo(req, res, next){
         try {
             const id = req.params.id
             const {status} = req.body
@@ -101,17 +93,10 @@ class TodoController {
             res.status(200).json(patch[1][0])
         }
         catch(error){
-            if(error.name === "SequelizeValidationError"){
-                res.status(400).json({error : 'validation error'})
-            }else if (error.name === "not found"){
-                res.status(404).json({error : error.name})
-            }else {
-                res.status(500).json({error})
-            }
+            next(error)
         }   
     }
-
-    static async destroyTodo(req, res){
+    static async destroyTodo(req, res, next){
         try {
             const id = req.params.id
             const todoId = await Todo.findByPk(id)
@@ -124,7 +109,7 @@ class TodoController {
             res.status(200).json({message : 'deleted success'})
         }
         catch(error){
-            res.status(404).json({error : 'not found' })
+           next(error)
         }
     }
 }
