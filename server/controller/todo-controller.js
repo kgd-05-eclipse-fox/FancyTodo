@@ -55,17 +55,18 @@ class TodoController {
     }
 
     static async putTodo(req, res, next) {
+      console.log(req.body)
         try {
             const id = +req.params.id
             const UserId = req.loggedInUser.id
             const payLoad = {
                 title: req.body.title,
-                description: req.body.description
+                description: req.body.description,
+                due_date: req.body.due_date
             }
-            const updateTodo = await Todo.update(updatedTodo, {
+            const updateTodo = await Todo.update(payLoad, {
                 where: {
-                    id,
-                    UserId
+                    id
                 },
                 returning: true
             })

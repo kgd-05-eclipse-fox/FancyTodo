@@ -19,7 +19,7 @@ background-color: #fff;
 	flex-direction: column;
 	font-family: 'Montserrat', sans-serif;
 	height: 100vh;
-	margin: -20px 0 50px;
+  margin: -20px 0 50px;
 }
 
 h1 {
@@ -291,7 +291,8 @@ input {
   background: transparent;
   width: 60vh;
   justify-content: center;
-	align-items: center;
+  align-items: center;
+  min-width: 35vh;
 }
 
 .card-footer {
@@ -304,4 +305,62 @@ input {
 #add-form {
   padding-top: 5vh;
   padding-bottom: 5vh;
+}
+
+#completed {
+  margin-right: 0;
+  padding-right: 0;
+  padding-left: 10vh;
+}
+
+h5.card-title {
+  min-width: 290px;
+}
+
+.list-group-item {
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+  max-width: 60vh;
+  min-width: 55vh;
+}
+
+#completed-btn {
+  margin-left: 18vh;
+  margin-top: 7vh;
+  position: absolute;
+  cursor: default;
+
+}
+
+#add-top-btn {
+  margin-left: 96.5vh;
+  margin-top: 7vh;
+  position: absolute;
+  cursor: default;
+
+}
+
+#ongoing-btn {
+  margin-top: 7vh;
+  margin-left: 163vh;
+  cursor: default;
+  position: absolute;
+}
+
+#logout {
+  position: absolute;
+  margin-left: 190vh;
+}
+
+.navbar {
+  padding-bottom: 10vh;
+}
+
+#add-form {
+  margin-left: -4vh;
+  position: flex;
+}
+
+.sweet-alert {
+	border-radius: 50%;
 }

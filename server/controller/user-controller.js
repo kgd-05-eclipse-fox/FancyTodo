@@ -1,6 +1,7 @@
 const { User } = require('../models')
 const { hashPassword, compare } = require('../helpers/bcrypt-pwd')
 const { createToken } = require('../helpers/jwt')
+const {OAuth2Client} = require('google-auth-library');
 
 class UserController {
     static async postUserRegister(req, res) {
@@ -44,6 +45,50 @@ class UserController {
             console.log(error)
             res.status(400).json(error)
         }
+    }
+    static async gLogin(req, res, next) {
+			let email
+			let { gToken } = req.body
+      try {
+        const client = new OAuth2Client(process.env.GOAUTH);
+        async function verify() {
+          const ticket = await client.verifyIdToken({
+              idToken: gToken,
+              audience: process.env.GOAUTH,  // Specify the CLIENT_ID of the app that accesses the backend
+              // Or, if multiple clients access the backend:
+              //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+          });
+          const payload = ticket.getPayload();
+					const userid = payload['sub'];
+					email = payload.email
+          // If request specified a G Suite domain:
+					// const domain = payload['hd'];
+					const find = await User.findOne({
+						where: {
+							email: payload.email
+						}
+					})
+					if (find) {
+						const token = createToken({
+							id: find.id,
+							email: payload.email
+						})
+						res.status(200).json({ accessToken: token })
+					} else {
+						const newUser = await User.create({
+							email,
+							password: 'random'
+						})
+						if (newUser) {
+							let access_token = { id: newUser.id, email: newUser.email }
+							res.status(200).json({ accessToken: access_token })
+						}
+					}
+				}
+        verify().catch(console.error);
+      } catch (error) {
+        console.log(error)
+      }
     }
 }
 

@@ -2,12 +2,14 @@ const { verifyToken } = require('../helpers/jwt')
 const { User } = require('../models')
 
 async function authentication(req, res, next) {
-    const { token } = req.headers
+		const { token } = req.headers
+		console.log(token, 'di authentication')
     try {
         if (!token) {
             throw { msg: 'Authentication Failed.', status: 401 }
         } else {
-            const decoded = verifyToken(token)
+						const decoded = verifyToken(token)
+						console.log(decoded)
             const user = await User.findOne({
                 where: {
                     email: decoded.data.email

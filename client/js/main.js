@@ -11,6 +11,35 @@ signInButton.addEventListener('click', () => {
 	container.classList.remove("right-panel-active");
 });
 
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  // console.log('Name: ' + profile.getName());
+  // console.log('Image URL: ' + profile.getImageUrl());
+  // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	const gToken = googleUser.getAuthResponse().id_token;
+	$.ajax({
+		method: 'POST',
+		url: `${URL}/googleSignIn`,
+		data: {
+			gToken
+		}
+	})
+	.done(response => {
+		Swal.fire({
+			imageUrl: `${profile.getImageUrl()}`,
+			title: `Hello ${profile.getName()}!`,
+			showConfirmButton: false,
+			timer: 1500
+		})
+		localStorage.setItem('accessToken', response.accessToken)
+		landingPage()
+	})
+	.fail(error => {
+		console.log(error)
+	})
+}
+
 $(document).ready(function () {
     if (!localStorage.accessToken) {
         loginRegisterPage()
@@ -20,9 +49,34 @@ $(document).ready(function () {
 });
 
 function logout() {
-    localStorage.clear()
-    loginRegisterPage()
-    $('#home').hide()
+    Swal.fire({
+      title: 'Are you sure to logout and leave me alone?',
+      imageUrl: 'https://media1.tenor.com/images/94ec8e77f201109a234ae494b82bb514/tenor.gif?itemid=4988274',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout!',
+      backdrop: `
+      rgba(0,0,123,0.4)
+      left top
+      no-repeat
+    `
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Logged Out!',
+          'Please come back anytime!',
+          'success'
+        )
+        localStorage.clear()
+        loginRegisterPage()
+				$('#home').hide()
+      }
+		})
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function () {
+			console.log('User signed out.');
+		});
 }
 
 function loginRegisterPage() {
@@ -31,6 +85,8 @@ function loginRegisterPage() {
 }
 
 function landingPage() {
+    $('#todo-list').show()
+    $('#completed').show()
     $('#reglog').hide()
     $('#home').show()
     showTodoList()
@@ -58,7 +114,8 @@ function login(e) {
             timer: 1500
           })
         landingPage()
-        
+        $('#log-email').val('')
+        $('#log-password').val('')
     })
     .fail(err => {
         Swal.fire({
@@ -88,9 +145,10 @@ function register(e) {
             showConfirmButton: false,
             timer: 1500
           })
+          $('#reg-email').val('')
+          $('#reg-password').val('')
     })
     .fail(err => {
-        console.log(err)
         Swal.fire({
             icon: 'error',
             title: 'Register Failed!!',
@@ -116,8 +174,8 @@ function showTodoList() {
             <div class="card-body">
               <h5 class="card-title">${el.title}</h5>
               <ul class="list-group">
-                <li class="list-group-item list-group-item-info"><i class="fa fa-briefcase"style="font-size:20px;"></i>   ${el.description}</li>
-                <li class="list-group-item list-group-item-info"><i class="fa fa-user"style="font-size:20px;"></i>   ${el.due_date}</li>
+                <li class="list-group-item list-group-item-info"><i class="fa fa-tasks"style="font-size:20px;"></i>   ${el.description}</li>
+                <li class="list-group-item list-group-item-info"><i class="fa fa-calendar-week"style="font-size:20px;"></i>  ${getDate(el.due_date)}</li>
               </ul>
             </div>
             <div class="card-footer">
@@ -129,7 +187,11 @@ function showTodoList() {
         });
     })
     .fail(err => {
-        console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed to show!',
+        text: err.responseJSON.err
+      })
     })
 }
 
@@ -203,6 +265,8 @@ function complete(id) {
     })
     .done(data => {
         $('#todo-list').empty()
+        $('#completed').empty()
+        showCompleted()
         showTodoList()
         Swal.fire({
             icon: 'success',
@@ -232,67 +296,47 @@ function editTodo(id) {
         url: `${URL}/todos/${id}`,
         headers: {
             token: accessToken
-        },
-        data: { 
-            id
         }
     })
     .done(data => {
-        console.log
-        $.ajax({
-            method: 'POST',
-            url: `${URL}/todos/${id}`,
-            headers: {
-                token: accessToken
-            },
-            data: {
-                id
-            }
+      const date = getDate(new Date(data.due_date))
+      Swal.fire({
+        title: 'Edit Todo',
+        html: `<input type="text" id="input-title" class="swal2-input" value="${data.title}">
+        <input type="text" id="input-desc" class="swal2-input" value="${data.description}">
+        <input type="date" class="form-control" value="${getDate(date, 'default')}" id="input-date">`,
+        confirmButtonText: 'Submit',
+        showCancelButton: true,
+        focusConfirm: false,
+        preConfirm: () => {
+          const title = Swal.getPopup().querySelector('#input-title').value
+          const description = Swal.getPopup().querySelector('#input-desc').value
+          const due_date = Swal.getPopup().querySelector('#input-date').value
+          if (!title || !description || !due_date) {
+            Swal.showValidationMessage(`Please complete all the fields`)
+          }
+          return { title,description,due_date }
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          editedTodo(id, result.value)
+        }
+      })
+      .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to edit!',
+          text: err.responseJSON.err
         })
+      })
+  })
+  .fail(err => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Failed to edit!',
+      text: err.responseJSON.err
     })
-    .done(data => {
-        const date = getDate(new Date(data.due_date))
-        $('#edit-todo').append(`
-    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header text-center">
-          <h4 class="modal-title w-100 font-weight-bold">Edit Todo</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body mx-3">
-          <div class="md-form mb-5">
-            <input type="text" class="form-control" value="${data.title}">
-            <label data-error="wrong" data-success="right" for="title">Title</label>
-          </div>
-  
-          <div class="md-form mb-4">
-            <input type="text" id="defaultForm-pass" class="form-control validate" value="${data.description}">
-            <label data-error="wrong" data-success="right" for="description">Description</label>
-          </div>
-          
-          <div class="md-form mb-3">
-          <input type"date" class="form-control" value"${date}">
-          <label>Due Date</label>
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button class="btn btn-default" onclick="editedTodo">Submit</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <div class="text-center">
-    <a href="" class="btn btn-default btn-rounded mb-4" >Launch
-      Modal Login Form</a>
-  </div>`)
-    })
-    .fail(err => {
-        console.log(err)
-    })
+  })
 }
 
 function addTodo(e) {
@@ -300,30 +344,33 @@ function addTodo(e) {
     const title = $('#title').val()
     const description = $('#description').val()
     const due_date = $('#date').val()
-    console.log(title,description,due_date)
     e.preventDefault()
     $.ajax({
-        method: 'POST',
-        url: `${URL}/todos`,
-        headers: {
-            token: accessToken
-        },
-        data: {
-            title,
-            description,
-            date
-        }
+      method: 'POST',
+      url: `${URL}/todos`,
+      headers: {
+          token: accessToken
+      },
+      data: {
+          title,
+          description,
+          due_date
+      }
     })
     .done(data => {
+        $('#title').val('')
+        $('#description').val('')
+        $('#date').val('')
         Swal.fire({
             icon: 'success',
             title: 'A new Todo List successfully added!',
             showConfirmButton: false,
             timer: 1500
           })
+          $('#todo-list').empty()
+          landingPage()
     })
     .fail(err => {
-        console.log(err)
         Swal.fire({
             icon: 'error',
             title: 'Failed to add!',
@@ -333,6 +380,7 @@ function addTodo(e) {
 }
 
 function showCompleted() {
+		$('#completed').empty()
     const accessToken = localStorage.accessToken
     $.ajax({
         method: 'GET',
@@ -348,21 +396,94 @@ function showCompleted() {
             <div class="card-body">
               <h5 class="card-title">${el.title}</h5>
               <ul class="list-group">
-                <li class="list-group-item list-group-item-success"><i class="fa fa-briefcase"style="font-size:20px;"></i>   ${el.description}</li>
-                <li class="list-group-item list-group-item-success"><i class="fa fa-user"style="font-size:20px;"></i>   ${el.due_date}</li>
+                <li class="list-group-item list-group-item-success"><i class="fa fa-tasks"style="font-size:20px;"></i>     ${el.description}</li>
+								<li class="list-group-item list-group-item-success"><i class="fa fa-calendar-week"style="font-size:20px;"></i>     ${getDate(el.due_date)}</li>
+                <li class="list-group-item list-group-item-success"><i class="fa fa-user-check"style="font-size:20px;"></i>     ${getDate(el.updatedAt)}</li>
+							
               </ul>
             </div>
           </div>`)
         });
     })
     .fail(err => {
-        console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed to show!',
+        text: err.responseJSON.err
+      })
     })
 }
 
-function getDate(val){
-    const year = new Date(val).getFullYear()
-    const month = new Date(val).getMonth()
-    const date = new Date(val).getDate()
-    return `${year}-${month}-${date}`
+function editedTodo(id, data) {
+    const accessToken = localStorage.accessToken
+    Swal.fire({
+      title: 'Are you sure to edit this Todo?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, edit it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          method: 'PUT',
+          url: `${URL}/todos/${id}`,
+          headers: {
+              token: accessToken,
+          },
+          data: data
+      })
+        .done(data => {
+          Swal.fire(
+            'Edited!',
+            'Todo has been edited.',
+            'success'
+          )
+          landingPage()
+
+        })
+        .fail(err => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to edit!',
+            text: err.responseJSON.err
+          })
+        })
+      }
+    })
+
+}
+
+function getDate(val, type){
+  let year = new Date(val).getFullYear()
+  let month = new Date(val).getMonth()
+	let date = new Date(val).getDate()
+  var months = new Array();
+  months[0] = "January";
+  months[1] = "February";
+  months[2] = "March";
+  months[3] = "April";
+  months[4] = "May";
+  months[5] = "June";
+  months[6] = "July";
+  months[7] = "August";
+  months[8] = "September";
+  months[9] = "October";
+  months[10] = "November";
+  months[11] = "December";
+  const numbers = [1,2,3,4,5,6,7,8,9]
+  if (type) {
+		let month1 = month
+		let date1 = date
+    if (month < 9) {
+			month1 = ('0' + month+1).slice(-2)
+		}
+		if (date < 9) {
+			console.log(date)
+			date1 = ('0' + date).slice(-2)
+		}
+		return `${year}-${month1}-${date1}`
+  } else {
+    return `${date} ${months[month]} ${year}`
+  }
 }
