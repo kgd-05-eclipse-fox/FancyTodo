@@ -1,4 +1,5 @@
-const SERVER = 'http://localhost:3000'
+const SERVER = 'https://fancy-todo-84b78.web.app'
+// const SERVER = 'http://localhost:3000'
 
 // function show login page
 function beforeLogin() {
