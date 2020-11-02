@@ -91,7 +91,7 @@ class UserController {
                 id: dataUser.id,
                 email: dataUser.email
             })
-            return res.status(200).json({access_token})
+            return res.status(200).json({   })
         })
         .catch(err => {
             console.log(err);
