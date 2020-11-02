@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { hashedPassword } = require('../helpers/bcrypt');
+const { comparedPassword } = require('../helpers/bcrypt');
 const { signToken } = require('../helpers/jwt');
 const {OAuth2Client} = require('google-auth-library');
 
@@ -35,7 +35,7 @@ class UserController {
         .then((user) => {
             if (!user) { //if user is not found
                 throw {msg: "invalid email/password", status: 401}
-            } else if (!hashedPassword(payload.password, user.password)) { //compare password fail
+            } else if (!comparedPassword(payload.password, user.password)) { //compare password fail
                 throw {msg: "invalid email/password", status: 401}
             } else {
                 const access_token = signToken({
