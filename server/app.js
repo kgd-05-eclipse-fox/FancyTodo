@@ -16,6 +16,9 @@ app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
 //routing
+app.get('/', (req, res) => {
+    res.status(200).json('MASUK COK')
+})
 app.use(routes)
 
 //middleware
