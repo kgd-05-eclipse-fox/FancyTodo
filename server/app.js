@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.get('/', function(req, res) {
-    console.log('masuk')
+    res.status(200).json({ msg: "berhasil deploy" })
 })
 app.use('/todos', routeToDo)
 app.use('/register', routeUserRegister)
