@@ -17,13 +17,12 @@ app.use(express.json())
 
 //routing
 app.get('/', (req, res) => {
-    res.status(200).json('MASUK COK')
+    res.status(200).json({msg: 'MASUK COK'})
 })
 app.use(routes)
 
 //middleware
 app.use(errorHandler);
-
 
 app.listen(port, ()=> {
     console.log(`Listen to this http://localhost:${port}`);
