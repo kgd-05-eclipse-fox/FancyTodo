@@ -10,6 +10,7 @@ function beforeLogin() {
 // function show home page
 function afterLogin () {
   $('#home-page').show()
+  fetchTodos()
   $('#login-page').hide()
   $('#register-page').hide()
 }
@@ -109,7 +110,7 @@ const fetchTodos = () => {
     method: 'GET',
     url: `${SERVER}/todos`,
     headers: {
-      token: access_token
+      access_token: access_token
     }
   })
   .done(response => {

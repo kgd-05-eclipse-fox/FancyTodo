@@ -47,7 +47,6 @@ class TodoController {
    static async updateTodoHandler (req, res, next) {
       try {
          const { title, description, due_date } = req.body
-         console.log("TodoController -> updateTodoHandler -> req.body", req.body)
          const update = await Todo.update({
             title,
             description,
@@ -105,7 +104,6 @@ class TodoController {
          next(error)
       }
    }
-
 }
 
 module.exports = TodoController
