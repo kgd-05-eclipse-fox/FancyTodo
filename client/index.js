@@ -117,6 +117,7 @@ function signOutUser(e){
 }
 
 function home() {
+    // $('#add-form').empty()
     $('#home-page').show()
     $('#add-todo').show()
     $('#show-todo').hide()
