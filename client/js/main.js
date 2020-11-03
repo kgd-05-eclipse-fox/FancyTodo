@@ -1,4 +1,5 @@
-const URL = 'http://localhost:3000'
+// const URL = 'http://localhost:3000'
+const URL = 'https://tofancydo.herokuapp.com/'
 const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
