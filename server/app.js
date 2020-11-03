@@ -7,7 +7,7 @@ const app = express()
 const cors = require('cors')
 const port = +process.env.PORT
 const routers = require('./routers')
-const { errorHandler } = require('../server/middlewares/errorhandler')
+const { errorHandler } = require('./middlewares/errorhandler')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
