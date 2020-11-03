@@ -69,9 +69,9 @@ class UserController{
                 // Or, if multiple clients access the backend:
                 //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
             });
-            const payload = ticket.getPayload();
+            const payload = ticket.getPayload()
             console.loh(payload)
-            const userid = payload['sub'];
+            const userid = payload['sub']
         } catch (err) {
             next(err)
         }

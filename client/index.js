@@ -1,5 +1,5 @@
 const SERVER = 'http://localhost:3000'
-
+  
 $(document).ready(()=>{
     const token = localStorage.getItem('token')
     if(token){
@@ -23,11 +23,27 @@ $(document).ready(()=>{
 })
 
 
+
 function userLogin(e){
     e.preventDefault()
     let email = $('#login-email').val()
     let password = $('#login-password').val()
     console.log(email, password)
+
+    const name = email.substring(0, email.indexOf('@'))
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+    
 
     $.ajax({
         method: "POST",
@@ -44,6 +60,12 @@ function userLogin(e){
         $('#login-page').hide()
         $('#singup-page').hide()
         allTodo()
+
+
+        Toast.fire({
+            icon: 'success',
+            title: `${name} Signed in successfully`
+        })
     })
     .fail(err=>{
         console.log(err)
