@@ -1,6 +1,5 @@
 const URLSERVER = "https://do-it-apps.herokuapp.com";
 
-
 $(document).ready(function () {
     checklogin();
 })
