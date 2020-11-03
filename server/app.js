@@ -17,7 +17,7 @@ app.use(express.json())
 
 //routing
 app.get('/', (req, res) => {
-    res.status(200).json({msg: 'MASUK COK'})
+    res.status(200).json({msg: 'MASUK'})
 })
 app.use(routes)
 
