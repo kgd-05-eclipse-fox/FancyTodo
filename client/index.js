@@ -1,4 +1,4 @@
-const server = 'http://localhost:3000'
+const server = 'https://heroku-fancy-todo.herokuapp.com'
 
 $('#btn-home').on('click', () => 
     home()  
