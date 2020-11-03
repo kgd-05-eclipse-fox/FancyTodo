@@ -1,4 +1,4 @@
-const URLSERVER = "http://localhost:3000";
+const URLSERVER = "https://do-it-apps.herokuapp.com";
 
 
 $(document).ready(function () {
