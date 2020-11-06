@@ -18,3 +18,5 @@ app.use(errorHandler)
 app.listen(port, ()=>{
     console.log(`Let's Go to app FancyTodo http://localhost:${port}`)
 })
+
+// https://gettodo-naim.web.app
