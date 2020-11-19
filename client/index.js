@@ -1,4 +1,5 @@
-const SERVER = 'https://todo-naim.herokuapp.com'
+// const SERVER = 'https://todo-naim.herokuapp.com'
+const SERVER = 'http://localhost:3000'
   
 $(document).ready(()=>{
     const token = localStorage.getItem('token')
@@ -75,35 +76,42 @@ function userLogin(e){
 
 //google Sign in ===>>>>>>>>>>
 function onSignIn(googleUser) {
-    // var profile = googleUser.getBasicProfile();
-    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    // console.log('Name: ' + profile.getName());
-    // console.log('Image URL: ' + profile.getImageUrl());
-    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    let id_token_google = googleUser.getAuthResponse().id_token;
-    // console.log(id_token)
+    let google_access_token = googleUser.getAuthResponse().id_token;
+    // console.log(google_access_token)
 
     $.ajax({
         method: "POST",
         url: SERVER + '/user/loginGoogle',
         data: {
-            id_token_google
+            google_access_token
         }
     })
     .done(res=>{
-        console.log(res)
+        // console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
+        const token = res.access_token
+        localStorage.setItem('token', token)
+        $('#content-page').show()
+        $('#login-page').hide()
+        $('#singup-page').hide()
+        allTodo()
+
+
+        Toast.fire({
+            icon: 'success',
+            title: `${name} Signed in successfully`
+        })
     })
     .fail(err=>[
         console.log(err)
     ])
   }
 
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
+function signOut() {
+var auth2 = gapi.auth2.getAuthInstance();
+auth2.signOut().then(function () {
+    console.log('User signed out.');
+});
+}
 
 function userSignUp(e){
     e.preventDefault()
@@ -317,6 +325,7 @@ function deletTodo(id){
 
 $('#btn-logout').on('click', ()=>{
     logout()
+    signOut()
 })
 
 $('#user-singUp').on('click', ()=>{

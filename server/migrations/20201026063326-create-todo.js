@@ -9,18 +9,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING,
         allowNull: false
       },
       description: {
+        allowNull: false,
         type: Sequelize.STRING,
         allowNull: false
       },
       status: {
+        allowNull: false,
         type: Sequelize.STRING,
         allowNull: false
       },
       dueDate: {
+        allowNull: false,
         type: Sequelize.DATE,
         allowNull: false
       },

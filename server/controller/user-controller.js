@@ -2,7 +2,6 @@ const {User} = require('../models')
 const BcryptValidasiUser = require('../helper/bcrypt-helper.js')
 const JWTTokenUser = require('../helper/jwt-helper.js')
 const {OAuth2Client} = require('google-auth-library')
-// const Super = require('../helper/super.js')
 
 class UserController{
     static async register(req, res, next){
@@ -58,23 +57,48 @@ class UserController{
         }
     }
 
-    static async loginGoogle(req, res, next){
-        try {
-            let {id_token_google} = req.body
-            const client = new OAuth2Client(process.env.GOIN);
-            const ticket = await client.verifyIdToken({
-                idToken: id_token_google,
-                audience: process.env.GOIN,  
-                // Specify the CLIENT_ID of the app that accesses the backend
-                // Or, if multiple clients access the backend:
-                //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
-            });
-            const payload = ticket.getPayload()
-            console.loh(payload)
-            const userid = payload['sub']
-        } catch (err) {
+    static loginGoogle(req,res,next) {
+        let { google_access_token } = req.body
+        const client = new OAuth2Client(process.env.CLIENT_ID);
+        let email = null;
+        client.verifyIdToken({
+            idToken: google_access_token,
+            audience: process.env.CLIENT_ID
+        })
+        .then(ticket => {
+            let payload = ticket.getPayload();
+            email = payload.email
+            return User.findOne({
+                where:{
+                    email: payload.email
+                }
+            })
+
+        })
+        .then(user => {
+            if(user) {
+                return user;
+
+            } else {
+                let newUser = {
+                    email: email,
+                    password: 'randomaja',
+                }
+                return User.create(newUser)
+            }
+        })
+        .then(dataUser =>{
+            let access_token =  JWTTokenUser.tokenUser({
+                id: dataUser.id,
+                email: dataUser.email,
+            })
+            return res.status(200).json({ access_token })
+        })
+        .catch(err => {
+            console.log(err);
             next(err)
-        }
+        })
+
     }
 }
 
