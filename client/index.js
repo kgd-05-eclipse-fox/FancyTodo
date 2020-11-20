@@ -1,5 +1,5 @@
-// const SERVER = 'https://todo-naim.herokuapp.com'
-const SERVER = 'http://localhost:3000'
+const SERVER = 'https://todo-naim.herokuapp.com'
+// const SERVER = 'http://localhost:3000'
   
 $(document).ready(()=>{
     const token = localStorage.getItem('token')
