@@ -10,6 +10,8 @@ $(document).ready(() => {
     $("#home-page").show();
     $("#homepage_navbar").show()
     $("#nowPlayingMovie").hide()
+    $("#todo-cart").show()
+    $("#add-todo-page").hide();
   } else {
     $("#todo-cart").hide()
     $("landing_navbar").hide()
@@ -335,8 +337,7 @@ function successMessage(message) {
 }
 function errorMessage(message) {
   $(".error-message").empty();
-  // let errors = message.responseJSON.message.split(', ');
-  console.log(message)
+  let errors = message.responseJSON.message.split(', ');
   errors.forEach(element => {
     $(".error-message").append(`
         <p class="alert alert-danger" role="alert" style="color: red;">${element}</p>
@@ -396,12 +397,12 @@ function login(event) {
     const token = response.access_token;
     const email = response.email;
     localStorage.setItem("token", token);
-    localStorage.setItem("picture", "anon/unknown.png");
-    localStorage.setItem("email", email);
     getAllTodo()
     $("#landing-page").hide();
     $("#home-page").show();
     $('#homepage_navbar').show()
+    $("#todo-cart").show()
+    $("#add-todo-page").hide();
 }).fail(err => {
     errorMessage(err)
     
@@ -470,6 +471,9 @@ function onSignIn(googleUser) {
     $("#home-page").show();
     $("#homepage_navbar").show()
     $("#nowPlayingMovie").hide()
+    $("#todo-cart").show()
+    $("#add-todo-page").hide();
+    getAllTodo()
   }).fail(err => {
     console.log(err)
   })
