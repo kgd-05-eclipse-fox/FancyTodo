@@ -300,12 +300,13 @@ function editTodo(id) {
         }
     })
     .done(data => {
-      const date = getDate(new Date(data.due_date))
+      const date = getDate(new Date(data.due_date), 'aa').replace('/','-').replace('/','-')
+      console.log(date)
       Swal.fire({
         title: 'Edit Todo',
         html: `<input type="text" id="input-title" class="swal2-input" value="${data.title}">
         <input type="text" id="input-desc" class="swal2-input" value="${data.description}">
-        <input type="date" class="form-control" value="${getDate(date, 'default')}" id="input-date">`,
+        <input type="date" class="form-control" value="${date}" id="input-date">`,
         confirmButtonText: 'Submit',
         showCancelButton: true,
         focusConfirm: false,
@@ -424,7 +425,8 @@ function editedTodo(id, data) {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, edit it!'
-    }).then((result) => {
+    })
+    .then((result) => {
       if (result.isConfirmed) {
         $.ajax({
           method: 'PUT',
@@ -456,35 +458,22 @@ function editedTodo(id, data) {
 }
 
 function getDate(val, type){
-  let year = new Date(val).getFullYear()
-  let month = new Date(val).getMonth()
-	let date = new Date(val).getDate()
-  var months = new Array();
-  months[0] = "January";
-  months[1] = "February";
-  months[2] = "March";
-  months[3] = "April";
-  months[4] = "May";
-  months[5] = "June";
-  months[6] = "July";
-  months[7] = "August";
-  months[8] = "September";
-  months[9] = "October";
-  months[10] = "November";
-  months[11] = "December";
-  const numbers = [1,2,3,4,5,6,7,8,9]
-  if (type) {
-		let month1 = month
-		let date1 = date
-    if (month < 9) {
-			month1 = ('0' + month+1).slice(-2)
-		}
-		if (date < 9) {
-			console.log(date)
-			date1 = ('0' + date).slice(-2)
-		}
-		return `${year}-${month1}-${date1}`
+  if (!type) {
+    let o = new Intl.DateTimeFormat("en-GB", {
+      dateStyle: "long",
+    });
+    return o.format(new Date(val))
   } else {
-    return `${date} ${months[month]} ${year}`
+    var d = new Date(val),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 }

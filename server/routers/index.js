@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const UserController = require('../controller/user-controller')
+const UserController = require('../controller/usercontroller')
 const todos = require('./todos')
 const userLogin = require('./user-login')
 const userRegister = require('./user-register')
