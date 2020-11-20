@@ -1,0 +1,39 @@
+[debug] [2020-11-20T04:03:35.423Z] ----------------------------------------------------------------------
+[debug] [2020-11-20T04:03:35.426Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Ester Suryani\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-11-20T04:03:35.427Z] CLI Version:   8.15.1
+[debug] [2020-11-20T04:03:35.427Z] Platform:      win32
+[debug] [2020-11-20T04:03:35.427Z] Node Version:  v12.18.3
+[debug] [2020-11-20T04:03:35.428Z] Time:          Fri Nov 20 2020 11:03:35 GMT+0700 (Western Indonesia Time)
+[debug] [2020-11-20T04:03:35.429Z] ----------------------------------------------------------------------
+[debug] [2020-11-20T04:03:35.429Z] 
+[debug] [2020-11-20T04:03:35.439Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-20T04:03:35.439Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Ester Suryani\Documents\Hacktiv8\phase-2\FancyTodo
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2020-11-20T04:03:50.881Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects?pageSize=100  
+ 
+[debug] [2020-11-20T04:03:51.403Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 20 Nov 2020 04:03:50 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  Using project tofancydo (FancyTodo) 
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
