@@ -1,0 +1,33 @@
+.cardLoginRegister {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 750px;
+    margin-top: 50px;
+}
+
+.formLoginRegister {
+    background-color: whitesmoke;
+    padding: 50px;
+    width: 30%; 
+    height: 100%; 
+    border-radius: 10px;
+}
+
+body {
+    background-image: url("assets/sample-pattern.png");
+}
+
+.formAddList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.formEditList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}

@@ -1,4 +1,6 @@
-const server = 'https://heroku-fancy-todo.herokuapp.com'
+// const server = 'https://heroku-fancy-todo.herokuapp.com'
+const server = 'http://localhost:3000'
+
 
 $('#btn-home').on('click', () => 
     home()  
@@ -31,6 +33,12 @@ function showSignUpForm() {
     $('#sign-in-page').hide()
 }
 
+function showSignInForm(e) {
+    e.preventDefault()
+    $("#sign-in-page").show()
+    $("#sign-up-page").hide()
+}
+
 function saveFormSignUp(e) {
     e.preventDefault()
     const email = $('#sign-up-email').val()
@@ -45,11 +53,23 @@ function saveFormSignUp(e) {
         }
     })
     .done(response => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Register success',
+            showConfirmButton: false,
+            timer: 1500
+        })
         $('#sign-up-page').hide()
         $('#sign-in-page').show()
     })
     .fail(err => {
-        console.log(err)
+      let { responseJSON } = err
+      Swal.fire({
+        icon: 'error',
+        title: `${responseJSON.errMsg}`,
+        showConfirmButton: false,
+        timer: 2000
+      })
     })
 }
 
@@ -66,9 +86,14 @@ function saveFormSignIn(e) {
         }
     })
     .done(response => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Login successfully',
+            showConfirmButton: false,
+            timer: 1500
+        })
         let token = response.access_token
         localStorage.setItem("token", token)
-        // console.log('masuk ke home page')
         $('#home-page').show()
         $("#add-todo").show()
         $('#sign-up-page').hide()
@@ -77,7 +102,13 @@ function saveFormSignIn(e) {
         $("#show-todo").hide()
     })
     .fail(err => {
-        console.log(err)
+      let { responseJSON } = err
+      Swal.fire({
+        icon: 'error',
+        title: `${responseJSON.errMsg}`,
+        showConfirmButton: false,
+        timer: 2000
+      })
     })
 }
 
@@ -87,7 +118,6 @@ function saveFormTodo(e) {
     const description = $('#description').val()
     const due_date = $('#due_date').val()
     const token = localStorage.getItem("token")
-    // console.log(token)
     $.ajax({
         method: "POST",
         url: server + "/todos",
@@ -99,11 +129,22 @@ function saveFormTodo(e) {
         }
     })
     .done(response => {
-        // console.log(response)
+        Swal.fire({
+            icon: 'success',
+            title: 'Success add to your list',
+            showConfirmButton: false,
+            timer: 2000
+        })
         getAllTodo()
     })
     .fail(err => {
-        console.log(err)
+      let { responseJSON } = err
+      Swal.fire({
+        icon: 'error',
+        title: `${responseJSON.errMsg}`,
+        showConfirmButton: false,
+        timer: 2000
+      })
     })
 }
 
@@ -113,14 +154,21 @@ function signOutUser(e){
     localStorage.removeItem("id")
     $('#home-page').hide()
     $('#sign-in-page').show()
+    $('#login-form').trigger("reset")
     signOut()
 }
 
 function home() {
-    // $('#add-form').empty()
     $('#home-page').show()
     $('#add-todo').show()
+    $('#add-form').trigger("reset")
+    $('#edit-todo').hide()
     $('#show-todo').hide()
+}
+
+function convertDueDate(date) {
+  const result = moment(new Date(date)).format("DD/MM/YYYY")
+  return result
 }
 
 function getAllTodo() {
@@ -131,7 +179,6 @@ function getAllTodo() {
         headers: {token}
     })
     .done(response => {
-        // console.log(response)
         $('#show-todo').show()
         $('#add-todo').hide()
         $('#edit-todo').hide()
@@ -142,12 +189,12 @@ function getAllTodo() {
             <tr>
                 <td>${element.title}</td>
                 <td>${element.description}</td>
-                <td>${element.due_date}</td>
+                <td>${convertDueDate(element.due_date)}</td>
                 <td>${element.status}</td>
                 <td>
-                    <button class="btn btn-primary text-white mt-3" onclick="showFormEdit(${element.id})" style="background-color: #42b0f8;"> Edit</button>
-                    <button class="btn btn-primary text-white mt-3" onclick="deleteTodo(${element.id})" style="background-color: #42b0f8;"> Delete</button>
-                    <button class="btn btn-primary text-white mt-3" onclick="updateStatusTodo(${element.id})" style="background-color: #42b0f8;"> End Task</button>
+                    <button class="btn btn-primary text-white mr-3" onclick="showFormEdit(${element.id})"> Edit</button>
+                    <button class="btn btn-danger text-white mr-3" onclick="deleteTodo(${element.id})"> Delete</button>
+                    <button class="btn btn-success text-white" onclick="updateStatusTodo(${element.id})"> End Task</button>
                 </td>
             </tr>`
             )
@@ -167,7 +214,6 @@ function showFormEdit(id) {
         headers: {token}
     })
     .done(response => {
-        // console.log(response)
         function convertDate(date) {
             var d = new Date(date),
                 month = '' + (d.getMonth() + 1),
@@ -221,9 +267,25 @@ function saveFormEdit(e) {
     .done(response => {
         $('#edit-todo').hide()
         getAllTodo()
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top',
+            showConfirmButton: false,
+            timer: 2000,
+        })
+        Toast.fire({
+        icon: 'success',
+        title: 'Edit success'
+        })
     })
     .fail(err => {
-        console.log(err)
+      let { responseJSON } = err
+      Swal.fire({
+        icon: 'error',
+        title: `${responseJSON.errMsg}`,
+        showConfirmButton: false,
+        timer: 2000
+      })
     })
 }
 
@@ -239,6 +301,16 @@ function updateStatusTodo(id) {
     })
     .done(response => {
         getAllTodo()
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top',
+          showConfirmButton: false,
+          timer: 2000,
+        })
+        Toast.fire({
+        icon: 'success',
+        title: 'Task status is updated'
+        })
     })
     .fail(err => {
         console.log(err)
@@ -246,17 +318,34 @@ function updateStatusTodo(id) {
 }
 
 function deleteTodo(id) {
-    const token = localStorage.getItem("token")
-    $.ajax({
-        method: "DELETE",
-        url: server + `/todos/${id}`,
-        headers: {token},
-    })
-    .done(response => {
-        getAllTodo()
-    })
-    .fail(err => {
-        console.log(err)
+    Swal.fire({
+        title: 'Are you sure to delete this task ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+          const token = localStorage.getItem("token")
+          $.ajax({
+              method: "DELETE",
+              url: server + `/todos/${id}`,
+              headers: {token},
+          })
+          .done(response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Delete success',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            getAllTodo()
+          })
+          .fail(err => {
+              console.log(err)
+          })
+      }
     })
 }
 
@@ -289,4 +378,10 @@ function signOut() {
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
-  }
+}
+
+
+function backToList() {
+    $("edit-todo").hide()
+    getAllTodo()
+}
