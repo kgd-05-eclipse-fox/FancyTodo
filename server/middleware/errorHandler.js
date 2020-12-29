@@ -13,7 +13,7 @@ module.exports = function errorHandler(err, req, res, next) {
         errMsg = 'Data not found'
     } else if(err.name == "Wrong Data") {
         statusCode = 401
-        errMsg = "Wrong username / password"
+        errMsg = "Wrong email / password"
     }
     res.status(statusCode).json({ errMsg })
 }

@@ -71,7 +71,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         checkDate(due_date) {
           if(due_date < new Date()) {
-            throw new Error('Cannot create or update to do')
+            throw new Error('Date has expired')
           }
         }
       }
