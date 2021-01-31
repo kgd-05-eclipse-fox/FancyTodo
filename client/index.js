@@ -1,5 +1,5 @@
-// const SERVER = 'https://todo-naim.herokuapp.com'
-const SERVER = 'http://localhost:3000'
+const SERVER = 'https://todo-naim.herokuapp.com'
+// const SERVER = 'http://localhost:3000'
   
 $(document).ready(()=>{
     const token = localStorage.getItem('token')
@@ -90,7 +90,6 @@ function onSignIn(googleUser) {
     })
     .done(res=>{
         const token = res.access_token
-        console.log(token)
         localStorage.setItem('token', token)
         $('#content-page').show()
         $('#login-page').hide()

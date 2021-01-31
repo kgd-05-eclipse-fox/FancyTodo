@@ -1,16 +1,11 @@
-/* Made with love by Mutiullah Samim*/
-
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-    /* background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg'); */
     /* background-image: url('http://getwallpapers.com/wallpaper/full/c/8/1/31043.jpg'); */
     background-image: url('./31043.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    /* background-size: auto; */
     height: 100%;
-    /* width: 100vh; */
     font-family: 'Numans', sans-serif;
 }
 
@@ -25,16 +20,13 @@ html,body{
     margin-bottom: auto;
     width: 400px;
     background-color: rgba(0,0,0,0.5) !important;
-    /* background-color: rgb(153,154,157,0.5) !important; */
     border-radius: 20px;
 }
 
 .social_icon span{
     font-size: 60px;
     margin-left: 10px;
-    /* color: #FFC312; */
     color: rgb(198, 65, 145);
-    /* color: rgb(245,223,77); */
 }
 
 .social_icon span:hover{
@@ -54,9 +46,7 @@ html,body{
 
 .input-group-prepend span{
     width: 50px;
-    /* background-color: #FFC312; */
     background-color: rgb(198, 65, 145);
-    /* background-color: rgb(245,223,77); */
     color: black;
     border:0 !important;
 }
@@ -80,9 +70,7 @@ input:focus{
 
 .login_btn{
     color: black;
-    /* background-color: #FFC312; */
     background-color: rgb(198, 65, 145);
-    /* background-color: rgb(245,223,77); */
     width: 100px;
 }
 
@@ -101,7 +89,6 @@ input:focus{
 
 .card-footer a{
     color: rgb(198, 65, 145);
-    /* color: rgb(245,223,77); */
     text-decoration: none;
 }
 
@@ -112,10 +99,8 @@ input:focus{
 .card-test{
     background-color: rgb(240, 243, 189);
     color: rgba(0,0,0,0.5);
-    /* color: rgb(153,154,157); */
 }
 
-/* ------------------------- */
 
 .notes {
     border-top-right-radius: 42px
