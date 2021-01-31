@@ -1,5 +1,5 @@
-const SERVER = 'https://todo-naim.herokuapp.com'
-// const SERVER = 'http://localhost:3000'
+// const SERVER = 'https://todo-naim.herokuapp.com'
+const SERVER = 'http://localhost:3000'
   
 $(document).ready(()=>{
     const token = localStorage.getItem('token')
@@ -29,7 +29,6 @@ function userLogin(e){
     e.preventDefault()
     let email = $('#login-email').val()
     let password = $('#login-password').val()
-    console.log(email, password)
 
     const name = email.substring(0, email.indexOf('@'))
 
@@ -69,6 +68,10 @@ function userLogin(e){
         })
     })
     .fail(err=>{
+        Toast.fire({
+            icon: 'error',
+            title: `Email or password is incorrect`
+        })
         console.log(err)
     })
     
@@ -77,7 +80,6 @@ function userLogin(e){
 //google Sign in ===>>>>>>>>>>
 function onSignIn(googleUser) {
     let google_access_token = googleUser.getAuthResponse().id_token;
-    // console.log(google_access_token)
 
     $.ajax({
         method: "POST",
@@ -87,8 +89,8 @@ function onSignIn(googleUser) {
         }
     })
     .done(res=>{
-        // console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<')
         const token = res.access_token
+        console.log(token)
         localStorage.setItem('token', token)
         $('#content-page').show()
         $('#login-page').hide()
@@ -104,14 +106,14 @@ function onSignIn(googleUser) {
     .fail(err=>[
         console.log(err)
     ])
-  }
-
-function signOut() {
-var auth2 = gapi.auth2.getAuthInstance();
-auth2.signOut().then(function () {
-    console.log('User signed out.');
-});
 }
+
+// function signOut() {
+// var auth2 = gapi.auth2.getAuthInstance();
+// auth2.signOut().then(function () {
+//     console.log('User signed out.');
+// });
+// }
 
 function userSignUp(e){
     e.preventDefault()
@@ -160,14 +162,12 @@ function allTodo(){
                     <td>${el.status}</td>
                     <td>${newDate}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-info" onclick="showEditForm(${el.id})">Edit</button>
-                        <button type="button" class="btn btn-outline-danger" onclick="deletTodo(${el.id})">Delete</button>
-                        <button type="button" class="btn btn-outline-success" onclick="todoDone(${el.id})">DONE</button>
+                        <button type="button" class="btn  btn-mini btn-outline-info mx-2 my-1" onclick="showEditForm(${el.id})">Edit</button>
+                        <button type="button" class="btn  btn-mini btn-outline-danger mx-2 my-1" onclick="deletTodo(${el.id})">Delete</button>
                     </td>
                   </tr>`
                 )
             }else{
-                // console.log(newDate)
                 $('#allTodoListData').append(
                     `<tr>
                     <th scope="row">${i+1}</th>
@@ -176,9 +176,9 @@ function allTodo(){
                     <td>${el.status}</td>
                     <td>${newDate}</td>
                     <td>
-                        <button type="button" class="btn btn-outline-info" onclick="showEditForm(${el.id})">Edit</button>
-                        <button type="button" class="btn btn-outline-danger" onclick="deletTodo(${el.id})">Delete</button>
-                        <button type="button" class="btn btn-outline-success" onclick="todoDone(${el.id})">DONE</button>
+                        <button type="button" class="btn  btn-mini btn-outline-info mx-2 my-1" onclick="showEditForm(${el.id})">Edit</button>
+                        <button type="button" class="btn  btn-mini btn-outline-danger mx-2 my-1" onclick="deletTodo(${el.id})">Delete</button>
+                        <button type="button" class="btn  btn-mini btn-outline-success mx-2 my-1" onclick="todoDone(${el.id})">DONE</button>
                     </td>
                   </tr>`
                 )
@@ -195,25 +195,62 @@ function addTodoListUser(e){
     let title = $('#add-todo-title').val()
     let description = $('#add-todo-description').val()
     let dueDate = $('#add-todo-dueDate').val()
+    let dateDay = new Date
+    let datePick = new Date(dueDate)
+    let checkDate = dateDay < datePick
     let token = localStorage.token
-    console.log(title, description, dueDate)
 
-    $.ajax({
-        method: "POST",
-        url: SERVER + '/todos',
-        headers: {token},
-        data: {
-            title,
-            description,
-            dueDate
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     })
-    .done(res=>{
-        backToList()
-    })
-    .fail(err=>{
-        console.log(err)
-    })
+
+    if(checkDate === false && title === '' && description === '') {
+        Toast.fire({
+            icon: 'error',
+            title: `Error`
+        })
+    } else if(checkDate === false) {
+        Toast.fire({
+            icon: 'error',
+            title: `Select 1 day from today`
+        })
+    } else if(description === '' ) {
+        Toast.fire({
+            icon: 'error',
+            title: `Do not Empty Title`
+        })
+    } else if(title === '') {
+        Toast.fire({
+            icon: 'error',
+            title: `Do not Empty Sescription`
+        })
+    } else {
+        $.ajax({
+            method: "POST",
+            url: SERVER + '/todos',
+            headers: {token},
+            data: {
+                title,
+                description,
+                dueDate
+            }
+        })
+        .done(res=>{
+            backToList()
+        })
+        .fail(err=>{
+            console.log(err)
+        })
+    }
+
 }
 
 function editTodo(id){
@@ -226,7 +263,6 @@ function editTodo(id){
         headers: {token}
     })
     .done(res=>{
-        console.log(res)
         let title = res.title
         let description = res.description
         let dueDate = res.dueDate
@@ -234,24 +270,24 @@ function editTodo(id){
             for(let i=0; i<10; i++){
                 date += dueDate[i]
             }
-            // let makeDate = date.split('-')
-            // let newDate = `${makeDate[2]}-${makeDate[1]}-${makeDate[0]}`
-        $('#form-edit-todo').append(`<form onsubmit="editDataTodo(event)">
-        <div class="form-group">
-          <label>Title</label>
-          <input id="edit-todo-title" type="text" class="form-control" placeholder="You'r Title To Do" value="${title}">
-        </div>
-        <div class="form-group">
-          <label>Description</label>
-          <input id="edit-todo-description" type="text" class="form-control" placeholder="You'r Description To Do" value="${description}">
-        </div>
-        <div class="form-group">
-            <label> Due Date</label>
-            <input id="edit-todo-dueDate" type="date" class=" form-control" value="${date}">
-            <small class="form-text text-muted">Minimal 1 hari dari hari ini</small>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>`)
+        $('#form-edit-todo').append(
+        `<form onsubmit="editDataTodo(event)">
+            <div class="form-group">
+                <label class="text-light"><b>Title</b></label>
+                <input id="edit-todo-title" type="text" class="form-control" placeholder="You'r Title To Do" value="${title}">
+            </div>
+            <div class="form-group">
+                <label class="text-light"><b>Description</b></label>
+                <input id="edit-todo-description" type="text" class="form-control" placeholder="You'r Description To Do" value="${description}">
+            </div>
+            <div class="form-group">
+                <label class="text-light"><b>Due Date</b></label>
+                <input id="edit-todo-dueDate" type="date" class=" form-control" value="${date}">
+                <small class="form-text text-muted text-light">Minimal 1 hari dari hari ini</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>`
+        )
         
     })
     .fail(err=>{
@@ -266,28 +302,43 @@ function editDataTodo(e){
     let dueDate = $('#edit-todo-dueDate').val()
     let token = localStorage.token
     let UserId = localStorage.UserId
-    console.log(title, description, dueDate, token, UserId)
-    $.ajax({
-        type: "PUT",
-        url: SERVER + `/todos/${UserId}`,
-        headers: {token},
-        data: {
-            title,
-            description,
-            dueDate
-        }
-    })
-    .done(res=>{
+
+    Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Save`,
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        $.ajax({
+            type: "PUT",
+            url: SERVER + `/todos/${UserId}`,
+            headers: {token},
+            data: {
+                title,
+                description,
+                dueDate
+            }
+        })
+        .done(res=>{
+            backToList()
+        })
+        .fail(err=>{
+            console.log(err)
+        })
+        Swal.fire('Saved!', '', 'success')
+      } else if (result.isDenied) {
         backToList()
+        Swal.fire('Changes are not saved', '', 'info')
+      }
     })
-    .fail(err=>{
-        console.log(err)
-    })
+
 }
 
 function todoDone(id){
     let UserId = id
-    console.log()
     let token = localStorage.token
     $.ajax({
         type: "PATCH",
@@ -298,7 +349,6 @@ function todoDone(id){
         }
     })
     .done(res=>{
-        console.log(res)
         backToList()
     })
     .fail(err=>[
@@ -309,23 +359,62 @@ function todoDone(id){
 function deletTodo(id){
     let UserId = id
     let token = localStorage.token
-    $.ajax({
-        method: "DELETE",
-        url: SERVER + `/todos/${UserId}`,
-        headers: {token}
-    })
-    .done(res=>{
-        backToList()
-    })
-    .fail(err=>{
-        console.log(err)
-    })
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+              method: "DELETE",
+              url: SERVER + `/todos/${UserId}`,
+              headers: {token}
+          })
+          .done(res=>{
+              backToList()
+          })
+          .fail(err=>{
+              console.log(err)
+          })
+          Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      })
+
 
 }
 
+$('#User-back-login').on('click', () => {
+    backToSignin()
+})
+
 $('#btn-logout').on('click', ()=>{
-    logout()
-    signOut()
+  Swal.fire({
+    title: 'Are you sure?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Logout!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      logout()
+      signOut()
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    }
+  })
 })
 
 $('#user-singUp').on('click', ()=>{
@@ -364,6 +453,14 @@ function signup(){
     $('#content-page').hide()
     $('#login-page').hide()
     $('#singup-page').show()
+    localStorage.removeItem('token')
+    localStorage.removeItem('UserId')
+}
+
+function backToSignin() {
+    $('#content-page').hide()
+    $('#login-page').show()
+    $('#singup-page').hide()
     localStorage.removeItem('token')
     localStorage.removeItem('UserId')
 }

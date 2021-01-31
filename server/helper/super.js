@@ -38,7 +38,6 @@ class Super {
     static cekToken(data){
         var decoded = jwt.verify(data, process.env.RAHASIA);
         return decoded
-        // console.log(decoded.foo)
     }
 
 }

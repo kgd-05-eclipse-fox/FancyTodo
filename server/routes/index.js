@@ -7,7 +7,6 @@ const anime = require('./anime.js')
 routers.get('/', (req, res)=>{
     res.send('Home')
 })
-console.log(new Date())
 routers.use('/todos', todo)
 routers.use('/user', user)
 routers.use('/api', api)

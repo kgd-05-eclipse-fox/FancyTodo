@@ -82,17 +82,14 @@ class TodoController{
                 where: {id},
                 returning: true
             })
-            console.log(updateData)
             res.status(200).json(updateData)
         } catch (err) {
-            console.log('masukk errorrr')
             next(err)
         }
     }
    
     static async deleteTodo(req, res, next){
         try {
-            console.log('masuk TODO DElete')
             let id = +req.params.id
             let data = await Todo.destroy({
                 where: {id}

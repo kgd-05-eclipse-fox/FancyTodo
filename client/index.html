@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+	<meta charset="UTF-8">
   <!--Google Meta-->
   <meta name="google-signin-client_id" content="806576162064-bsdcc5cnok48s79u8bee8d7uagvpc4ms.apps.googleusercontent.com">
   <!--link Bootstrap-->
@@ -10,8 +10,11 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> 
   <!--Custom styles-->
 	<link rel="stylesheet" type="text/css" href="styles.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TODO App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- how to w3school -->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="Icon" href="./icons8-notepad-48.png">
+  <title>ToDo App</title>
 </head>
 <body>
 <!---------------------------------------------------------------------------------->
@@ -49,14 +52,14 @@
 				  <form onsubmit="userLogin(event)">
 					  <div class="input-group form-group">
 						  <div class="input-group-prepend">
-							  <span class="input-group-text"><i class="fas fa-user"></i></span>
+							  <span class="input-group-text"><i class="fas fa-user text-light"></i></span>
 						  </div>
 							  <!--Email-->
 						  <input type="email" id="login-email" class="form-control" placeholder="Email">						  
 					  </div>
 					  <div class="input-group form-group">
 						  <div class="input-group-prepend">
-							  <span class="input-group-text"><i class="fas fa-key"></i></span>
+							  <span class="input-group-text"><i class="fas fa-key text-light"></i></span>
 							 </div>
 							  <!--password-->
 						  <input type="password" id="login-password" class="form-control" placeholder="password">
@@ -66,12 +69,35 @@
 					  </div> -->
 					  <div class="form-group">
 							  <!--btn submit-->
-						  <input type="submit" value="Login" class="btn float-right login_btn">
+						  <input type="submit" value="Sign in" class="btn float-right login_btn text-light">
 					  </div>
 				  </form>
 				  <!--END Form Login-->
 				  <!-- Googleeeeeeeee-->
-				  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+					<div class="g-signin2" data-onsuccess="onSignIn"></div>
+					<!-- <div class="g-signin2" data-onsuccess="onSignIn" data-gapiscan="true" data-onload="true">
+						<div style="height:36px;width:120px;" class="abcRioButton abcRioButtonLightBlue">
+							<div class="abcRioButtonContentWrapper">
+								<div class="abcRioButtonIcon" style="padding:8px">
+									<div style="width:18px;height:18px;" class="abcRioButtonSvgImageWithFallback abcRioButtonIconImage abcRioButtonIconImage18">
+										<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" class="abcRioButtonSvg">
+											<g>
+												<path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+												<path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+												<path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+												<path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+												<path fill="none" d="M0 0h48v48H0z"></path>
+											</g>
+										</svg>
+									</div>
+								</div>
+								<span style="font-size:13px;line-height:34px;" class="abcRioButtonContents">
+									<span id="not_signed_inj8m22390nmxg">Sign in</span>
+									<span id="connectedj8m22390nmxg" style="display:none">Signed in</span>
+								</span>
+							</div>
+						</div>
+					</div> -->
 			  </div>
 			  <div class="card-footer">
 				  <div class="d-flex justify-content-center links">
@@ -102,7 +128,7 @@
 				  <form onsubmit="userSignUp(event)">
 					  <div class="input-group form-group">
 						  <div class="input-group-prepend">
-							  <span class="input-group-text"><i class="fas fa-user"></i></span>
+							  <span class="input-group-text"><i class="fas fa-user text-light"></i></span>
 						  </div>
 							  <!--Email-->
 						  <input type="email" id="regis-email" class="form-control" placeholder="Email">
@@ -110,19 +136,19 @@
 					  </div>
 					  <div class="input-group form-group">
 						  <div class="input-group-prepend">
-							  <span class="input-group-text"><i class="fas fa-key"></i></span>
+							  <span class="input-group-text"><i class="fas fa-key text-light"></i></span>
 							 </div>
 							  <!--password-->
 						  <input type="password" id="regis-password" class="form-control" placeholder="password">
 					  </div>
 					  <div class="form-group">
 							  <!--btn submit-->
-						  <input type="submit" value="Sign Up" class="btn float-right login_btn">
+						  <input type="submit" value="Sign Up" class="btn float-right login_btn mt-4 text-light">
 						</div>
 					</form>
 				  <!--END Form signup-->
-  
-			  </div>
+					<button id="User-back-login" class="btn login_btn mt-4 text-light">Back</button>
+				</div>
 		  </div>
 	  </div>
 	<!--END Halaman signup-->
@@ -161,27 +187,31 @@
 	<!--Halama Home-->
 	<!--All TODO-->
 	<div id="All-Todo-page">
-		<div class="container">
-			<div style="background-color:rgba(0,0,0,0.5)" class="d-flex justify-content-center row">
+		<div class="container .container-sm">
+			<div style="background-color:rgba(0,0,0,0.5); border-radius: 20px;" class="d-flex justify-content-center row my-3 bgTodo1">
 			<!-- <div class="d-flex justify-content-center h-100"> -->
-				<div class="card-body col-md-12">
-					<div style="color: cornsilk;" class="d-flex justify-content-center">
-						<h3>Nami List ToDos</h3>
+				<div style="overflow-x:auto;">
+					<div class="card-body col-md-12">
+						<div style="color: cornsilk;" class="d-flex justify-content-center my-3">
+							<h3 style="text-align: center;" class="textTodoList">Your List ToDos</h3>
+						</div>
+						<div style="overflow-x:auto;">
+							<table class="table table-dark" style="border-radius: 20px;">
+								<thead style="text-align: center;">
+									<tr>
+									<th scope="col">No</th>
+									<th scope="col">Title</th>
+									<th scope="col">Description</th>
+									<th scope="col">Status</th>
+									<th scope="col">Due-Date</th>
+									<th scope="col">Option</th>
+									</tr>
+								</thead>
+								<tbody id="allTodoListData">
+								</tbody>
+							</table>
+						</div>
 					</div>
-					<table class="table table-dark">
-						<thead>
-						  <tr>
-							<th scope="col">No</th>
-							<th scope="col">Title</th>
-							<th scope="col">Description</th>
-							<th scope="col">Status</th>
-							<th scope="col">Due-Date</th>
-							<th scope="col">Option</th>
-						  </tr>
-						</thead>
-						<tbody id="allTodoListData">
-						</tbody>
-					</table>
 				</div>
 			</div>
 		</div>
@@ -191,14 +221,14 @@
 	<!--EDIT TODO-->
 	<div id="form-Edit-Todo-page">
 		<div class="container">
-			<div style="background-color:rgba(0,0,0,0.5)" class="d-flex justify-content-center row">
+			<div style="background-color:rgba(0,0,0,0.5); border-radius: 20px;" class="d-flex justify-content-center row my-3">
 			<!-- <div class="d-flex justify-content-center h-100"> -->
 				<div class="card-body col-md-7">
-					<div style="color: cornsilk;" class="d-flex justify-content-center">
+					<div style="color: cornsilk;" class="d-flex justify-content-center my-3">
 						<h3>Edit ToDo List</h3>
 					</div>
 					<!---FORM EDIT-->
-					<div id="form-edit-todo">
+					<div id="form-edit-todo" class="my-3">
 					</div>
 				</div>
 			</div>
@@ -209,13 +239,13 @@
 	<!--ADD Todo-->
 	<div id="formAddTodo-page">
 		<div class="container">
-			<div style="background-color:rgba(0,0,0,0.5)" class="d-flex justify-content-center row">
+			<div style="background-color:rgba(0,0,0,0.5); border-radius: 20px;" class="d-flex justify-content-center row my-3">
 			<!-- <div class="d-flex justify-content-center h-100"> -->
 				<div class="card-body col-md-7">
-					<div style="color: cornsilk;" class="d-flex justify-content-center">
+					<div style="color: cornsilk;" class="d-flex justify-content-center my-3">
 						<h3>Add ToDo List</h3>
 					</div>
-					<div class="formAddToDo">
+					<div class="formAddToDo my-3">
 						<form onsubmit="addTodoListUser(event)">
 							<div class="form-group">
 							  <label>Title</label>
