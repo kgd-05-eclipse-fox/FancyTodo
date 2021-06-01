@@ -1,5 +1,5 @@
-const server = 'https://heroku-fancy-todo.herokuapp.com'
-// const server = 'http://localhost:3000'
+// const server = 'https://heroku-fancy-todo.herokuapp.com'
+const server = 'http://localhost:3000'
 
 
 $('#btn-home').on('click', () => 
@@ -352,6 +352,7 @@ function deleteTodo(id) {
 
 function onSignIn(googleUser) {
     const token = googleUser.getAuthResponse().id_token
+    console.log(token)
     $.ajax({
         method: "POST",
         url: server + '/login/google',

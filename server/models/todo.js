@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: "Date cannot be empty"
         },
         checkDate(due_date) {
-          if(due_date < new Date()) {
+          if(due_date <= new Date()) {
             throw new Error('Date has expired')
           }
         }
