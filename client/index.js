@@ -1,5 +1,5 @@
-// const server = 'https://heroku-fancy-todo.herokuapp.com'
-const server = 'http://localhost:3000'
+const server = 'https://heroku-fancy-todo.herokuapp.com'
+// const server = 'http://localhost:3000'
 
 
 $('#btn-home').on('click', () => 
